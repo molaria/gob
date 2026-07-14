@@ -1,0 +1,9 @@
+uuid: bf0d52ef-3db9-45ec-a4b8-e617ce1a5216
+langcode: sv
+status: true
+dependencies: {  }
+name: 'Stämma per sång'
+vid: stamma_per_sang
+description: null
+weight: 0
+new_revision: false

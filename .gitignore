@@ -1,0 +1,27 @@
+# Composer-managed dependencies (rebuilt with composer install)
+/vendor/
+/web/core/
+/web/modules/contrib/
+/web/themes/contrib/
+/web/profiles/contrib/
+/web/libraries/
+
+# User-uploaded and private files
+/web/sites/*/files
+/web/sites/*/private
+
+# Environment-specific settings and secrets (incl. production db credentials)
+/web/sites/*/settings.php
+/web/sites/*/settings.local.php
+/web/sites/*/settings.ddev.php
+/web/sites/*/services.local.yml
+
+# Raw export from production (db dump, original config, file listing)
+/_import/
+
+# Database dumps
+*.sql
+*.sql.gz
+
+# OS cruft
+.DS_Store

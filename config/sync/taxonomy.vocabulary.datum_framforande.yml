@@ -1,0 +1,9 @@
+uuid: a2676c69-5526-4cdb-8b8a-3d68fe8449c1
+langcode: sv
+status: true
+dependencies: {  }
+name: 'Datum, typ samt plats'
+vid: datum_framforande
+description: 'Datum samt typ och plats för konsert eller musikmedverkan'
+weight: 0
+new_revision: false

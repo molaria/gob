@@ -1,0 +1,20 @@
+uuid: bef5f42c-4fa1-42ec-9e3f-f89c04150357
+langcode: sv
+status: true
+dependencies:
+  module:
+    - taxonomy
+    - user
+id: user.field_stamma
+field_name: field_stamma
+entity_type: user
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

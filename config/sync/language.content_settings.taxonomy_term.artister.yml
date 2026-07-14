@@ -1,0 +1,11 @@
+uuid: 84c052cc-b61a-4e40-b0b4-1b1b72e7cef2
+langcode: sv
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.artister
+id: taxonomy_term.artister
+target_entity_type_id: taxonomy_term
+target_bundle: artister
+default_langcode: site_default
+language_alterable: false

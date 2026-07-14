@@ -1,0 +1,23 @@
+uuid: b283fff2-1c0e-4574-a9c9-3dc57681b0ad
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.musik
+  module:
+    - text
+id: node.musik.body
+field_name: body
+entity_type: node
+bundle: musik
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

@@ -1,0 +1,9 @@
+gob_attending.page:
+  path: '/gob/narvaro'
+  defaults:
+    _controller: '\Drupal\gob_attending\Controller\AttendingController::page'
+    _title: 'Närvaro – Kalendarium'
+  requirements:
+    _permission: 'access gob attending'
+  options:
+    _admin_route: FALSE

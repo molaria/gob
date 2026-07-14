@@ -1,0 +1,20 @@
+uuid: aa2a765d-9187-41f9-9eaa-a3611c41c4e3
+langcode: sv
+status: true
+dependencies:
+  theme:
+    - gobsubtheme
+_core:
+  default_config_hash: k2Tzx2jssKdqTcneVzo8tpofCuOk9wy5rxehlbxCb1Q
+id: gobsubtheme_page_title
+theme: gobsubtheme
+region: content
+weight: -6
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

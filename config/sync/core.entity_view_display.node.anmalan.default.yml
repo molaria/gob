@@ -1,0 +1,38 @@
+uuid: d6ec1874-6b11-48da-afa1-690842268d2d
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.field.node.anmalan.field_anmalan
+    - field.field.node.anmalan.field_evenemang
+    - node.type.anmalan
+  module:
+    - options
+    - user
+id: node.anmalan.default
+targetEntityType: node
+bundle: anmalan
+mode: default
+content:
+  field_anmalan:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_evenemang:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

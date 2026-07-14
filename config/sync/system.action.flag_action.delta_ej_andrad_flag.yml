@@ -1,0 +1,15 @@
+uuid: e95d5be8-d637-438f-bc5e-29e6dda9e71d
+langcode: sv
+status: true
+dependencies:
+  config:
+    - flag.flag.delta_ej_andrad
+  module:
+    - flag
+id: flag_action.delta_ej_andrad_flag
+label: 'Deltar ej'
+type: node
+plugin: 'flag_action:delta_ej_andrad_flag'
+configuration:
+  flag_id: delta_ej_andrad
+  flag_action: flag

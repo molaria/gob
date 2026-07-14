@@ -1,0 +1,75 @@
+uuid: 002699d0-5e3c-4555-b9ca-3c7325f27725
+langcode: sv
+status: true
+dependencies:
+  module:
+    - system
+id: anmalda
+label: anmälda
+code: |-
+  /* Caption: vänsterställd, tar plats som behövs */
+    .view-content table.views-table caption {
+      display: table-caption; /* Lägg till denna rad */
+      caption-side: top;
+      text-align: left;
+      font-weight: 700;
+      font-size: 1.2em;
+      margin: 1em 0 .5em;
+      white-space: nowrap; /* Ingen radbrytning */
+      color: #333;
+    }
+
+    /* Första bokstaven i caption versal */
+    .view-content table.views-table caption::first-letter {
+      text-transform: uppercase;
+    }
+
+    /* Tabell: kompakt, ingen linje, ingen skugga */
+    .view-content table.views-table,
+    .view-content table.views-table tr,
+    .view-content table.views-table td,
+    .view-content table.views-table th {
+      border: none !important;
+      box-shadow: none !important;
+      background: transparent;
+    }
+
+    /* Celler: vänsterställda, kompakt, lite mellanrum */
+    .view-content table.views-table td,
+    .view-content table.views-table th {
+      text-align: left !important;
+      vertical-align: top;
+      padding: 2px 12px 2px 0;
+      white-space: nowrap;
+      font-weight: 400;
+      color: #222;
+    }
+
+    /* Zebraeffekt på rader */
+    .view-content table.views-table tbody tr:nth-child(even) {
+      background: #f7f7f7;
+    }
+    .view-content table.views-table tbody tr:nth-child(odd) {
+      background: transparent;
+    }
+
+    /* Kolumner: stämma och förnamn så smala som möjligt, efternamn flexar */
+    .view-content table.views-table td.views-field-field-stamma,
+    .view-content table.views-table td.views-field-field-adress-given-name {
+      width: 1%;
+      white-space: nowrap;
+      padding-right: 10px;
+    }
+    .view-content table.views-table td.views-field-field-adress-family-name {
+      width: auto;
+      white-space: nowrap;
+    }
+media: all
+preprocess: true
+conditions:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/anmälda\r\n/anmalda"
+contexts: {  }
+conditions_require_all: true

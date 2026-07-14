@@ -1,0 +1,20 @@
+uuid: 9ac2eb08-74c1-408f-92e8-caf332779a5b
+langcode: sv
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_kompositor
+field_name: field_kompositor
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

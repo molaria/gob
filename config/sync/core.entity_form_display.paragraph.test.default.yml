@@ -1,0 +1,28 @@
+uuid: ef8341c9-96b2-4f1f-bd4d-fe99c13f2bf6
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.test.field_sangare
+    - field.field.paragraph.test.field_stamma
+    - paragraphs.paragraphs_type.test
+id: paragraph.test.default
+targetEntityType: paragraph
+bundle: test
+mode: default
+content:
+  field_sangare:
+    type: options_buttons
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_stamma:
+    type: options_buttons
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

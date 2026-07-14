@@ -1,0 +1,402 @@
+uuid: 2904c086-ac1b-4d70-a3ff-4878e67dcef9
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.field.node.musik.body
+    - field.field.node.musik.field_arrangor
+    - field.field.node.musik.field_artister
+    - field.field.node.musik.field_fardigstalld
+    - field.field.node.musik.field_filer
+    - field.field.node.musik.field_hepp
+    - field.field.node.musik.field_kompositor
+    - field.field.node.musik.field_sattning
+    - field.field.node.musik.field_textforfattare
+    - field.field.node.musik.layout_builder__layout
+    - node.type.musik
+  content:
+    - 'block_content:basic:ad658349-5a30-48e0-b366-cebcd4b9f5bf'
+  module:
+    - block_content
+    - datetime
+    - file
+    - layout_builder
+    - layout_discovery
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: true
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: body
+          context_mapping: {  }
+        components:
+          9915762d-8abb-41a8-af06-ddffe78d4ad8:
+            uuid: 9915762d-8abb-41a8-af06-ddffe78d4ad8
+            region: content
+            configuration:
+              id: 'field_block:node:musik:body'
+              label: Body
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          412f6bca-f494-4f22-b5a7-4c0f922ca1b9:
+            uuid: 412f6bca-f494-4f22-b5a7-4c0f922ca1b9
+            region: content
+            configuration:
+              id: 'block_content:ad658349-5a30-48e0-b366-cebcd4b9f5bf'
+              label: Space
+              label_display: '0'
+              provider: block_content
+              context_mapping: {  }
+              status: true
+              info: ''
+              view_mode: full
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          50e80f98-b537-4735-8e0c-7274a3536136:
+            uuid: 50e80f98-b537-4735-8e0c-7274a3536136
+            region: content
+            configuration:
+              id: 'extra_field_block:node:musik:links'
+              label: Länkar
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                settings: {  }
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_fourcol_section
+        layout_settings:
+          label: Data
+          context_mapping: {  }
+        components:
+          491e402e-264d-4fdf-9c72-b752b6f77ca9:
+            uuid: 491e402e-264d-4fdf-9c72-b752b6f77ca9
+            region: first
+            configuration:
+              id: 'field_block:node:musik:field_artister'
+              label: Artister
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: inline
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 2
+            additional: {  }
+          5b124d66-6c2a-4853-8e43-425d3b35f1f3:
+            uuid: 5b124d66-6c2a-4853-8e43-425d3b35f1f3
+            region: first
+            configuration:
+              id: 'field_block:node:musik:field_sattning'
+              label: Sättning
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: inline
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 5
+            additional: {  }
+          714cae85-3be1-4e35-893c-a7239cd7c4c3:
+            uuid: 714cae85-3be1-4e35-893c-a7239cd7c4c3
+            region: first
+            configuration:
+              id: 'field_block:node:musik:field_fardigstalld'
+              label: Färdigställd
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: datetime_default
+                label: inline
+                settings:
+                  timezone_override: ''
+                  format_type: html_date
+                third_party_settings: {  }
+            weight: 4
+            additional: {  }
+          ff2f64af-6300-4b7d-94f6-961aff6454c4:
+            uuid: ff2f64af-6300-4b7d-94f6-961aff6454c4
+            region: first
+            configuration:
+              id: 'field_block:node:musik:field_kompositor'
+              label: Kompositör
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: inline
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          cf42191d-b0b7-4690-b2ed-85e087e6cedb:
+            uuid: cf42191d-b0b7-4690-b2ed-85e087e6cedb
+            region: first
+            configuration:
+              id: 'field_block:node:musik:field_textforfattare'
+              label: Textförfattare
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: inline
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          6b48b784-16b0-43c0-a1f7-13be0cef1634:
+            uuid: 6b48b784-16b0-43c0-a1f7-13be0cef1634
+            region: first
+            configuration:
+              id: 'field_block:node:musik:field_arrangor'
+              label: Arrangör
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: inline
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 3
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+          context_mapping: {  }
+        components:
+          742e9be8-7480-4666-9989-4276fdcfdb79:
+            uuid: 742e9be8-7480-4666-9989-4276fdcfdb79
+            region: content
+            configuration:
+              id: 'block_content:ad658349-5a30-48e0-b366-cebcd4b9f5bf'
+              label: Space
+              label_display: '0'
+              provider: block_content
+              context_mapping: {  }
+              status: true
+              info: ''
+              view_mode: full
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: Framförd
+          context_mapping: {  }
+        components:
+          4d9f43f6-86cd-43b2-b919-2ba5c7a9415a:
+            uuid: 4d9f43f6-86cd-43b2-b919-2ba5c7a9415a
+            region: content
+            configuration:
+              id: 'field_block:node:musik:field_hepp'
+              label: Framföranden
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: above
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          1ab364ec-7c9b-415a-ac5e-55aecffb01d7:
+            uuid: 1ab364ec-7c9b-415a-ac5e-55aecffb01d7
+            region: content
+            configuration:
+              id: 'block_content:ad658349-5a30-48e0-b366-cebcd4b9f5bf'
+              label: Space
+              label_display: '0'
+              provider: block_content
+              context_mapping: {  }
+              status: true
+              info: ''
+              view_mode: full
+            weight: 2
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_twocol_section
+        layout_settings:
+          label: 'Filer och stämmor'
+          context_mapping: {  }
+          column_widths: 50-50
+        components:
+          ddc4e5da-4d44-4bd6-b64e-cabe40f00e03:
+            uuid: ddc4e5da-4d44-4bd6-b64e-cabe40f00e03
+            region: first
+            configuration:
+              id: 'field_block:node:musik:field_filer'
+              label: Filer
+              label_display: visible
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: file_default
+                label: hidden
+                settings:
+                  use_description_as_link_text: true
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          a4bac94f-7205-4f90-9ef7-5178e4f90847:
+            uuid: a4bac94f-7205-4f90-9ef7-5178e4f90847
+            region: first
+            configuration:
+              id: 'block_content:ad658349-5a30-48e0-b366-cebcd4b9f5bf'
+              label: Space
+              label_display: '0'
+              provider: block_content
+              context_mapping: {  }
+              status: true
+              info: ''
+              view_mode: full
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+id: node.musik.default
+targetEntityType: node
+bundle: musik
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_arrangor:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_artister:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 109
+    region: content
+  field_fardigstalld:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 108
+    region: content
+  field_filer:
+    type: file_default
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  field_framford:
+    type: entity_reference_revisions_entity_view
+    label: inline
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 107
+    region: content
+  field_kompositor:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_sattning:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_textforfattare:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_hepp: true
+  langcode: true
+  layout_builder__layout: true

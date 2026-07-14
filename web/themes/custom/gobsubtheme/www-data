@@ -1,0 +1,11 @@
+{% set flag = 'participation' %}
+{% set user = current_user %}
+{% set is_flagged = flag|flagged(node, user) %}
+
+<div class="deltagande-status">
+  {% if is_flagged %}
+    <span class="flag-status green" title="Du är anmäld"></span> Du är anmäld
+  {% else %}
+    <span class="flag-status red" title="Du är inte anmäld"></span> Du är inte anmäld
+  {% endif %}
+</div>

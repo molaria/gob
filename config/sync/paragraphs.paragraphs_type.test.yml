@@ -1,0 +1,10 @@
+uuid: ccc84757-6c38-4714-a796-02a7435b6bdc
+langcode: sv
+status: true
+dependencies: {  }
+id: test
+label: Stämma
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

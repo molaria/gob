@@ -1,0 +1,7 @@
+name: 'Kalendarium Deltagande'
+type: module
+description: 'Visar deltagandeknapp i Views baserat på Flag-status.'
+core_version_requirement: ^11
+package: Custom
+dependencies:
+  - flag

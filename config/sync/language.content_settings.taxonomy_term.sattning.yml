@@ -1,0 +1,11 @@
+uuid: 20b3f7eb-b8bb-4b9f-8d57-99ae1a073101
+langcode: sv
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.sattning
+id: taxonomy_term.sattning
+target_entity_type_id: taxonomy_term
+target_bundle: sattning
+default_langcode: site_default
+language_alterable: false

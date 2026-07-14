@@ -1,0 +1,22 @@
+uuid: f95de4d1-dbb9-4aee-96b3-49c0508d2548
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.musik
+id: node.musik.promote
+field_name: promote
+entity_type: node
+bundle: musik
+label: 'Visas på startsidan'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: På
+  off_label: Av
+field_type: boolean

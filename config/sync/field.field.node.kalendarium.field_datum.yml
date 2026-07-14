@@ -1,0 +1,21 @@
+uuid: b2dacacd-c51e-4675-871f-4f97fdffdb6b
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_datum
+    - node.type.kalendarium
+  module:
+    - datetime
+id: node.kalendarium.field_datum
+field_name: field_datum
+entity_type: node
+bundle: kalendarium
+label: Datum
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

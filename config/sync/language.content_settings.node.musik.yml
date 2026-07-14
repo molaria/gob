@@ -1,0 +1,11 @@
+uuid: 3405f57b-4700-4a2f-90e5-e90d3d1c077d
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.musik
+id: node.musik
+target_entity_type_id: node
+target_bundle: musik
+default_langcode: site_default
+language_alterable: false

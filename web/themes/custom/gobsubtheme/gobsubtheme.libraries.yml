@@ -1,0 +1,11 @@
+global-styling:
+  css:
+    theme:
+      css/bootstrap-litera.css: {}
+      css/custom.css: {}
+
+  js:
+    js/custom.js: {}
+
+  dependencies:
+    - core/jquery

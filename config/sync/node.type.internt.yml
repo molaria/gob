@@ -1,0 +1,18 @@
+uuid: f07b89c2-f41d-420c-9882-dfd8e78ed81d
+langcode: sv
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Internt
+type: internt
+description: 'Kategori för intern kommunikation inom kören'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

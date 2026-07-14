@@ -1,0 +1,46 @@
+uuid: 4b03c346-253a-4a92-9b57-acd565d36172
+langcode: sv
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.internt.body
+    - field.field.node.internt.field_filer
+    - field.field.node.internt.field_konsert
+    - field.field.node.internt.field_media
+    - field.field.node.internt.field_tags
+    - node.type.internt
+  module:
+    - text
+    - user
+id: node.internt.teaser
+targetEntityType: node
+bundle: internt
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_filer: true
+  field_konsert: true
+  field_media: true
+  langcode: true

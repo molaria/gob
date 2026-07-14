@@ -1,0 +1,29 @@
+uuid: 798c1703-96cc-48a4-b81b-d3a0035b9503
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_konsert
+    - node.type.kalendarium
+    - taxonomy.vocabulary.datum_framforande
+id: node.kalendarium.field_konsert
+field_name: field_konsert
+entity_type: node
+bundle: kalendarium
+label: Konsert
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      datum_framforande: datum_framforande
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

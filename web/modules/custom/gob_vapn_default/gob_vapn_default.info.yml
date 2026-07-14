@@ -1,0 +1,7 @@
+name: 'VAPN Default Access'
+type: module
+description: 'Sätter authenticated som standard för vissa innehållstyper.'
+core_version_requirement: ^11
+package: Custom
+dependencies:
+  - node

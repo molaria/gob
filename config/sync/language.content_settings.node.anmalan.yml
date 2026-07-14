@@ -1,0 +1,11 @@
+uuid: d1e9c729-0fe0-4dd6-8af8-4dd54829607e
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.anmalan
+id: node.anmalan
+target_entity_type_id: node
+target_bundle: anmalan
+default_langcode: site_default
+language_alterable: false

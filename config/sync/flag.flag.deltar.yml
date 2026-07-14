@@ -1,0 +1,31 @@
+uuid: b662ea11-ad8a-4f4d-94ce-befa28f41d35
+langcode: sv
+status: true
+dependencies:
+  module:
+    - node
+id: deltar
+label: 'Deltar A'
+bundles:
+  - kalendarium
+entity_type: node
+global: false
+flag_short: Kommer
+flag_long: ''
+flag_message: ''
+unflag_short: 'Unflag this item'
+unflag_long: ''
+unflag_message: ''
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:node'
+link_type: reload
+flagTypeConfig:
+  show_in_links:
+    full: full
+  show_as_field: true
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

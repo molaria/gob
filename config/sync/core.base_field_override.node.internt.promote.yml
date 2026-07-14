@@ -1,0 +1,22 @@
+uuid: d098e25f-5846-4364-8e34-acb7312df569
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.internt
+id: node.internt.promote
+field_name: promote
+entity_type: node
+bundle: internt
+label: 'Visas på startsidan'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: På
+  off_label: Av
+field_type: boolean

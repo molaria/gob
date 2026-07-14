@@ -1,0 +1,20 @@
+uuid: b0467cda-02c7-4f21-a662-625c0efec0db
+langcode: sv
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_hepp
+field_name: field_hepp
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

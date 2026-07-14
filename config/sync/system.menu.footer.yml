@@ -1,0 +1,10 @@
+uuid: 86719ee1-0f0f-4303-8506-c7b9cdf39946
+langcode: sv
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 7yrlW5z9zdg2eBucB2GPqXKSMQfH9lSRSO4DbWF7AFc
+id: footer
+label: Footer
+description: 'Länkar för information om webbplats'
+locked: true

@@ -1,0 +1,29 @@
+uuid: 3ea9ef93-f72d-48d9-8f15-6a3b72faa225
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_textforfattare
+    - node.type.musik
+    - taxonomy.vocabulary.personer
+id: node.musik.field_textforfattare
+field_name: field_textforfattare
+entity_type: node
+bundle: musik
+label: Textförfattare
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      personer: personer
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

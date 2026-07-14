@@ -1,0 +1,15 @@
+uuid: a1428391-6063-4d27-8607-457ad8830085
+langcode: sv
+status: true
+dependencies:
+  config:
+    - flag.flag.deltar_andrad
+  module:
+    - flag
+id: flag_action.deltar_andrad_unflag
+label: 'Deltar ej'
+type: node
+plugin: 'flag_action:deltar_andrad_unflag'
+configuration:
+  flag_id: deltar_andrad
+  flag_action: unflag

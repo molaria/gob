@@ -1,0 +1,11 @@
+uuid: 2695fd8b-599b-4843-a78c-e98f0d65858b
+langcode: sv
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.personer
+id: taxonomy_term.personer
+target_entity_type_id: taxonomy_term
+target_bundle: personer
+default_langcode: site_default
+language_alterable: false

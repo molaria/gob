@@ -1,0 +1,14 @@
+uuid: 8ec88a48-9eac-4280-9740-18f22984764d
+langcode: sv
+status: true
+dependencies:
+  config:
+    - user.role.kalendarium_admin
+  module:
+    - user
+id: user_add_role_action.kalendarium_admin
+label: 'Lägg till rollen Kalendarium_admin till de vald(a) användare'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: kalendarium_admin

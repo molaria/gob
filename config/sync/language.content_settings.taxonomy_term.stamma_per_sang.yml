@@ -1,0 +1,11 @@
+uuid: a7a9fbc5-e755-418e-a954-8cceffbb9a93
+langcode: sv
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.stamma_per_sang
+id: taxonomy_term.stamma_per_sang
+target_entity_type_id: taxonomy_term
+target_bundle: stamma_per_sang
+default_langcode: site_default
+language_alterable: false

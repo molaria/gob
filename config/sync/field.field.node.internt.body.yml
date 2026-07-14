@@ -1,0 +1,23 @@
+uuid: b1d4e208-850d-4f8c-ae55-5af553336642
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.internt
+  module:
+    - text
+id: node.internt.body
+field_name: body
+entity_type: node
+bundle: internt
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

@@ -1,0 +1,27 @@
+uuid: 919bb960-998d-4b17-aab7-ad5773c6f67e
+langcode: sv
+status: true
+dependencies:
+  config:
+    - system.menu.footer
+  module:
+    - system
+  theme:
+    - gobsubtheme
+_core:
+  default_config_hash: 98Lf__Z82Zz-E2Wgayu90vbr3DNcncm6D4KFnpIpX-E
+id: gobsubtheme_footer
+theme: gobsubtheme
+region: footer
+weight: -6
+provider: null
+plugin: 'system_menu_block:footer'
+settings:
+  id: 'system_menu_block:footer'
+  label: Footer
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

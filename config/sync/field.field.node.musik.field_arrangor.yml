@@ -1,0 +1,29 @@
+uuid: 514efe31-0c74-4b6f-b083-30645c166b76
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_arrangor
+    - node.type.musik
+    - taxonomy.vocabulary.personer
+id: node.musik.field_arrangor
+field_name: field_arrangor
+entity_type: node
+bundle: musik
+label: Arrangör
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      personer: personer
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,25 @@
+uuid: c0e3c8fd-b408-45af-ba42-7679a481a308
+langcode: sv
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.user.compact
+    - field.field.user.user.field_adress
+    - field.field.user.user.field_stamma
+    - field.field.user.user.field_telefonnummer
+  module:
+    - user
+_core:
+  default_config_hash: 00zr_RBdTjPjBGITD3h4c1ESQZimjdVCcHGt1trLqIY
+id: user.user.compact
+targetEntityType: user
+bundle: user
+mode: compact
+content: {  }
+hidden:
+  field_adress: true
+  field_stamma: true
+  field_telefonnummer: true
+  langcode: true
+  member_for: true
+  realname: true

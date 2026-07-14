@@ -1,0 +1,16 @@
+uuid: 35def721-df29-4347-9319-fd4a6f1f2c2f
+langcode: sv
+status: true
+dependencies:
+  enforced:
+    module:
+      - webform
+_core:
+  default_config_hash: W88NYg31DbaVNQx1Uir_dwwXHVtF09QOq4VBGsH1Snk
+id: yes_no
+label: Ja/Nej
+category: Allmän
+likert: false
+options: |
+  Yes: Yes
+  No: No

@@ -1,0 +1,18 @@
+uuid: 94d3749e-b782-4bc2-a92d-ca0a504ccab0
+langcode: sv
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Anmälan
+type: anmalan
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

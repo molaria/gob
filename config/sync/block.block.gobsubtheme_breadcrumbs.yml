@@ -1,0 +1,22 @@
+uuid: 32ce17f4-035c-41ab-837e-30d28186a168
+langcode: sv
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - gobsubtheme
+_core:
+  default_config_hash: 8XTS410yK2uQ-5S-r46XfgLF6mlbTJ9fLN0ssI-rFLM
+id: gobsubtheme_breadcrumbs
+theme: gobsubtheme
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

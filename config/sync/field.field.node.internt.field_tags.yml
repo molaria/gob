@@ -1,0 +1,29 @@
+uuid: fb40d919-1b5e-43a7-a99a-af0cfa7d8079
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tags
+    - node.type.internt
+    - taxonomy.vocabulary.tags
+id: node.internt.field_tags
+field_name: field_tags
+entity_type: node
+bundle: internt
+label: Etiketter
+description: 'Ange en kommaseparerad lista. Till exempel: Stockholm, Lilla Edet, "Linköping, Östergötland"'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      tags: tags
+    sort:
+      field: _none
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

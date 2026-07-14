@@ -1,0 +1,29 @@
+uuid: 52b2ae28-840f-4572-8437-ab3a91ec0710
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.field.node.tips.field_kompositor2
+    - node.type.tips
+  module:
+    - user
+id: node.tips.default
+targetEntityType: node
+bundle: tips
+mode: default
+content:
+  field_kompositor2:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true

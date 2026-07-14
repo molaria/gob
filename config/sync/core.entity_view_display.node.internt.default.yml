@@ -1,0 +1,59 @@
+uuid: 40b5644b-e118-4970-b17b-f86efe11ceb8
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.field.node.internt.body
+    - field.field.node.internt.field_filer
+    - field.field.node.internt.field_konsert
+    - field.field.node.internt.field_media
+    - field.field.node.internt.field_tags
+    - node.type.internt
+  module:
+    - file
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.internt.default
+targetEntityType: node
+bundle: internt
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_filer:
+    type: file_default
+    label: hidden
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_media:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_konsert: true
+  field_tags: true
+  langcode: true
+  vapn: true

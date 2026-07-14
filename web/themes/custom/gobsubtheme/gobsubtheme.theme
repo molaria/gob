@@ -1,0 +1,34 @@
+<?php
+
+use Drupal\Core\Cache\Cache;
+
+/**
+ * Gör inloggad användare tillgänglig i Views FIELD templates.
+ */
+function gobsubtheme_preprocess_views_view_field(array &$variables): void {
+  $account = \Drupal::currentUser();
+
+  // Lägg till variabler som Global: Anpassad text kan läsa
+  $variables['current_username'] = $account->getAccountName();
+  $variables['current_uid'] = $account->id();
+  $variables['current_user_authenticated'] = $account->isAuthenticated();
+
+  // Cache: variera per användare (KRITISKT)
+  if (isset($variables['element']['#cache'])) {
+    $variables['element']['#cache']['contexts'] = Cache::mergeContexts(
+      $variables['element']['#cache']['contexts'] ?? [],
+      ['user']
+    );
+  }
+
+  // Debug (AVSTÄNGD – orsakar logg-spam i produktion)
+  /*
+  \Drupal::logger('gobsubtheme')->notice(
+    'preprocess_views_view_field: uid=@uid name=@name',
+    [
+      '@uid' => $account->id(),
+      '@name' => $account->getAccountName(),
+    ]
+  );
+  */
+}

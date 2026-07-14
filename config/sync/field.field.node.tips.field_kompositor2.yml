@@ -1,0 +1,29 @@
+uuid: cab84839-d26c-4ccd-b5e9-3ffa2d91cf83
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kompositor2
+    - node.type.tips
+    - taxonomy.vocabulary.lattips_kompositor
+id: node.tips.field_kompositor2
+field_name: field_kompositor2
+entity_type: node
+bundle: tips
+label: Kompositör
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      lattips_kompositor: lattips_kompositor
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

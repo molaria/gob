@@ -1,0 +1,21 @@
+uuid: e81ed8a3-28a3-450a-a9f4-f7554689350f
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_anmalan
+    - node.type.anmalan
+  module:
+    - options
+id: node.anmalan.field_anmalan
+field_name: field_anmalan
+entity_type: node
+bundle: anmalan
+label: Anmälan
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

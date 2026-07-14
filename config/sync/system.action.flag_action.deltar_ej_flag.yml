@@ -1,0 +1,15 @@
+uuid: ad7a0fc1-08f6-480f-b6f4-ee00d675d4a7
+langcode: sv
+status: true
+dependencies:
+  config:
+    - flag.flag.deltar_ej
+  module:
+    - flag
+id: flag_action.deltar_ej_flag
+label: 'Jag kan ej delta'
+type: node
+plugin: 'flag_action:deltar_ej_flag'
+configuration:
+  flag_id: deltar_ej
+  flag_action: flag

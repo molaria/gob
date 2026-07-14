@@ -1,0 +1,13 @@
+uuid: c743c126-ac42-4ea9-bd3b-a547706e9e9d
+langcode: sv
+status: true
+dependencies:
+  module:
+    - webform
+_core:
+  default_config_hash: e1bCTp0ryXZZtnS9nlVAbtoWz3-8fmbNlqKY3GHzbsM
+id: webform_delete_action
+label: 'Radera webbformulär'
+type: webform
+plugin: webform_delete_action
+configuration: {  }

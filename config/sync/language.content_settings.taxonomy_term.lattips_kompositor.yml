@@ -1,0 +1,11 @@
+uuid: f32debdf-5274-4054-aed4-a5536f051f40
+langcode: sv
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.lattips_kompositor
+id: taxonomy_term.lattips_kompositor
+target_entity_type_id: taxonomy_term
+target_bundle: lattips_kompositor
+default_langcode: site_default
+language_alterable: false

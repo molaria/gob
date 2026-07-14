@@ -1,0 +1,15 @@
+uuid: b44c976b-21cd-47b5-b587-1c3df99992ea
+langcode: sv
+status: true
+dependencies:
+  config:
+    - flag.flag.deltar_andrad
+  module:
+    - flag
+id: flag_action.deltar_andrad_flag
+label: Deltar
+type: node
+plugin: 'flag_action:deltar_andrad_flag'
+configuration:
+  flag_id: deltar_andrad
+  flag_action: flag

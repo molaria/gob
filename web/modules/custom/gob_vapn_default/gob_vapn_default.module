@@ -1,0 +1,25 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Sätt 'authenticated' i VAPN-fältet vid sparning av vissa nodtyper.
+ */
+function gob_vapn_default_entity_presave(EntityInterface $entity) {
+  // Kontrollera att det är en nod.
+  if ($entity instanceof NodeInterface) {
+    $types = ['musik', 'kalendarium', 'internt'];
+    $field_name = 'vapn';
+
+    if (in_array($entity->bundle(), $types) && $entity->hasField($field_name)) {
+      $current = $entity->get($field_name)->getValue();
+      $already_set = count($current) === 1 && $current[0]['target_id'] === 'authenticated';
+
+      // Sätt fältet endast om det är tomt eller fel
+      if (!$already_set) {
+        $entity->set($field_name, [['target_id' => 'authenticated']]);
+      }
+    }
+  }
+}

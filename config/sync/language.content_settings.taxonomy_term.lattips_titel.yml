@@ -1,0 +1,11 @@
+uuid: 72a0c24a-e155-410c-b008-72af38479c07
+langcode: sv
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.lattips_titel
+id: taxonomy_term.lattips_titel
+target_entity_type_id: taxonomy_term
+target_bundle: lattips_titel
+default_langcode: site_default
+language_alterable: false

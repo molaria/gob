@@ -1,0 +1,11 @@
+uuid: 5f487ea8-de68-402e-a5bd-3fdac2066d94
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.internt
+id: node.internt
+target_entity_type_id: node
+target_bundle: internt
+default_langcode: site_default
+language_alterable: false

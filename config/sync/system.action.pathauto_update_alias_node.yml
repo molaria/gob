@@ -1,0 +1,16 @@
+uuid: b0de46ce-a26e-4a42-baa2-97991bc985ed
+langcode: sv
+status: true
+dependencies:
+  module:
+    - pathauto
+  enforced:
+    module:
+      - node
+_core:
+  default_config_hash: lno8QThS348UX-kaUsagJtCnuPHKLXYnTQiF_9HSDWA
+id: pathauto_update_alias_node
+label: 'Uppdatera URL-alias'
+type: node
+plugin: pathauto_update_alias
+configuration: {  }

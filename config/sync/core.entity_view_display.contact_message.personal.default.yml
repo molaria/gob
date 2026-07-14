@@ -1,0 +1,27 @@
+uuid: a89f73ee-9e73-4f64-9a78-602b19f5ae8a
+langcode: sv
+status: true
+dependencies:
+  config:
+    - contact.form.personal
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: contact_message.personal.default
+targetEntityType: contact_message
+bundle: personal
+mode: default
+content:
+  message:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  layout_builder__layout: true

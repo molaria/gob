@@ -1,0 +1,22 @@
+uuid: 5e3d3ea1-4ee0-4030-a523-20a24528cc1c
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.tips
+id: node.tips.promote
+field_name: promote
+entity_type: node
+bundle: tips
+label: 'Visas på startsidan'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: På
+  off_label: Av
+field_type: boolean

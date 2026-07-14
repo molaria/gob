@@ -1,0 +1,22 @@
+uuid: 71c07d86-469c-4e7e-ae69-7e82a6ec17d4
+langcode: sv
+status: true
+dependencies:
+  theme:
+    - gobsubtheme
+_core:
+  default_config_hash: qDt7S4nlMOTMTEzCs-CgMfesn0LQNLErim_FcP5hXRc
+id: gobsubtheme_local_tasks
+theme: gobsubtheme
+region: content
+weight: -4
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

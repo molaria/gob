@@ -1,0 +1,9 @@
+uuid: 45d1e628-5c9a-44eb-bd26-4bc5b3021c90
+langcode: sv
+status: true
+dependencies: {  }
+name: Personer
+vid: personer
+description: 'Kompositörer, textförfattare, arrangörer, artister etc'
+weight: 0
+new_revision: false

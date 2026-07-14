@@ -1,0 +1,22 @@
+uuid: f8f0e8b3-157d-4372-a6ca-bbf4af0bee66
+langcode: sv
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.stamma_per_sang
+  module:
+    - text
+id: taxonomy_term.stamma_per_sang.default
+targetEntityType: taxonomy_term
+bundle: stamma_per_sang
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true

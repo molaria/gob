@@ -1,0 +1,9 @@
+uuid: 2cff0bdd-768f-45dc-badd-14d5b4e288e8
+langcode: sv
+status: true
+dependencies: {  }
+name: Sättning
+vid: sattning
+description: null
+weight: 0
+new_revision: false

@@ -1,0 +1,10 @@
+uuid: fe9451fd-c76d-43f8-9c4e-7c2f065c7d54
+langcode: sv
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: nzL5d024NjXIX_8TlT6uFAu973lmfkmHklJC-2i9rAE
+id: medium
+label: 'Förvalt mellanlångt datum'
+locked: false
+pattern: 'D. Y-m-d - H:i'

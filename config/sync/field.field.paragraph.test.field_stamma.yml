@@ -1,0 +1,29 @@
+uuid: ba862c11-ee2c-4277-9707-a3928a8c0570
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_stamma
+    - paragraphs.paragraphs_type.test
+    - taxonomy.vocabulary.stamma_per_sang
+id: paragraph.test.field_stamma
+field_name: field_stamma
+entity_type: paragraph
+bundle: test
+label: Stämma
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      stamma_per_sang: stamma_per_sang
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,13 @@
+uuid: 4b39110c-c01f-439e-80f7-a35dd7e216e2
+langcode: sv
+status: true
+dependencies:
+  module:
+    - webform
+_core:
+  default_config_hash: OmnschvBLb9ZJn0iVyBd2odf8U8Nt0INjRbRMixZw9U
+id: webform_archive_action
+label: 'Arkivera webbformulär'
+type: webform
+plugin: webform_archive_action
+configuration: {  }

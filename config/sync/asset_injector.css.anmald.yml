@@ -1,0 +1,107 @@
+uuid: babed6a8-648c-4f4c-ab84-dc58942088a1
+langcode: sv
+status: true
+dependencies: {  }
+id: anmald
+label: Anmäld
+code: |+
+  /* Gör hela headern (h3) till en rad med ikon + innehåll */
+  .path-kalendarium .ui-accordion-header {
+    display: flex;
+    align-items: flex-start;      /* pilen följer första textraden */
+    gap: .5rem;
+  }
+
+  /* Pilen: kompakt och i linje med rubrikens första rad */
+  .path-kalendarium .ui-accordion-header .ui-accordion-header-icon {
+    flex: 0 0 auto;
+    margin-top: 0.2em;           /* finjustera vid behov */
+  }
+
+  /* Innehåll: text + knapp. Wrap är tillåtet men bara när utrymmet tar slut */
+  .path-kalendarium .ui-accordion-header .event-row {
+    display: flex;
+    flex-wrap: wrap;             /* wrap endast om nödvändigt */
+    align-items: center;
+    justify-content: space-between;
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: .5rem;
+  }
+
+  /* Texten får krympa, men inte hur mycket som helst */
+  .path-kalendarium .ui-accordion-header .event-text {
+    flex: 1 1 auto;              /* dela rad med knappen normalt */
+    min-width: 200px;            /* justera vid behov */
+    overflow-wrap: anywhere;
+  }
+
+  /* Knappen till höger när den ligger på samma rad */
+  .path-kalendarium .ui-accordion-header .event-flag {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    margin-left: auto;           /* pressa knappen till höger */
+    text-align: right;
+  }
+
+  /* --- KNAPPSTIL --- */
+  .path-kalendarium .ui-accordion-header .flag-participation a {
+    display: inline-block !important;
+    padding: 6px 14px !important;
+    border-radius: 16px !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    border: 1px solid transparent !important;
+    transition: background-color .3s ease !important;
+    font-size: .9em !important;
+  }
+
+  /* Ej anmäld (gul) */
+  .path-kalendarium .ui-accordion-header .flag-participation.action-flag a {
+    background-color: #FFEB3B !important;
+    color: #000 !important;
+    border-color: #ccc !important;
+  }
+  .path-kalendarium .ui-accordion-header .flag-participation.action-flag a:hover {
+    background-color: #fdd835 !important;
+  }
+
+  /* Anmäld (grön) */
+  .path-kalendarium .ui-accordion-header .flag-participation.action-unflag a {
+    background-color: #4CAF50 !important;
+    color: #fff !important;
+    border: none !important;
+  }
+  .path-kalendarium .ui-accordion-header .flag-participation.action-unflag a:hover {
+    background-color: #43a047 !important;
+  }
+
+  /* ===== Responsivt: centrera knappen vid wrap på små skärmar ===== */
+  @media (max-width: 800px) {
+    .path-kalendarium .ui-accordion-header .event-row {
+      justify-content: center;   /* centrera innehåll vid wrap */
+    }
+    .path-kalendarium .ui-accordion-header .event-text {
+      flex: 1 1 100%;
+      min-width: 0;
+      text-align: center;        /* centrera texten om du vill */
+    }
+    .path-kalendarium .ui-accordion-header .event-flag {
+      flex: 1 1 100%;
+      margin-left: 0;
+      text-align: center;        /* centrera knappen */
+    }
+  }
+
+  .path-kalendarium .ui-accordion-header .event-text:first-letter {
+    text-transform: uppercase;
+  }
+
+media: all
+preprocess: true
+conditions: {  }
+contexts: {  }
+conditions_require_all: true

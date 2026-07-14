@@ -1,0 +1,23 @@
+uuid: bd1369d0-64b6-42fc-b42a-90aecb929c4c
+langcode: sv
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.tips.field_kompositor2
+    - node.type.tips
+  module:
+    - user
+id: node.tips.teaser
+targetEntityType: node
+bundle: tips
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_kompositor2: true
+  langcode: true

@@ -1,0 +1,13 @@
+uuid: e41c70f5-c21f-49d0-9dfc-fe7b4058a351
+langcode: sv
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: N0RDBTqiK4dKoN4p4oW2j0SGWycdHyALUe9M-Ofp89U
+id: node_promote_action
+label: 'Visa innehåll på startsidan'
+type: node
+plugin: node_promote_action
+configuration: {  }
