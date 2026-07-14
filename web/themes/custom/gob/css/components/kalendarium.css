@@ -1,0 +1,143 @@
+/* ==========================================================================
+   Gott och Blandat — Kalendarium
+   Open row list: date block | event + meta | attendance state.
+   Answered rows show a state chip plus the change link, unanswered rows
+   show both answer buttons, no-signup events show nothing.
+   ========================================================================== */
+
+.view-id-kalendarium {
+  padding: var(--space-3) var(--space-6);
+}
+
+.cal-row {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) auto;
+  gap: var(--space-5);
+  align-items: center;
+  padding: var(--space-4) 0;
+}
+
+.views-row + .views-row .cal-row {
+  border-top: var(--border-hairline);
+}
+
+/* Date block: "tis 25 aug" over "18.20" */
+.cal-row__date b {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.cal-row__date span {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-ink-secondary);
+}
+
+/* Event column */
+.cal-row__title {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  letter-spacing: normal;
+  margin: 0;
+}
+
+.cal-row__title a {
+  color: var(--color-ink);
+}
+
+.cal-row__title a:hover {
+  color: var(--color-accent-strong);
+  text-decoration: none;
+}
+
+.cal-row__meta {
+  font-size: var(--text-sm);
+  color: var(--color-ink-secondary);
+  margin: var(--space-1) 0 0;
+}
+
+.cal-row__meta p {
+  display: inline;
+  margin: 0;
+}
+
+/* Actions column */
+.cal-row__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Flag links dressed as buttons. The flag module wraps each link in
+   <div class="flag flag-NAME"> so the flag name selects the variant. */
+.cal-row__actions .flag a {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  padding: 0.45em 0.95em;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* First answer: yes = filled purple, no = quiet outline */
+.cal-row__actions .flag-deltar a {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.cal-row__actions .flag-deltar a:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.cal-row__actions .flag-deltar-ej a {
+  background: var(--color-surface);
+  border-color: var(--color-line-strong);
+  color: var(--color-ink);
+}
+
+.cal-row__actions .flag-deltar-ej a:hover {
+  border-color: var(--color-ink-tertiary);
+}
+
+/* Change-of-mind links: small quiet buttons */
+.cal-row__actions .flag-deltar-andrad a,
+.cal-row__actions .flag-delta-ej-andrad a {
+  background: var(--color-surface);
+  border-color: var(--color-line);
+  color: var(--color-ink-secondary);
+}
+
+.cal-row__actions .flag-deltar-andrad a:hover,
+.cal-row__actions .flag-delta-ej-andrad a:hover {
+  border-color: var(--color-ink-tertiary);
+  color: var(--color-ink);
+}
+
+/* Node edit link for editors: tiny and out of the way */
+.cal-row__edit a {
+  font-size: var(--text-xs);
+  color: var(--color-ink-tertiary);
+}
+
+.cal-row__edit a:hover {
+  color: var(--color-accent-strong);
+}
+
+@media (max-width: 640px) {
+  .cal-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .cal-row__actions {
+    justify-content: flex-start;
+  }
+}

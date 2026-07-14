@@ -9,6 +9,7 @@ global:
       css/components/site-header.css: {}
       css/components/buttons.css: {}
       css/components/chips.css: {}
+      css/components/kalendarium.css: {}
 
 base:
   version: VERSION

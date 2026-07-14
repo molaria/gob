@@ -51,8 +51,8 @@ display:
           label: A
           exclude: true
           alter:
-            alter_text: true
-            text: "{{ link_flag|replace({'<a ': '<a class=\"btn-color-success text-white fw-bold text-decoration-none\" '})|raw }}\r\n\r\n"
+            alter_text: false
+            text: ''
             make_link: false
             path: '{{ link_flag }}'
             absolute: false
@@ -101,8 +101,8 @@ display:
           label: B
           exclude: true
           alter:
-            alter_text: true
-            text: "{{ link_flag_1|replace({'<a ': '<a class=\"btn-color-kan-ej text-white fw-bold text-decoration-none\" '})|raw }}\r\n"
+            alter_text: false
+            text: ''
             make_link: false
             path: ''
             absolute: false
@@ -520,55 +520,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        nothing:
-          id: nothing
-          table: views
-          field: nothing
-          relationship: none
-          group_type: group
-          admin_label: Anmälan
-          plugin_id: custom
-          label: ''
-          exclude: false
-          alter:
-            alter_text: true
-            text: "{% if field_anmalan_mojlig == \"Ja\" %}\r\n\r\n<div class=\"card card-anmalan-custom mb-4 shadow-sm\">\r\n  <div class=\"card-header text-white\">\r\n    Anmälan\r\n  </div>\r\n  <div class=\"card-body\">\r\n\r\n    {% if not flagged and not flagged_1 %}\r\n      <div class=\"d-flex gap-2 flex-wrap\">\r\n        <div class=\"btn btn-color-success flex-fill text-center\">\r\n          {{ link_flag }}\r\n        </div>\r\n        <div class=\"btn btn-color-kan-ej flex-fill text-center\">\r\n          {{ link_flag_1 }}\r\n        </div>\r\n      </div>\r\n\r\n    {% elseif flagged and not flagged_2 %}\r\n      <div class=\"d-flex align-items-center gap-2\">\r\n        <span class=\"fw-bold\">Du är anmäld, om du <em>inte kan komma</em> så ändra genom att klicka här:</span>\r\n        {{ link_flag_2 }}\r\n      </div>\r\n\r\n    {% elseif flagged and flagged_2 %}\r\n      <div class=\"d-flex align-items-center gap-2\">\r\n        <span class=\"fw-bold\">Du kommer inte, om du <em>kan komma</em> så ändra genom att klicka här:</span>\r\n        {{ link_flag_2 }}\r\n      </div>\r\n\r\n    {% elseif flagged_1 and not flagged_3 %}\r\n      <div class=\"d-flex align-items-center gap-2\">\r\n        <span class=\"fw-bold\">Du kommer inte, om du <em>kan komma</em> så ändra genom att klicka här:</span>\r\n        {{ link_flag_3 }}\r\n      </div>\r\n\r\n    {% elseif flagged_1 and flagged_3 %}\r\n      <div class=\"d-flex align-items-center gap-2\">\r\n        <span class=\"fw-bold\">Du är anmäld, om du <em>inte kan komma</em> så ändra genom att klicka här:</span>\r\n        {{ link_flag_3 }}\r\n      </div>\r\n    {% endif %}\r\n\r\n  </div>\r\n</div>\r\n\r\n{% endif %}\r\n"
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: false
         field_datum:
           id: field_datum
           table: node__field_datum
@@ -622,7 +573,71 @@ display:
           type: datetime_default
           settings:
             timezone_override: ''
-            format_type: long
+            format_type: gob_weekday_date
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_datum_1:
+          id: field_datum_1
+          table: node__field_datum
+          field: field_datum
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: datetime_default
+          settings:
+            timezone_override: ''
+            format_type: gob_time
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -646,8 +661,8 @@ display:
           label: ''
           exclude: true
           alter:
-            alter_text: true
-            text: "<div class=\"d-flex justify-content-between align-items-center flex-wrap w-100\">\r\n  <div >\r\n    {{ title }} {{ field_datum }} \r\n  </div>\r\n\r\n{% if field_anmalan_mojlig == \"Ja\" %} \r\n\r\n  {% if flagged and not flagged_2 %}\r\n    <div class=\"text-success-custom text-nowrap\">\r\n      Kommer <span class=\"status-dot bg-success-custom\"></span>\r\n    </div>\r\n  {% elseif flagged and flagged_2 %}\r\n    <div class=\"text-danger-custom text-nowrap\">\r\n      Kommer ej <span class=\"status-dot bg-danger-custom\"></span>\r\n    </div>\r\n  {% elseif flagged_1 and not flagged_3 %}\r\n    <div class=\"text-danger-custom text-nowrap\">\r\n      Kommer ej <span class=\"status-dot bg-danger-custom\"></span>\r\n    </div>\r\n  {% elseif flagged_1 and flagged_3 %}\r\n    <div class=\"text-success-custom text-nowrap\">\r\n      Kommer <span class=\"status-dot bg-success-custom\"></span>\r\n    </div>\r\n  {% else %}\r\n    <div class=\"text-neutral-custom text-nowrap\">\r\n      Saknar besked <span class=\"status-dot bg-neutral-custom\"></span>\r\n    </div>\r\n  {% endif %}\r\n{% endif %}\r\n</div>\r\n"
+            alter_text: false
+            text: ''
             make_link: false
             path: ''
             absolute: false
@@ -951,55 +966,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        nothing_1:
-          id: nothing_1
-          table: views
-          field: nothing
-          relationship: none
-          group_type: group
-          admin_label: Cards
-          plugin_id: custom
-          label: ''
-          exclude: false
-          alter:
-            alter_text: true
-            text: "{% if field_anmalan_mojlig == \"Ja\" %}\r\n  <div class=\"card card-fika-custom mb-4 shadow-sm\">\r\n    <div class=\"card-header text-white\">Fika</div>\r\n    <div class=\"card-body\">\r\n{% if field_fikafixare  %}\r\n      <p class=\"fw-bold\">De som fixar fika denna gång är:</p>\r\n      <p class=\"card-text\">{{ field_fikafixare }}</p>\r\n      <p class=\"card-text small\">Klicka på namnen för kontaktinformation</p>\r\n      <p class=\"card-text small\">Kontakta <a href=\"mailto:ingierdhallinger@gmail.com?subject=Fikalistan&body=Mitt meddelande:\">Ingierd</a> för fikalistan.</p>\r\n{% else %}\r\n      <p class=\"fw-bold\">Ingen anmäld än för att fixa fika</p>\r\n      <p class=\"card-text small\">Kontakta <a href=\"mailto:ingierdhallinger@gmail.com?subject=Fikalistan&body=Mitt meddelande:\">Ingierd</a> om du kan ta fikat denna gång</p>\r\n{% endif %}\r\n    </div>\r\n  </div>\r\n{% endif %}\r\n\r\n{% if field_information %}\r\n  <div class=\"card card-info-custom mb-4 shadow-sm\">\r\n    <div class=\"card-header text-white\">Information</div>\r\n    <div class=\"card-body\">\r\n      <p class=\"card-text\">{{ field_information }}</p>\r\n    </div>\r\n  </div>\r\n{% endif %}\r\n\r\n{% if field_konsert %}\r\n  <div class=\"card card-konsert-custom mb-4 shadow-sm\">\r\n    <div class=\"card-header text-white\">Noter, information samt program</div>\r\n    <div class=\"card-body\">\r\n      <p class=\"card-text\">{{ field_konsert }}</p>\r\n    </div>\r\n  </div>\r\n{% endif %}\r\n\r\n\r\n\r\n\r\n"
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: false
         edit_node:
           id: edit_node
           table: node
@@ -1010,7 +976,7 @@ display:
           entity_type: node
           plugin_id: entity_link_edit
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -1053,6 +1019,91 @@ display:
           text: redigera
           output_url_as_text: false
           absolute: false
+        nothing_1:
+          id: nothing_1
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: Radmarkup
+          plugin_id: custom
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: |-
+              <article class="cal-row{% if field_anmalan_mojlig != "Ja" %} cal-row--no-signup{% endif %}">
+                <div class="cal-row__date">
+                  <b>{{ field_datum }}</b>
+                  <span>{{ field_datum_1 }}</span>
+                </div>
+                <div class="cal-row__what">
+                  <h3 class="cal-row__title">{{ title }}{% if field_konsert %} <span class="chip chip--concert">Konsert</span>{% endif %}</h3>
+                  {% if field_information %}<p class="cal-row__meta">{{ field_information }}</p>{% endif %}
+                  {% if field_anmalan_mojlig == "Ja" %}
+                    <p class="cal-row__meta">
+                      {% if field_fikafixare %}
+                        Fika: {{ field_fikafixare }}
+                      {% else %}
+                        Fika: ingen anmäld än - <a href="mailto:ingierdhallinger@gmail.com?subject=Fikalistan">kontakta Ingierd</a> om du kan ta fikat
+                      {% endif %}
+                    </p>
+                  {% endif %}
+                  {% if field_konsert %}<p class="cal-row__meta">Noter och program: {{ field_konsert }}</p>{% endif %}
+                </div>
+                <div class="cal-row__actions">
+                  {% if field_anmalan_mojlig == "Ja" %}
+                    {% if flagged and not flagged_2 %}
+                      <span class="chip chip--attending">✓ Anmäld</span> {{ link_flag_2 }}
+                    {% elseif flagged and flagged_2 %}
+                      <span class="chip chip--declined">✗ Avanmäld</span> {{ link_flag_2 }}
+                    {% elseif flagged_1 and not flagged_3 %}
+                      <span class="chip chip--declined">✗ Avanmäld</span> {{ link_flag_3 }}
+                    {% elseif flagged_1 and flagged_3 %}
+                      <span class="chip chip--attending">✓ Anmäld</span> {{ link_flag_3 }}
+                    {% else %}
+                      {{ link_flag }} {{ link_flag_1 }}
+                    {% endif %}
+                  {% endif %}
+                  <span class="cal-row__edit">{{ edit_node }}</span>
+                </div>
+              </article>
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
       pager:
         type: none
         options:
@@ -1181,26 +1232,11 @@ display:
             default_group_multiple: {  }
             group_items: {  }
       style:
-        type: views_accordion
+        type: default
         options:
-          grouping:
-            -
-              field: title
-              rendered: true
-              rendered_strip: false
-              use-grouping-header: 1
           row_class: ''
-          default_row_class: false
-          disableifone: 0
-          row-start-open: '0'
-          collapsible: 1
-          animated: linear
-          animation_time: '300'
-          heightStyle: content
-          event: click
-          use_header_icons: 1
-          icon_header: ui-icon-triangle-1-e
-          icon_active_header: ui-icon-triangle-1-s
+          default_row_class: true
+          uses_fields: false
       row:
         type: fields
       query:

@@ -1,0 +1,8 @@
+uuid: c5731e6c-f90c-4663-bdfc-7549fc2a2d5b
+langcode: sv
+status: true
+dependencies: {  }
+id: gob_time
+label: 'GoB klockslag'
+locked: false
+pattern: H.i
