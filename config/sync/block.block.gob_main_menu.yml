@@ -1,0 +1,25 @@
+uuid: 95f72692-d75c-4aed-8041-8c558165b816
+langcode: sv
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - gob
+id: gob_main_menu
+theme: gob
+region: header
+weight: 5
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: Huvudmeny
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 1
+  expand_all_items: false
+visibility: {  }

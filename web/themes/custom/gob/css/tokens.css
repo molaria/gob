@@ -1,0 +1,98 @@
+/* ==========================================================================
+   Gott och Blandat — Design tokens
+   Single source of truth for colour, type, space, motion.
+   System mirrored from the notbib sister theme, recoloured from the GoB
+   logotype: navy ink, purple accent, warm paper, voice-part dots.
+   Rule: meaning is never carried by colour alone — always icon or text too.
+   ========================================================================== */
+
+:root {
+  /* --- Colour: warm paper, navy ink (from the wordmark) --- */
+  --color-canvas: #F6F1E7;          /* app background */
+  --color-surface: #FDFAF4;         /* panels, cards */
+  --color-surface-raised: #FFFFFF;  /* top layer, used sparingly */
+  --color-ink: #22293B;             /* primary text */
+  --color-ink-secondary: #5A6274;   /* secondary text */
+  --color-ink-tertiary: #8B91A0;    /* hints, placeholders */
+  --color-line: #E7DFD0;            /* hairline border */
+  --color-line-strong: #D5CAB6;     /* border on hover / emphasis */
+
+  /* --- Colour: accent (logo purple) --- */
+  --color-accent: #703E84;          /* fills, indicators, focus mark */
+  --color-accent-hover: #5C2F6E;
+  --color-accent-strong: #5C2F6E;   /* links and text on light */
+  --color-accent-tint: #F0E7F3;     /* selected / hover wash */
+  --color-on-accent: #FFFDF9;       /* text on accent fill */
+
+  /* --- Colour: semantic. Always paired with icon or label. --- */
+  --color-info: #2C4A77;      --color-info-tint: #E6ECF5;      --color-info-ink: #1E3352;
+  --color-positive: #2E7D5B;  --color-positive-tint: #E2F0E8;  --color-positive-ink: #1E5239;
+  --color-caution: #F2AC43;   --color-caution-tint: #F8ECD5;   --color-caution-ink: #7A5410;
+  --color-critical: #C22333;  --color-critical-tint: #F9E3E4;  --color-critical-ink: #7E1721;
+
+  /* --- Colour: voice-part dots, straight from the logotype --- */
+  --dot-purple: #703E84;
+  --dot-red: #D9213A;
+  --dot-gold: #F2AC43;
+  --dot-navy: #1E3352;
+  --dot-plum: #912A7D;
+
+  /* --- Typography --- */
+  --font-display: "Nunito", ui-rounded, "Avenir Next", "Avenir", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+
+  --text-2xs: 0.6875rem;   /* 11px — micro labels */
+  --text-xs:  0.75rem;     /* 12px */
+  --text-sm:  0.8125rem;   /* 13px */
+  --text-base: 0.875rem;   /* 14px — dense default */
+  --text-md:  0.9375rem;   /* 15px — body */
+  --text-lg:  1.0625rem;   /* 17px */
+  --text-xl:  1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 1.875rem;    /* 30px */
+  --text-display: clamp(2.125rem, 5vw + 1rem, 3.25rem); /* public hero */
+
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.5;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-display: 800;   /* Nunito headings */
+
+  --tracking-tight: -0.015em;
+  --tracking-wide: 0.06em;
+
+  /* --- Space (4px base, compact rhythm) --- */
+  --space-1: 0.125rem;  /* 2 */
+  --space-2: 0.25rem;   /* 4 */
+  --space-3: 0.5rem;    /* 8 */
+  --space-4: 0.75rem;   /* 12 */
+  --space-5: 1rem;      /* 16 */
+  --space-6: 1.25rem;   /* 20 */
+  --space-7: 1.5rem;    /* 24 */
+  --space-8: 2rem;      /* 32 */
+  --space-9: 2.5rem;    /* 40 */
+  --space-10: 3rem;     /* 48 */
+
+  /* --- Radius --- */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+
+  /* --- Border --- */
+  --border-hairline: 1px solid var(--color-line);
+  --border-strong: 1px solid var(--color-line-strong);
+
+  /* --- Focus --- */
+  --focus-ring: 0 0 0 2px var(--color-canvas), 0 0 0 4px var(--color-accent);
+
+  /* --- Motion --- */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+}

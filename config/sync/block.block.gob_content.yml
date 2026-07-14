@@ -1,0 +1,20 @@
+uuid: b741a3e5-9e67-475c-ab44-c6ede5d799d8
+langcode: sv
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - gob
+id: gob_content
+theme: gob
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: Huvudinnehåll
+  label_display: '0'
+  provider: system
+visibility: {  }

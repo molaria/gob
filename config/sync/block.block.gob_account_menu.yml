@@ -1,0 +1,25 @@
+uuid: b8719e89-d6b3-4738-a591-b25f8a5e4a1f
+langcode: sv
+status: true
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - system
+  theme:
+    - gob
+id: gob_account_menu
+theme: gob
+region: header
+weight: 10
+provider: null
+plugin: 'system_menu_block:account'
+settings:
+  id: 'system_menu_block:account'
+  label: Användarmeny
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: null
+  expand_all_items: false
+visibility: {  }
