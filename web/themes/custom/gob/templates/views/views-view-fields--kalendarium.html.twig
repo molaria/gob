@@ -19,9 +19,15 @@
 {% set f1 = fields.flagged_1.content|render|striptags|trim == '1' %}
 {% set f2 = fields.flagged_2.content|render|striptags|trim == '1' %}
 {% set f3 = fields.flagged_3.content|render|striptags|trim == '1' %}
-{# .0.entity, not .entity: on an empty field, .entity falls back to the
-   host node via getEntity() and everything looks like a concert #}
-{% set konsert = node.field_konsert.0.entity %}
+{# Concert terms are named with an ISO date prefix (2026-10-24 ...),
+   so sorting on the label gives chronological order, soonest first #}
+{% set konserter = [] %}
+{% for item in node.field_konsert %}
+  {% if item.entity %}
+    {% set konserter = konserter|merge([item.entity]) %}
+  {% endif %}
+{% endfor %}
+{% set konserter = konserter|sort((a, b) => a.label > b.label ? 1 : -1) %}
 {% if (f and not f2) or (f1 and f3) %}
   {% set state = 'attending' %}
 {% elseif (f and f2) or (f1 and not f3) %}
@@ -88,10 +94,14 @@
       </div>
     {% endif %}
 
-    {% if konsert %}
+    {% if konserter|length %}
       <div class="cal-acc__meta">
         Noter och program:
-        <a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': konsert.id}) }}">{{ konsert.label }}</a>
+        <ul class="cal-acc__program">
+          {% for term in konserter %}
+            <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id}) }}">{{ term.label }}</a></li>
+          {% endfor %}
+        </ul>
       </div>
     {% endif %}
 

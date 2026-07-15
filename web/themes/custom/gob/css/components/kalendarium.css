@@ -186,6 +186,17 @@
   margin: 0;
 }
 
+/* Concert programme list: one entry per line, tight bullets */
+.cal-acc__program {
+  margin: var(--space-2) 0 0;
+  padding-left: 1.2em;
+  list-style: disc;
+}
+
+.cal-acc__program li + li {
+  margin-top: var(--space-1);
+}
+
 /* Node edit link for editors: tiny and out of the way */
 .cal-acc__edit a {
   font-size: var(--text-xs);
