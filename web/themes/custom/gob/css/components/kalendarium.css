@@ -122,6 +122,9 @@
   background: var(--color-accent);
   border-color: var(--color-accent);
   color: var(--color-on-accent);
+  /* Short labels (Ja/Nej) still need a generous hit area */
+  min-width: 3.5em;
+  text-align: center;
 }
 
 .cal-acc__state .flag-deltar a:hover,
