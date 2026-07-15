@@ -76,13 +76,6 @@ header[role="banner"] {
   margin: 0 auto;
 }
 
-/* The contextual module makes the block position:relative for admins,
-   which would trap the full-width submenu panel inside the nav. The
-   panel must position against the header bar for everyone. */
-.site-nav .contextual-region {
-  position: static !important;
-}
-
 .menu--main ul.menu {
   display: flex;
   align-items: center;
@@ -92,23 +85,34 @@ header[role="banner"] {
   padding: 0;
 }
 
-.menu--main a {
+/* Parents without a page render as <span>; style both alike so
+   Hem and Admin behave identically */
+.menu--main > ul.menu > li > a,
+.menu--main > ul.menu > li > span {
+  display: inline-block;
   font-size: var(--text-sm);
   font-weight: var(--weight-medium);
   color: var(--color-ink-secondary);
   text-decoration: none;
   padding: var(--space-3) 0;
+  cursor: pointer;
   transition: color var(--duration-fast) var(--ease-out);
 }
 
-.menu--main a:hover,
+.menu--main > ul.menu > li:hover > a,
+.menu--main > ul.menu > li:hover > span,
 .menu--main a.is-active {
   color: var(--color-ink);
   text-decoration: none;
 }
 
-/* --- Submenus: full-width panel sliding down under the bar --- */
-.menu--main li.menu-item--expanded > a::after {
+/* --- Submenus: compact dropdown right under the item you open --- */
+.menu--main > ul.menu > li {
+  position: relative;
+}
+
+.menu--main li.menu-item--expanded > a::after,
+.menu--main li.menu-item--expanded > span::after {
   content: "";
   display: inline-block;
   width: 5px;
@@ -129,16 +133,15 @@ header[role="banner"] {
               visibility 0s linear var(--duration-base);
   position: absolute;
   top: 100%;
-  left: 0;
-  right: 0;
+  left: calc(-1 * var(--space-4));
   z-index: 60;
   display: block;
-  padding: var(--space-7) max(calc((100% - 1040px) / 2 + var(--space-6)), var(--space-6)) var(--space-9);
-  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
-  -webkit-backdrop-filter: blur(20px) saturate(1.8);
-  backdrop-filter: blur(20px) saturate(1.8);
-  border-bottom: var(--border-hairline);
-  box-shadow: 0 16px 32px -16px rgba(34, 41, 59, 0.25);
+  min-width: 13rem;
+  padding: var(--space-2);
+  background: var(--color-surface-raised);
+  border: var(--border-hairline);
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 28px -8px rgba(34, 41, 59, 0.25);
 }
 
 .menu--main li:hover > ul.menu,
@@ -154,15 +157,19 @@ header[role="banner"] {
 }
 
 .menu--main li ul.menu a {
-  display: inline-block;
-  font-size: var(--text-lg);
-  font-weight: var(--weight-semibold);
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
   color: var(--color-ink);
-  padding: var(--space-2) 0;
+  text-decoration: none;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
 }
 
 .menu--main li ul.menu a:hover {
-  color: var(--color-accent-strong);
+  background: var(--color-accent-tint);
+  color: var(--color-ink);
+  text-decoration: none;
 }
 
 /* --- Account menu: small, right edge --- */
@@ -270,7 +277,8 @@ header[role="banner"] {
     display: block;
   }
 
-  html.nav-open .menu--main ul.menu > li > a {
+  html.nav-open .menu--main ul.menu > li > a,
+  html.nav-open .menu--main ul.menu > li > span {
     display: block;
     font-family: var(--font-display);
     font-weight: var(--weight-display);
