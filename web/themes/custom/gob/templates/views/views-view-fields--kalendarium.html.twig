@@ -32,12 +32,13 @@
 
 <details class="cal-acc" {% if is_first %}open{% endif %}>
   <summary class="cal-acc__summary">
+    {# Times as plain text: the field wrappers otherwise leak uneven
+       whitespace around the dash #}
+    {% set start_time = fields.field_datum_1.content|render|striptags|trim %}
+    {% set end_time = node.field_datum_slut.value ? fields.field_datum_slut.content|render|striptags|trim : '' %}
     <span class="cal-acc__date">
       <b>{{ fields.field_datum.content }}</b>
-      <span class="cal-acc__time">
-        {{- fields.field_datum_1.content -}}
-        {%- if node.field_datum_slut.value %}&ndash;{{ fields.field_datum_slut.content }}{% endif -%}
-      </span>
+      <span class="cal-acc__time">{{ start_time }}{% if end_time %} - {{ end_time }}{% endif %}</span>
     </span>
     <span class="cal-acc__title">
       {{ node.label }}
@@ -68,7 +69,7 @@
     {% endif %}
 
     {% if signup %}
-      <div class="cal-acc__meta">Fika:
+      <div class="cal-acc__meta">Fika:&nbsp;
         {%- if node.field_fikafixare|length > 0 -%}
           {%- for item in node.field_fikafixare -%}
             {%- set fixer = item.entity -%}
