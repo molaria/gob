@@ -12,7 +12,7 @@ field_name: field_sluttid
 entity_type: node
 bundle: kalendarium
 label: Sluttid
-description: 'Valfri. Lämna tom om aktiviteten saknar bestämd sluttid.'
+description: ''
 required: false
 translatable: true
 default_value: {  }
