@@ -81,8 +81,63 @@
   flex-wrap: wrap;
 }
 
+/* State and answer buttons: always visible, also when collapsed */
 .cal-acc__state {
   justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Flag links dressed as buttons. The flag module wraps each link in
+   <div class="flag flag-NAME"> so the flag name selects the variant. */
+.cal-acc__state .flag a {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  padding: 0.45em 0.95em;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* First answer: yes = filled purple, no = quiet outline */
+.cal-acc__state .flag-deltar a {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.cal-acc__state .flag-deltar a:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.cal-acc__state .flag-deltar-ej a {
+  background: var(--color-surface);
+  border-color: var(--color-line-strong);
+  color: var(--color-ink);
+}
+
+.cal-acc__state .flag-deltar-ej a:hover {
+  border-color: var(--color-ink-tertiary);
+}
+
+/* Change-of-mind links: small quiet buttons */
+.cal-acc__state .flag-deltar-andrad a,
+.cal-acc__state .flag-delta-ej-andrad a {
+  background: var(--color-surface);
+  border-color: var(--color-line);
+  color: var(--color-ink-secondary);
+}
+
+.cal-acc__state .flag-deltar-andrad a:hover,
+.cal-acc__state .flag-delta-ej-andrad a:hover {
+  border-color: var(--color-ink-tertiary);
+  color: var(--color-ink);
 }
 
 /* --- Body --- */
@@ -102,62 +157,6 @@
   margin: 0;
 }
 
-.cal-acc__actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-}
-
-/* Flag links dressed as buttons. The flag module wraps each link in
-   <div class="flag flag-NAME"> so the flag name selects the variant. */
-.cal-acc__actions .flag a {
-  display: inline-block;
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
-  padding: 0.45em 0.95em;
-  border-radius: var(--radius-md);
-  border: 1px solid transparent;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-/* First answer: yes = filled purple, no = quiet outline */
-.cal-acc__actions .flag-deltar a {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: var(--color-on-accent);
-}
-
-.cal-acc__actions .flag-deltar a:hover {
-  background: var(--color-accent-hover);
-  border-color: var(--color-accent-hover);
-}
-
-.cal-acc__actions .flag-deltar-ej a {
-  background: var(--color-surface);
-  border-color: var(--color-line-strong);
-  color: var(--color-ink);
-}
-
-.cal-acc__actions .flag-deltar-ej a:hover {
-  border-color: var(--color-ink-tertiary);
-}
-
-/* Change-of-mind links: small quiet buttons */
-.cal-acc__actions .flag-deltar-andrad a,
-.cal-acc__actions .flag-delta-ej-andrad a {
-  background: var(--color-surface);
-  border-color: var(--color-line);
-  color: var(--color-ink-secondary);
-}
-
-.cal-acc__actions .flag-deltar-andrad a:hover,
-.cal-acc__actions .flag-delta-ej-andrad a:hover {
-  border-color: var(--color-ink-tertiary);
-  color: var(--color-ink);
-}
-
 /* Node edit link for editors: tiny and out of the way */
 .cal-acc__edit a {
   font-size: var(--text-xs);
@@ -170,16 +169,19 @@
 
 @media (max-width: 640px) {
   .cal-acc__summary {
-    grid-template-columns: 20px 1fr auto;
+    grid-template-columns: 20px 1fr;
+    row-gap: var(--space-2);
   }
 
-  .cal-acc__date {
+  .cal-acc__date,
+  .cal-acc__title {
     grid-column: 2;
   }
 
-  .cal-acc__title {
-    grid-column: 2 / 4;
-    grid-row: 2;
+  /* Buttons keep their own full-width row so they stay easy to hit */
+  .cal-acc__state {
+    grid-column: 2;
+    justify-content: flex-start;
   }
 
   .cal-acc__body {

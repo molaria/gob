@@ -43,14 +43,20 @@
       {{ node.label }}
       {% if konsert %}<span class="chip chip--concert">Konsert</span>{% endif %}
     </span>
+    {# Answering must never require expanding the row: state and buttons
+       live in the always-visible summary. The flag links reload the page,
+       so a stray details-toggle on click has no lasting effect. #}
     <span class="cal-acc__state">
       {% if signup %}
         {% if state == 'attending' %}
           <span class="chip chip--attending">✓ Anmäld</span>
+          {{ f ? fields.link_flag_2.content : fields.link_flag_3.content }}
         {% elseif state == 'declined' %}
           <span class="chip chip--declined">✗ Avanmäld</span>
+          {{ f ? fields.link_flag_2.content : fields.link_flag_3.content }}
         {% else %}
-          <span class="chip chip--none">Ej svarat</span>
+          {{ fields.link_flag.content }}
+          {{ fields.link_flag_1.content }}
         {% endif %}
       {% endif %}
     </span>
@@ -85,18 +91,6 @@
       </div>
     {% endif %}
 
-    <div class="cal-acc__actions">
-      {% if signup %}
-        {% if state == 'none' %}
-          {{ fields.link_flag.content }}
-          {{ fields.link_flag_1.content }}
-        {% elseif f %}
-          {{ fields.link_flag_2.content }}
-        {% else %}
-          {{ fields.link_flag_3.content }}
-        {% endif %}
-      {% endif %}
-      <span class="cal-acc__edit">{{ fields.edit_node.content }}</span>
-    </div>
+    <span class="cal-acc__edit">{{ fields.edit_node.content }}</span>
   </div>
 </details>
