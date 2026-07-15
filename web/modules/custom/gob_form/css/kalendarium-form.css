@@ -1,4 +1,6 @@
-/* Kalendarium form: start date/time and end time on the same row. */
+/* Kalendarium form: start date/time and end time on the same row,
+   in matching boxes. The end time box copies Claro's fieldset look
+   (border, radius, shadow, spacing) so the pair reads as one unit. */
 
 .field--name-field-datum,
 .field--name-field-sluttid {
@@ -8,4 +10,21 @@
 
 .field--name-field-datum {
   margin-right: 2rem;
+}
+
+.field--name-field-sluttid {
+  margin: 24px 0;
+  padding: 20px 24px 28px;
+  background: #fff;
+  border: 1px solid #dedfe4;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Match the fieldset legend typography */
+.field--name-field-sluttid > .form-item > label,
+.field--name-field-sluttid label {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
 }
