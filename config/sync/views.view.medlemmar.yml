@@ -1113,6 +1113,7 @@ display:
         options:
           role:
             administrator: administrator
+            kalendarium_admin: kalendarium_admin
       sorts:
         field_adress_given_name:
           id: field_adress_given_name
@@ -1238,6 +1239,7 @@ display:
         options:
           role:
             administrator: administrator
+            kalendarium_admin: kalendarium_admin
       sorts: {  }
       defaults:
         access: false

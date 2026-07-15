@@ -85,6 +85,16 @@ header[role="banner"] {
   padding: 0;
 }
 
+/* A parent whose children are all access-filtered away renders as a
+   bare span with no dropdown - pointless, hide it (members see no
+   Admin entry; the real protection sits in the pages' access).
+   Core marks such spans with js-hide. Specificity must beat the
+   trigger styling below. */
+.menu--main > ul.menu > li > span:only-child,
+.menu--main ul.menu span.js-hide {
+  display: none;
+}
+
 /* Parents without a page render as <span>; style both alike so
    Hem and Admin behave identically */
 .menu--main > ul.menu > li > a,
