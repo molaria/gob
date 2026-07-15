@@ -119,6 +119,8 @@
 .cal-acc__state:has(.chip--declined) .flag a {
   display: block;
   text-align: center;
+  /* Same pill radius as the status chip above */
+  border-radius: var(--radius-pill);
 }
 
 /* Flag links dressed as buttons. The flag module wraps each link in
