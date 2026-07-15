@@ -9,20 +9,33 @@
   padding: var(--space-3) var(--space-6);
 }
 
-.cal-acc + .cal-acc {
-  border-top: var(--border-hairline);
+/* Each event is a soft-cornered card with a tinted header band */
+.cal-acc {
+  background: var(--color-surface-raised);
+  border: var(--border-hairline);
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
 
-/* --- Summary row --- */
+.cal-acc + .cal-acc {
+  margin-top: var(--space-4);
+}
+
+/* --- Summary row: the event's header --- */
 .cal-acc__summary {
   display: grid;
   grid-template-columns: 20px 104px minmax(0, 1fr) auto;
   gap: var(--space-4);
   /* Top-aligned so the date line and the title sit at the same height */
   align-items: start;
-  padding: var(--space-4) 0;
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-accent-tint);
   cursor: pointer;
   list-style: none;
+}
+
+.cal-acc[open] > .cal-acc__summary {
+  border-bottom: var(--border-hairline);
 }
 
 .cal-acc__summary::-webkit-details-marker {
@@ -47,7 +60,7 @@
 }
 
 .cal-acc__summary:hover {
-  background: var(--color-accent-tint);
+  background: color-mix(in srgb, var(--color-accent-tint), var(--color-accent) 8%);
 }
 
 .cal-acc__summary:focus-visible {
@@ -171,7 +184,8 @@
 
 /* --- Body --- */
 .cal-acc__body {
-  padding: 0 0 var(--space-5) calc(20px + 104px + 2 * var(--space-4));
+  padding: var(--space-4) var(--space-5) var(--space-5)
+           calc(20px + 104px + 2 * var(--space-4) + var(--space-5));
   display: grid;
   gap: var(--space-3);
 }
@@ -258,6 +272,6 @@
   }
 
   .cal-acc__body {
-    padding-left: calc(20px + var(--space-4));
+    padding-left: calc(20px + var(--space-4) + var(--space-5));
   }
 }
