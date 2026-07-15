@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Layout tweaks for GoB editing forms.
+ */
+
+/**
+ * Implements hook_form_alter().
+ */
+function gob_form_form_alter(array &$form, $form_state, $form_id) {
+  // Start and end time side by side on the kalendarium form.
+  if (in_array($form_id, ['node_kalendarium_form', 'node_kalendarium_edit_form'])) {
+    $form['#attached']['library'][] = 'gob_form/kalendarium-form';
+  }
+}

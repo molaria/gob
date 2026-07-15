@@ -1,0 +1,11 @@
+/* Kalendarium form: start date/time and end time on the same row. */
+
+.field--name-field-datum,
+.field--name-field-sluttid {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.field--name-field-datum {
+  margin-right: 2rem;
+}
