@@ -34,8 +34,10 @@
   list-style: none;
 }
 
+/* Open card: a soft shadow separates the header from the content */
 .cal-acc[open] > .cal-acc__summary {
-  border-bottom: var(--border-hairline);
+  position: relative;
+  box-shadow: 0 3px 8px -2px rgba(34, 41, 59, 0.18);
 }
 
 .cal-acc__summary::-webkit-details-marker {
@@ -184,7 +186,7 @@
 
 /* --- Body --- */
 .cal-acc__body {
-  padding: var(--space-4) var(--space-5) var(--space-5)
+  padding: var(--space-6) var(--space-5) var(--space-6)
            calc(20px + 104px + 2 * var(--space-4) + var(--space-5));
   display: grid;
   gap: var(--space-3);
