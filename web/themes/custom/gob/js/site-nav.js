@@ -36,6 +36,12 @@
         setOpen(false);
       });
     });
+
+    // Parents without a page render as <span>; make them reachable by
+    // keyboard so focus-within can open their dropdown.
+    document.querySelectorAll('.menu--main li.menu-item--expanded > span').forEach(function (span) {
+      span.setAttribute('tabindex', '0');
+    });
   }
 
   if (document.readyState === 'loading') {
