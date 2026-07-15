@@ -25,3 +25,6 @@
 
 # OS cruft
 .DS_Store
+
+# Local private files directory (Drupal file_private_path)
+/private/

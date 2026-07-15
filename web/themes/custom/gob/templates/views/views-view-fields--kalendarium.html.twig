@@ -1,0 +1,99 @@
+{#
+/**
+ * @file
+ * Kalendarium row: a native <details> accordion.
+ * The first row (= next upcoming event) starts open via the counter field.
+ *
+ * Attendance state comes from the four-flag system:
+ *   flagged   = deltar          flagged_2 = deltar_andrad
+ *   flagged_1 = deltar_ej       flagged_3 = delta_ej_andrad
+ * deltar without ändrad = attending, with ändrad = declined; the
+ * deltar_ej pair mirrors that. No flags at all = no answer yet.
+ */
+#}
+{% set node = row._entity %}
+{% set signup = node.field_anmalan_mojlig.value == '1' %}
+{% set is_first = fields.counter.content|render|striptags|trim == '1' %}
+{# flag_flagged renders the string 0 or 1 #}
+{% set f  = fields.flagged.content|render|striptags|trim == '1' %}
+{% set f1 = fields.flagged_1.content|render|striptags|trim == '1' %}
+{% set f2 = fields.flagged_2.content|render|striptags|trim == '1' %}
+{% set f3 = fields.flagged_3.content|render|striptags|trim == '1' %}
+{# .0.entity, not .entity: on an empty field, .entity falls back to the
+   host node via getEntity() and everything looks like a concert #}
+{% set konsert = node.field_konsert.0.entity %}
+{% if (f and not f2) or (f1 and f3) %}
+  {% set state = 'attending' %}
+{% elseif (f and f2) or (f1 and not f3) %}
+  {% set state = 'declined' %}
+{% else %}
+  {% set state = 'none' %}
+{% endif %}
+
+<details class="cal-acc" {% if is_first %}open{% endif %}>
+  <summary class="cal-acc__summary">
+    <span class="cal-acc__date">
+      <b>{{ fields.field_datum.content }}</b>
+      <span class="cal-acc__time">{{ fields.field_datum_1.content }}</span>
+    </span>
+    <span class="cal-acc__title">
+      {{ node.label }}
+      {% if konsert %}<span class="chip chip--concert">Konsert</span>{% endif %}
+    </span>
+    <span class="cal-acc__state">
+      {% if signup %}
+        {% if state == 'attending' %}
+          <span class="chip chip--attending">✓ Anmäld</span>
+        {% elseif state == 'declined' %}
+          <span class="chip chip--declined">✗ Avanmäld</span>
+        {% else %}
+          <span class="chip chip--none">Ej svarat</span>
+        {% endif %}
+      {% endif %}
+    </span>
+  </summary>
+
+  <div class="cal-acc__body">
+    {% if node.field_information.value %}
+      <div class="cal-acc__meta">{{ node.field_information.processed }}</div>
+    {% endif %}
+
+    {% if signup %}
+      <div class="cal-acc__meta">Fika:
+        {%- if node.field_fikafixare|length > 0 -%}
+          {%- for item in node.field_fikafixare -%}
+            {%- set fixer = item.entity -%}
+            {%- if fixer -%}
+              <a href="mailto:{{ fixer.mail.value }}">{{ fixer.label }}</a>
+              {%- if fixer.field_telefonnummer.value %} ({{ fixer.field_telefonnummer.value }}){% endif -%}
+              {{ not loop.last ? ', ' }}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else %}
+          ingen anmäld än - <a href="mailto:ingierdhallinger@gmail.com?subject=Fikalistan">kontakta Ingierd</a> om du kan ta fikat
+        {%- endif %}
+      </div>
+    {% endif %}
+
+    {% if konsert %}
+      <div class="cal-acc__meta">
+        Noter och program:
+        <a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': konsert.id}) }}">{{ konsert.label }}</a>
+      </div>
+    {% endif %}
+
+    <div class="cal-acc__actions">
+      {% if signup %}
+        {% if state == 'none' %}
+          {{ fields.link_flag.content }}
+          {{ fields.link_flag_1.content }}
+        {% elseif f %}
+          {{ fields.link_flag_2.content }}
+        {% else %}
+          {{ fields.link_flag_3.content }}
+        {% endif %}
+      {% endif %}
+      <span class="cal-acc__edit">{{ fields.edit_node.content }}</span>
+    </div>
+  </div>
+</details>

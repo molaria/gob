@@ -1,80 +1,117 @@
 /* ==========================================================================
    Gott och Blandat — Kalendarium
-   Open row list: date block | event + meta | attendance state.
-   Answered rows show a state chip plus the change link, unanswered rows
-   show both answer buttons, no-signup events show nothing.
+   Native <details> accordion rows: date | title | attendance state in the
+   always-visible summary, details and answer buttons in the body.
+   The next upcoming event starts open (template sets the open attribute).
    ========================================================================== */
 
 .view-id-kalendarium {
   padding: var(--space-3) var(--space-6);
 }
 
-.cal-row {
-  display: grid;
-  grid-template-columns: 96px minmax(0, 1fr) auto;
-  gap: var(--space-5);
-  align-items: center;
-  padding: var(--space-4) 0;
-}
-
-.views-row + .views-row .cal-row {
+.cal-acc + .cal-acc {
   border-top: var(--border-hairline);
 }
 
-/* Date block: "tis 25 aug" over "18.20" */
-.cal-row__date b {
+/* --- Summary row --- */
+.cal-acc__summary {
+  display: grid;
+  grid-template-columns: 20px 96px minmax(0, 1fr) auto;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-4) 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.cal-acc__summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Chevron that turns when the row is open */
+.cal-acc__summary::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  justify-self: center;
+  border-right: 2px solid var(--color-ink-tertiary);
+  border-bottom: 2px solid var(--color-ink-tertiary);
+  transform: rotate(-45deg);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.cal-acc[open] > .cal-acc__summary::before {
+  transform: rotate(45deg);
+}
+
+.cal-acc__summary:hover {
+  background: var(--color-accent-tint);
+}
+
+.cal-acc__summary:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-sm);
+}
+
+.cal-acc__date b {
   display: block;
   font-size: var(--text-sm);
   font-weight: var(--weight-semibold);
 }
 
-.cal-row__date span {
+.cal-acc__date .cal-acc__time {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   color: var(--color-ink-secondary);
 }
 
-/* Event column */
-.cal-row__title {
-  font-family: var(--font-sans);
+/* Field templates wrap values in divs; keep them inline here */
+.cal-acc__date .views-field,
+.cal-acc__date .field-content {
+  display: inline;
+}
+
+.cal-acc__title {
   font-size: var(--text-base);
   font-weight: var(--weight-semibold);
-  letter-spacing: normal;
-  margin: 0;
-}
-
-.cal-row__title a {
-  color: var(--color-ink);
-}
-
-.cal-row__title a:hover {
-  color: var(--color-accent-strong);
-  text-decoration: none;
-}
-
-.cal-row__meta {
-  font-size: var(--text-sm);
-  color: var(--color-ink-secondary);
-  margin: var(--space-1) 0 0;
-}
-
-.cal-row__meta p {
-  display: inline;
-  margin: 0;
-}
-
-/* Actions column */
-.cal-row__actions {
   display: flex;
   align-items: center;
   gap: var(--space-3);
   flex-wrap: wrap;
-  justify-content: flex-end;
+}
+
+.cal-acc__state {
+  justify-self: end;
+}
+
+/* --- Body --- */
+.cal-acc__body {
+  padding: 0 0 var(--space-5) calc(20px + 96px + 2 * var(--space-4));
+  display: grid;
+  gap: var(--space-3);
+}
+
+.cal-acc__meta {
+  font-size: var(--text-sm);
+  color: var(--color-ink-secondary);
+}
+
+.cal-acc__meta p {
+  display: inline;
+  margin: 0;
+}
+
+.cal-acc__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
 }
 
 /* Flag links dressed as buttons. The flag module wraps each link in
    <div class="flag flag-NAME"> so the flag name selects the variant. */
-.cal-row__actions .flag a {
+.cal-acc__actions .flag a {
   display: inline-block;
   font-size: var(--text-xs);
   font-weight: var(--weight-semibold);
@@ -86,58 +123,66 @@
 }
 
 /* First answer: yes = filled purple, no = quiet outline */
-.cal-row__actions .flag-deltar a {
+.cal-acc__actions .flag-deltar a {
   background: var(--color-accent);
   border-color: var(--color-accent);
   color: var(--color-on-accent);
 }
 
-.cal-row__actions .flag-deltar a:hover {
+.cal-acc__actions .flag-deltar a:hover {
   background: var(--color-accent-hover);
   border-color: var(--color-accent-hover);
 }
 
-.cal-row__actions .flag-deltar-ej a {
+.cal-acc__actions .flag-deltar-ej a {
   background: var(--color-surface);
   border-color: var(--color-line-strong);
   color: var(--color-ink);
 }
 
-.cal-row__actions .flag-deltar-ej a:hover {
+.cal-acc__actions .flag-deltar-ej a:hover {
   border-color: var(--color-ink-tertiary);
 }
 
 /* Change-of-mind links: small quiet buttons */
-.cal-row__actions .flag-deltar-andrad a,
-.cal-row__actions .flag-delta-ej-andrad a {
+.cal-acc__actions .flag-deltar-andrad a,
+.cal-acc__actions .flag-delta-ej-andrad a {
   background: var(--color-surface);
   border-color: var(--color-line);
   color: var(--color-ink-secondary);
 }
 
-.cal-row__actions .flag-deltar-andrad a:hover,
-.cal-row__actions .flag-delta-ej-andrad a:hover {
+.cal-acc__actions .flag-deltar-andrad a:hover,
+.cal-acc__actions .flag-delta-ej-andrad a:hover {
   border-color: var(--color-ink-tertiary);
   color: var(--color-ink);
 }
 
 /* Node edit link for editors: tiny and out of the way */
-.cal-row__edit a {
+.cal-acc__edit a {
   font-size: var(--text-xs);
   color: var(--color-ink-tertiary);
 }
 
-.cal-row__edit a:hover {
+.cal-acc__edit a:hover {
   color: var(--color-accent-strong);
 }
 
 @media (max-width: 640px) {
-  .cal-row {
-    grid-template-columns: 1fr;
-    gap: var(--space-2);
+  .cal-acc__summary {
+    grid-template-columns: 20px 1fr auto;
   }
 
-  .cal-row__actions {
-    justify-content: flex-start;
+  .cal-acc__date {
+    grid-column: 2;
+  }
+
+  .cal-acc__title {
+    grid-column: 2 / 4;
+    grid-row: 2;
+  }
+
+  .cal-acc__body {
+    padding-left: calc(20px + var(--space-4));
   }
 }

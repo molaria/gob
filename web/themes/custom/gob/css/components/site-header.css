@@ -6,6 +6,10 @@
 header[role="banner"] {
   border-bottom: var(--border-hairline);
   background: var(--color-surface);
+  position: sticky;
+  /* Stays below the admin toolbar when it is present */
+  top: var(--drupal-displace-offset-top, 0);
+  z-index: 50;
 }
 
 header[role="banner"] .region-header {
@@ -88,6 +92,56 @@ header[role="banner"] .region-header {
 .menu--main a.is-active {
   color: var(--color-accent-strong);
   box-shadow: inset 0 -2px 0 var(--color-accent);
+}
+
+/* --- Submenus: pure CSS dropdown, opens on hover and on keyboard focus --- */
+.menu--main li {
+  position: relative;
+}
+
+.menu--main li.menu-item--expanded > a::after {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-left: 6px;
+  vertical-align: 2px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.menu--main li ul.menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: calc(-1 * var(--space-4));
+  z-index: 60;
+  min-width: 14rem;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: var(--space-2);
+  background: var(--color-surface-raised);
+  border: var(--border-hairline);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(34, 41, 59, 0.12);
+}
+
+.menu--main li:hover > ul.menu,
+.menu--main li:focus-within > ul.menu {
+  display: flex;
+}
+
+.menu--main li ul.menu a {
+  display: block;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+}
+
+.menu--main li ul.menu a:hover {
+  background: var(--color-accent-tint);
+  color: var(--color-ink);
 }
 
 /* --- Account menu: pushed right --- */

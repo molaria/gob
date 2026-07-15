@@ -1,0 +1,54 @@
+/* ==========================================================================
+   Gott och Blandat — Table tools
+   Search box above the members table, sortable column headers.
+   ========================================================================== */
+
+.table-tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.table-tools input[type="search"] {
+  min-width: 16rem;
+}
+
+.table-tools__hits {
+  font-size: var(--text-sm);
+  color: var(--color-ink-tertiary);
+}
+
+/* Sortable headers: pointer plus a direction arrow when active */
+th.sortable {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+th.sortable:hover {
+  color: var(--color-ink);
+}
+
+th.sortable[aria-sort]::after {
+  content: "▲";
+  font-size: 0.6em;
+  margin-left: 5px;
+  color: var(--color-accent);
+}
+
+th.sortable[aria-sort="descending"]::after {
+  content: "▼";
+}
+
+th.sortable:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-xs);
+}
+
+/* The injected per-voice number column */
+th.stamma-nr,
+td.stamma-nr {
+  white-space: nowrap;
+}
