@@ -44,7 +44,7 @@ Detta är en grundbult i allt som byggs på sajten och väger tyngre än teknisk
 
 ## Kända fallgropar (Drupal 11)
 
-- Twig: `.entity` på ett TOMT referensfält returnerar värdnoden via `getEntity()` - använd `.0.entity`.
+- Twig: `.entity` på ett TOMT referensfält returnerar värdnoden via `getEntity()` - använd `.0.entity`. Samma mönster för `.value` som kan ge en array - använd `.0.value`.
 - Views-fältet `flag_flagged` renderar strängen `0`/`1`, aldrig tom - jämför mot `'1'`.
 - Twig-sandboxen tillåter inte `.count` på fältlistor - använd `|length`.
 - Datum lagras i UTC; konvertera alltid via Europe/Stockholm vid skapande (sommartid/vintertid skiljer).

@@ -53,6 +53,7 @@
         "drupal/registration": "^3.4",
         "drupal/smtp": "^1.4",
         "drupal/sticky": "^2.1",
+        "drupal/time_field": "^2.2",
         "drupal/token": "^1.17",
         "drupal/twbstools": "2.1.x-dev",
         "drupal/upgrade_status": "^4.3.9",

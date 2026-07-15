@@ -1,14 +1,14 @@
-uuid: fff8a2b4-f6b2-49f0-a171-86a4e46f4dcf
+uuid: 39089f4a-030c-4031-9cff-1c3adea9e08c
 langcode: sv
 status: true
 dependencies:
   config:
-    - field.storage.node.field_datum_slut
+    - field.storage.node.field_sluttid
     - node.type.kalendarium
   module:
-    - datetime
-id: node.kalendarium.field_datum_slut
-field_name: field_datum_slut
+    - time_field
+id: node.kalendarium.field_sluttid
+field_name: field_sluttid
 entity_type: node
 bundle: kalendarium
 label: Sluttid
@@ -18,4 +18,4 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: datetime
+field_type: time

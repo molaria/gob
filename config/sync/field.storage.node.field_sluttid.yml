@@ -1,17 +1,16 @@
-uuid: c58c42a0-35ce-497c-b404-1afa3a6572cc
+uuid: c0f8b95a-66b4-4526-afe4-a43ff0eb0028
 langcode: sv
 status: true
 dependencies:
   module:
-    - datetime
     - node
-id: node.field_datum_slut
-field_name: field_datum_slut
+    - time_field
+id: node.field_sluttid
+field_name: field_sluttid
 entity_type: node
-type: datetime
-settings:
-  datetime_type: datetime
-module: datetime
+type: time
+settings: {  }
+module: time_field
 locked: false
 cardinality: 1
 translatable: true
