@@ -52,6 +52,10 @@
   </div>
 </header>
 
+{% if logged_in and welcome_name %}
+  <div class="site-welcome">Välkommen {{ welcome_name }} till Kören Gott och Blandats intranätsidor.</div>
+{% endif %}
+
 <div class="layout-container">
 
   {{ page.primary_menu }}

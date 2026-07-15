@@ -121,19 +121,8 @@ header[role="banner"] {
   position: relative;
 }
 
-.menu--main li.menu-item--expanded > a::after,
-.menu--main li.menu-item--expanded > span::after {
-  content: "";
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  margin-left: 6px;
-  vertical-align: 2px;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: rotate(45deg);
-}
-
+/* No submenu indicators: like Apple, the dropdown reveals itself on
+   hover and the top item is judged by its own label */
 .menu--main li ul.menu {
   visibility: hidden;
   opacity: 0;
@@ -205,6 +194,15 @@ header[role="banner"] {
 
 .menu--account a:hover {
   color: var(--color-ink);
+}
+
+/* --- Welcome line: quiet strip under the bar for logged-in members --- */
+.site-welcome {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-6) 0;
+  font-size: var(--text-sm);
+  color: var(--color-ink-secondary);
 }
 
 /* --- Hamburger: hidden on desktop --- */

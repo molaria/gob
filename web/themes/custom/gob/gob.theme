@@ -6,6 +6,19 @@
  */
 
 /**
+ * Implements hook_preprocess_page().
+ */
+function gob_preprocess_page(array &$variables): void {
+  // Welcome line under the menu bar for every logged-in member.
+  // Varies per user, so the page render must too.
+  $account = \Drupal::currentUser();
+  if ($account->isAuthenticated()) {
+    $variables['welcome_name'] = $account->getDisplayName();
+  }
+  $variables['#cache']['contexts'][] = 'user';
+}
+
+/**
  * Implements hook_preprocess_views_view().
  */
 function gob_preprocess_views_view(array &$variables): void {
