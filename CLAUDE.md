@@ -48,7 +48,6 @@ Detta är en grundbult i allt som byggs på sajten och väger tyngre än teknisk
 - Views-fältet `flag_flagged` renderar strängen `0`/`1`, aldrig tom - jämför mot `'1'`.
 - Twig-sandboxen tillåter inte `.count` på fältlistor - använd `|length`.
 - Datum lagras i UTC; konvertera alltid via Europe/Stockholm vid skapande (sommartid/vintertid skiljer).
-- Modulen `sticky` varnar om saknad `libraries/sticky/jquery.sticky.js` (saknas även på produktion) - städkandidat.
 
 ## Pågående och planerat
 

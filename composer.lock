@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c1f40a524800b57359066ba16d2cb9f",
+    "content-hash": "ea922f703af3ce75725262ee9181fe57",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3782,50 +3782,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/smtp",
                 "issues": "https://www.drupal.org/project/issues/smtp"
-            }
-        },
-        {
-            "name": "drupal/sticky",
-            "version": "2.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/sticky.git",
-                "reference": "2.2.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/sticky-2.2.2.zip",
-                "reference": "2.2.2",
-                "shasum": "fe0b74e6c2ed5ec8a03a8ea0d682593a1ef3625f"
-            },
-            "require": {
-                "drupal/core": "^10 || ^11"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "2.2.2",
-                    "datestamp": "1724825948",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "f0ns",
-                    "homepage": "https://www.drupal.org/user/723426"
-                }
-            ],
-            "description": "Sticky is a module that gives you the ability to make any element on your website to always stay visible.",
-            "homepage": "https://www.drupal.org/project/sticky",
-            "support": {
-                "source": "https://git.drupalcode.org/project/sticky"
             }
         },
         {

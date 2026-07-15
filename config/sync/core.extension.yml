@@ -69,7 +69,6 @@ module:
   shortcut: 0
   smtp: 0
   standard: 0
-  sticky: 0
   system: 0
   taxonomy: 0
   telephone: 0
