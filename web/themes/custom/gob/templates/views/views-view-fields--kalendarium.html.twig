@@ -77,7 +77,7 @@
     {% endif %}
 
     {% if signup %}
-      <div class="cal-acc__meta">Fika:&nbsp;
+      <div class="cal-acc__meta"><b class="cal-acc__meta-label">Fika:</b>&nbsp;
         {%- if node.field_fikafixare|length > 0 -%}
           {%- for item in node.field_fikafixare -%}
             {%- set fixer = item.entity -%}
@@ -96,7 +96,7 @@
 
     {% if konserter|length %}
       <div class="cal-acc__meta">
-        Noter och program:
+        <b class="cal-acc__meta-label">Noter och program:</b>
         <ul class="cal-acc__program">
           {% for term in konserter %}
             <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id}) }}">{{ term.label }}</a></li>

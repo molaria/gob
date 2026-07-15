@@ -186,6 +186,12 @@
   margin: 0;
 }
 
+/* Inline field labels (Fika, Noter och program) */
+.cal-acc__meta-label {
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
+}
+
 /* Concert programme list: one entry per line, tight bullets */
 .cal-acc__program {
   margin: var(--space-2) 0 0;
