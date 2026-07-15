@@ -133,10 +133,10 @@
   border-color: var(--color-accent-hover);
 }
 
-/* Change-of-mind links: small quiet buttons */
+/* Change-of-mind links: small quiet buttons, no fill */
 .cal-acc__state .flag-deltar-andrad a,
 .cal-acc__state .flag-delta-ej-andrad a {
-  background: var(--color-surface);
+  background: transparent;
   border-color: var(--color-line);
   color: var(--color-ink-secondary);
 }
