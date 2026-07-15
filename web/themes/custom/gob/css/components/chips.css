@@ -16,15 +16,16 @@
   white-space: nowrap;
 }
 
-/* Attendance states */
+/* Attendance states: solid fills so the answer is unmistakable.
+   Icon and wording still carry the meaning, never colour alone. */
 .chip--attending {
-  background: var(--color-positive-tint);
-  color: var(--color-positive-ink);
+  background: var(--color-positive);
+  color: var(--color-on-accent);
 }
 
 .chip--declined {
-  background: var(--color-critical-tint);
-  color: var(--color-critical-ink);
+  background: var(--color-critical);
+  color: var(--color-on-accent);
 }
 
 /* No answer yet: quiet, prompts rather than alarms */
