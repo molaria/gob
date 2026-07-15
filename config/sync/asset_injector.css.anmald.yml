@@ -1,6 +1,6 @@
 uuid: babed6a8-648c-4f4c-ab84-dc58942088a1
 langcode: sv
-status: true
+status: false
 dependencies: {  }
 id: anmald
 label: Anmäld

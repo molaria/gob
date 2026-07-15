@@ -1,6 +1,6 @@
 uuid: 126079a5-6bd5-419e-a1bb-6b393f40e90e
 langcode: sv
-status: true
+status: false
 dependencies: {  }
 id: anmalan
 label: Anmälan

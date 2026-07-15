@@ -1,6 +1,6 @@
 uuid: 19780346-5a3b-4927-9032-e9812133ac36
 langcode: sv
-status: true
+status: false
 dependencies: {  }
 id: menubar
 label: menubar
