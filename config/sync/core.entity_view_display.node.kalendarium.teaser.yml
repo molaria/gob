@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.kalendarium.feeds_item
     - field.field.node.kalendarium.field_anmalan_mojlig
     - field.field.node.kalendarium.field_datum
+    - field.field.node.kalendarium.field_datum_slut
     - field.field.node.kalendarium.field_fikafixare
     - field.field.node.kalendarium.field_information
     - field.field.node.kalendarium.field_konsert
@@ -67,6 +68,7 @@ hidden:
   feeds_item: true
   field_anmalan_mojlig: true
   field_datum: true
+  field_datum_slut: true
   field_fikafixare: true
   field_information: true
   field_konsert: true

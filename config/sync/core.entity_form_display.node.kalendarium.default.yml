@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.kalendarium.feeds_item
     - field.field.node.kalendarium.field_anmalan_mojlig
     - field.field.node.kalendarium.field_datum
+    - field.field.node.kalendarium.field_datum_slut
     - field.field.node.kalendarium.field_fikafixare
     - field.field.node.kalendarium.field_information
     - field.field.node.kalendarium.field_konsert
@@ -28,6 +29,12 @@ content:
   field_datum:
     type: datetime_default
     weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_datum_slut:
+    type: datetime_default
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }

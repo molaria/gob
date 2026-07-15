@@ -21,25 +21,17 @@
     return cell ? cell.textContent.trim() : '';
   }
 
-  // Insert a "number within voice part" column right after Stämma.
+  // One combined number column: overall:within-voice, e.g. 13:1 for the
+  // first Sopran 2. Rewrites the counter cell in place.
   function addVoiceNumbers(table) {
-    const headStamma = table.querySelector('thead ' + SEL.stamma);
-    if (!headStamma) {
-      return;
-    }
-    const th = document.createElement('th');
-    th.textContent = 'Nr i stämman';
-    th.className = 'stamma-nr';
-    headStamma.after(th);
-
     const counts = {};
     table.querySelectorAll('tbody tr').forEach((row) => {
       const voice = cellText(row, SEL.stamma);
       counts[voice] = (counts[voice] || 0) + 1;
-      const td = document.createElement('td');
-      td.className = 'stamma-nr';
-      td.textContent = counts[voice];
-      row.querySelector(SEL.stamma).after(td);
+      const counterCell = row.querySelector('.views-field-counter');
+      if (counterCell) {
+        counterCell.textContent = counterCell.textContent.trim() + ':' + counts[voice];
+      }
     });
   }
 

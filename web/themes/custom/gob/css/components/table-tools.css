@@ -47,8 +47,9 @@ th.sortable:focus-visible {
   border-radius: var(--radius-xs);
 }
 
-/* The injected per-voice number column */
-th.stamma-nr,
-td.stamma-nr {
+/* Combined number column (overall:within-voice) */
+td.views-field-counter {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
   white-space: nowrap;
 }

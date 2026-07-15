@@ -34,7 +34,10 @@
   <summary class="cal-acc__summary">
     <span class="cal-acc__date">
       <b>{{ fields.field_datum.content }}</b>
-      <span class="cal-acc__time">{{ fields.field_datum_1.content }}</span>
+      <span class="cal-acc__time">
+        {{- fields.field_datum_1.content -}}
+        {%- if node.field_datum_slut.value %}&ndash;{{ fields.field_datum_slut.content }}{% endif -%}
+      </span>
     </span>
     <span class="cal-acc__title">
       {{ node.label }}

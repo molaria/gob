@@ -1,0 +1,21 @@
+uuid: fff8a2b4-f6b2-49f0-a171-86a4e46f4dcf
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_datum_slut
+    - node.type.kalendarium
+  module:
+    - datetime
+id: node.kalendarium.field_datum_slut
+field_name: field_datum_slut
+entity_type: node
+bundle: kalendarium
+label: Sluttid
+description: 'Valfri. Lämna tom om aktiviteten saknar bestämd sluttid.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime
