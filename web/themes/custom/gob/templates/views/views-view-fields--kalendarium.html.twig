@@ -77,27 +77,30 @@
     {% endif %}
 
     {% if signup %}
-      <div class="cal-acc__meta"><b class="cal-acc__meta-label">Fika:</b>&nbsp;
-        {%- if node.field_fikafixare|length > 0 -%}
-          {%- for item in node.field_fikafixare -%}
-            {%- set fixer = item.entity -%}
-            {%- if fixer -%}
-              <a href="mailto:{{ fixer.mail.value }}">{{ fixer.label }}</a>
-              {#- tel: link lets the phone offer both call and SMS -#}
-              {%- if fixer.field_telefonnummer.value %} (<a href="tel:{{ fixer.field_telefonnummer.value|replace({' ': '', '-': ''}) }}">{{ fixer.field_telefonnummer.value }}</a>){% endif -%}
-              {{ not loop.last ? ', ' }}
-            {%- endif -%}
-          {%- endfor -%}
-        {%- else %}
+      <div class="cal-acc__meta"><b class="cal-acc__meta-label">Fika:</b>
+        {% if node.field_fikafixare|length > 0 %}
+          <ul class="cal-acc__list">
+            {% for item in node.field_fikafixare %}
+              {% set fixer = item.entity %}
+              {% if fixer %}
+                <li>
+                  <a href="mailto:{{ fixer.mail.value }}">{{ fixer.label }}</a>
+                  {#- tel: link lets the phone offer both call and SMS -#}
+                  {% if fixer.field_telefonnummer.value %} (<a href="tel:{{ fixer.field_telefonnummer.value|replace({' ': '', '-': ''}) }}">{{ fixer.field_telefonnummer.value }}</a>){% endif %}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% else %}
           ingen anmäld än - <a href="mailto:ingierdhallinger@gmail.com?subject=Fikalistan">kontakta Ingierd</a> om du kan ta fikat
-        {%- endif %}
+        {% endif %}
       </div>
     {% endif %}
 
     {% if konserter|length %}
       <div class="cal-acc__meta">
         <b class="cal-acc__meta-label">Noter och program:</b>
-        <ul class="cal-acc__program">
+        <ul class="cal-acc__list">
           {% for term in konserter %}
             <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id}) }}">{{ term.label }}</a></li>
           {% endfor %}

@@ -206,14 +206,15 @@
   color: var(--color-ink);
 }
 
-/* Concert programme list: one entry per line, tight bullets */
-.cal-acc__program {
+/* Bullet lists under a field label (fika crew, concert programme):
+   one entry per line, tight bullets */
+.cal-acc__list {
   margin: var(--space-2) 0 0;
   padding-left: 1.2em;
   list-style: disc;
 }
 
-.cal-acc__program li + li {
+.cal-acc__list li + li {
   margin-top: var(--space-1);
 }
 
