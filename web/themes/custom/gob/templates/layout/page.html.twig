@@ -42,11 +42,17 @@
  * @see html.html.twig
  */
 #}
-<div class="layout-container">
-
-  <header role="banner">
+<header role="banner">
+  <div class="site-nav">
     {{ page.header }}
-  </header>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Meny">
+      <span class="nav-toggle__bar"></span>
+      <span class="nav-toggle__bar"></span>
+    </button>
+  </div>
+</header>
+
+<div class="layout-container">
 
   {{ page.primary_menu }}
   {{ page.secondary_menu }}

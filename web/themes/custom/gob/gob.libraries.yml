@@ -10,6 +10,8 @@ global:
       css/components/buttons.css: {}
       css/components/chips.css: {}
       css/components/kalendarium.css: {}
+  js:
+    js/site-nav.js: { attributes: { defer: true } }
 
 members:
   version: VERSION

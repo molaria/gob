@@ -1,32 +1,41 @@
 /* ==========================================================================
    Gott och Blandat — Site header
-   One banner row: wordmark with voice-part dots, main menu, account menu.
+   Apple-style navigation: a slim translucent blurred bar spanning the
+   viewport, quiet centered links, full-width dropdown panels for
+   submenus, and on small screens a hamburger opening a full overlay
+   with large stacked links.
    ========================================================================== */
 
 header[role="banner"] {
-  border-bottom: var(--border-hairline);
-  background: var(--color-surface);
   position: sticky;
   /* Stays below the admin toolbar when it is present */
   top: var(--drupal-displace-offset-top, 0);
   z-index: 50;
+  background: color-mix(in srgb, var(--color-surface) 82%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  backdrop-filter: blur(20px) saturate(1.8);
+  border-bottom: var(--border-hairline);
 }
 
-header[role="banner"] .region-header {
+.site-nav {
   max-width: 1040px;
   margin: 0 auto;
-  padding: var(--space-5) var(--space-6);
+  padding: var(--space-3) var(--space-6);
   display: flex;
   align-items: center;
   gap: var(--space-7);
-  flex-wrap: wrap;
 }
 
-/* --- Branding: text wordmark + dots (template override) --- */
+.site-nav .region-header {
+  display: contents;
+}
+
+/* --- Branding: compact wordmark + dots --- */
 .gob-wordmark {
   display: block;
   text-decoration: none;
   line-height: 1.1;
+  flex-shrink: 0;
 }
 
 .gob-wordmark:hover {
@@ -35,7 +44,7 @@ header[role="banner"] .region-header {
 
 .gob-wordmark .eyebrow {
   display: block;
-  font-size: var(--text-xs);
+  font-size: var(--text-2xs);
   font-weight: var(--weight-semibold);
   color: var(--color-accent);
   letter-spacing: 0.02em;
@@ -45,32 +54,39 @@ header[role="banner"] .region-header {
   display: block;
   font-family: var(--font-display);
   font-weight: var(--weight-display);
-  font-size: var(--text-xl);
+  font-size: var(--text-lg);
   letter-spacing: var(--tracking-tight);
   color: var(--color-ink);
 }
 
 .gob-wordmark .dots {
   display: flex;
-  gap: 5px;
-  margin-top: var(--space-2);
+  gap: 4px;
+  margin-top: 3px;
 }
 
 .gob-wordmark .dots i {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
 }
 
-/* --- Main menu: horizontal, quiet, accent on active --- */
+/* --- Main menu: quiet, evenly spaced, centered in the bar --- */
 .menu--main {
-  margin: 0;
+  margin: 0 auto;
+}
+
+/* The contextual module makes the block position:relative for admins,
+   which would trap the full-width submenu panel inside the nav. The
+   panel must position against the header bar for everyone. */
+.site-nav .contextual-region {
+  position: static !important;
 }
 
 .menu--main ul.menu {
   display: flex;
   align-items: center;
-  gap: var(--space-6);
+  gap: var(--space-8);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -78,27 +94,20 @@ header[role="banner"] .region-header {
 
 .menu--main a {
   font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-medium);
   color: var(--color-ink-secondary);
   text-decoration: none;
-  padding: var(--space-2) 0;
+  padding: var(--space-3) 0;
+  transition: color var(--duration-fast) var(--ease-out);
 }
 
-.menu--main a:hover {
+.menu--main a:hover,
+.menu--main a.is-active {
   color: var(--color-ink);
   text-decoration: none;
 }
 
-.menu--main a.is-active {
-  color: var(--color-accent-strong);
-  box-shadow: inset 0 -2px 0 var(--color-accent);
-}
-
-/* --- Submenus: pure CSS dropdown, opens on hover and on keyboard focus --- */
-.menu--main li {
-  position: relative;
-}
-
+/* --- Submenus: full-width panel sliding down under the bar --- */
 .menu--main li.menu-item--expanded > a::after {
   content: "";
   display: inline-block;
@@ -112,41 +121,54 @@ header[role="banner"] .region-header {
 }
 
 .menu--main li ul.menu {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity var(--duration-base) var(--ease-out),
+              transform var(--duration-base) var(--ease-out),
+              visibility 0s linear var(--duration-base);
   position: absolute;
   top: 100%;
-  left: calc(-1 * var(--space-4));
+  left: 0;
+  right: 0;
   z-index: 60;
-  min-width: 14rem;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0;
-  padding: var(--space-2);
-  background: var(--color-surface-raised);
-  border: var(--border-hairline);
-  border-radius: var(--radius-md);
-  box-shadow: 0 8px 24px rgba(34, 41, 59, 0.12);
+  display: block;
+  padding: var(--space-7) max(calc((100% - 1040px) / 2 + var(--space-6)), var(--space-6)) var(--space-9);
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  backdrop-filter: blur(20px) saturate(1.8);
+  border-bottom: var(--border-hairline);
+  box-shadow: 0 16px 32px -16px rgba(34, 41, 59, 0.25);
 }
 
 .menu--main li:hover > ul.menu,
 .menu--main li:focus-within > ul.menu {
-  display: flex;
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition-delay: 0s;
+}
+
+.menu--main li ul.menu li {
+  margin: 0;
 }
 
 .menu--main li ul.menu a {
-  display: block;
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-sm);
+  display: inline-block;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
+  padding: var(--space-2) 0;
 }
 
 .menu--main li ul.menu a:hover {
-  background: var(--color-accent-tint);
-  color: var(--color-ink);
+  color: var(--color-accent-strong);
 }
 
-/* --- Account menu: pushed right --- */
+/* --- Account menu: small, right edge --- */
 .menu--account {
   margin-left: auto;
+  flex-shrink: 0;
 }
 
 .menu--account ul.menu {
@@ -159,22 +181,141 @@ header[role="banner"] .region-header {
 }
 
 .menu--account a {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   color: var(--color-ink-secondary);
   text-decoration: none;
 }
 
 .menu--account a:hover {
-  color: var(--color-accent-strong);
+  color: var(--color-ink);
 }
 
+/* --- Hamburger: hidden on desktop --- */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin-left: auto;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  align-items: center;
+}
+
+.nav-toggle__bar {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--color-ink);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+/* ==========================================================================
+   Small screens: bar with wordmark + hamburger, menu as full overlay
+   with large stacked links, Apple style.
+   ========================================================================== */
 @media (max-width: 720px) {
-  header[role="banner"] .region-header {
-    gap: var(--space-5);
+  .site-nav {
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-5);
   }
 
-  .menu--main ul.menu {
-    gap: var(--space-5);
+  .nav-toggle {
+    display: flex;
+  }
+
+  html.nav-open .nav-toggle__bar:first-child {
+    transform: translateY(3.25px) rotate(45deg);
+  }
+
+  html.nav-open .nav-toggle__bar:last-child {
+    transform: translateY(-3.25px) rotate(-45deg);
+  }
+
+  /* Menus hidden until the hamburger opens them */
+  .menu--main,
+  .menu--account {
+    display: none;
+  }
+
+  html.nav-open .menu--main,
+  html.nav-open .menu--account {
+    display: block;
+    margin: 0;
+  }
+
+  /* The overlay: header grows to cover the viewport, links stack big */
+  html.nav-open {
+    overflow: hidden;
+  }
+
+  html.nav-open .site-nav {
     flex-wrap: wrap;
+    align-content: flex-start;
+    height: calc(100dvh - var(--drupal-displace-offset-top, 0px));
+    overflow-y: auto;
+  }
+
+  html.nav-open .menu--main {
+    flex-basis: 100%;
+    order: 3;
+    padding-top: var(--space-7);
+  }
+
+  html.nav-open .menu--main ul.menu {
+    display: block;
+  }
+
+  html.nav-open .menu--main ul.menu > li > a {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-size: var(--text-2xl);
+    color: var(--color-ink);
+    padding: var(--space-3) 0;
+  }
+
+  /* Submenus inline as quiet groups under their parent */
+  html.nav-open .menu--main li ul.menu {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    position: static;
+    padding: 0 0 var(--space-3) var(--space-5);
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border: 0;
+    box-shadow: none;
+  }
+
+  html.nav-open .menu--main li ul.menu a {
+    display: block;
+    font-size: var(--text-md);
+    font-weight: var(--weight-medium);
+    color: var(--color-ink-secondary);
+    padding: var(--space-2) 0;
+  }
+
+  html.nav-open .menu--account {
+    flex-basis: 100%;
+    order: 4;
+    border-top: var(--border-hairline);
+    margin-top: var(--space-5);
+    padding-top: var(--space-5);
+  }
+
+  html.nav-open .menu--account ul.menu {
+    display: block;
+  }
+
+  html.nav-open .menu--account a {
+    display: block;
+    font-size: var(--text-md);
+    padding: var(--space-2) 0;
   }
 }
