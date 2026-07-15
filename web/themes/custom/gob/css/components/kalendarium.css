@@ -94,6 +94,13 @@
   justify-content: flex-end;
 }
 
+/* The question the buttons answer */
+.cal-acc__ask {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
+}
+
 /* Flag links dressed as buttons. The flag module wraps each link in
    <div class="flag flag-NAME"> so the flag name selects the variant. */
 .cal-acc__state .flag a {
@@ -197,6 +204,21 @@
     grid-column: 3;
     grid-row: 1 / 3;
     align-self: start;
+    /* Stack the answer buttons at equal width, easy to hit */
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2);
+  }
+
+  .cal-acc__state .flag a {
+    display: block;
+    text-align: center;
+  }
+
+  .cal-acc__state .chip,
+  .cal-acc__state .cal-acc__ask {
+    justify-content: center;
+    text-align: center;
   }
 
   .cal-acc__body {

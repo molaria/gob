@@ -50,12 +50,13 @@
     <span class="cal-acc__state">
       {% if signup %}
         {% if state == 'attending' %}
-          <span class="chip chip--attending">✓ Anmäld</span>
+          <span class="chip chip--attending">✓ Du är anmäld</span>
           {{ f ? fields.link_flag_2.content : fields.link_flag_3.content }}
         {% elseif state == 'declined' %}
-          <span class="chip chip--declined">✗ Avanmäld</span>
+          <span class="chip chip--declined">✗ Du är avanmäld</span>
           {{ f ? fields.link_flag_2.content : fields.link_flag_3.content }}
         {% else %}
+          <span class="cal-acc__ask">Kommer du?</span>
           {{ fields.link_flag.content }}
           {{ fields.link_flag_1.content }}
         {% endif %}

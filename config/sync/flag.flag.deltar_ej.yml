@@ -10,9 +10,9 @@ bundles:
   - kalendarium
 entity_type: node
 global: false
-flag_short: 'Kommer inte'
+flag_short: 'Nej, jag kommer inte'
 flag_long: ''
-flag_message: ''
+flag_message: 'Tack för ditt besked: du är avanmäld.'
 unflag_short: 'Unflag this item'
 unflag_long: ''
 unflag_message: ''

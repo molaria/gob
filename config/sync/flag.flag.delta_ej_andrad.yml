@@ -10,12 +10,12 @@ bundles:
   - kalendarium
 entity_type: node
 global: false
-flag_short: Kommer
+flag_short: 'Ja, jag kommer'
 flag_long: ''
-flag_message: ''
-unflag_short: 'Kommer inte'
+flag_message: 'Ditt svar är ändrat: du är anmäld.'
+unflag_short: 'Nej, jag kommer inte'
 unflag_long: ''
-unflag_message: ''
+unflag_message: 'Ditt svar är ändrat: du är avanmäld.'
 unflag_denied_text: ''
 weight: 0
 flag_type: 'entity:node'
