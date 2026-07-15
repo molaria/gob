@@ -114,26 +114,20 @@
   white-space: nowrap;
 }
 
-/* First answer: yes = filled purple, no = quiet outline */
-.cal-acc__state .flag-deltar a {
+/* First answer: both buttons identical, so neither looks pre-selected.
+   Filled purple also separates them from the quiet change buttons
+   that appear once an answer is given. */
+.cal-acc__state .flag-deltar a,
+.cal-acc__state .flag-deltar-ej a {
   background: var(--color-accent);
   border-color: var(--color-accent);
   color: var(--color-on-accent);
 }
 
-.cal-acc__state .flag-deltar a:hover {
+.cal-acc__state .flag-deltar a:hover,
+.cal-acc__state .flag-deltar-ej a:hover {
   background: var(--color-accent-hover);
   border-color: var(--color-accent-hover);
-}
-
-.cal-acc__state .flag-deltar-ej a {
-  background: var(--color-surface);
-  border-color: var(--color-line-strong);
-  color: var(--color-ink);
-}
-
-.cal-acc__state .flag-deltar-ej a:hover {
-  border-color: var(--color-ink-tertiary);
 }
 
 /* Change-of-mind links: small quiet buttons */
