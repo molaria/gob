@@ -42,12 +42,9 @@
       : '' %}
     <span class="cal-acc__date">
       <b>{{ fields.field_datum.content }}</b>
-      <span class="cal-acc__time">{{ start_time }}{% if end_time %} - {{ end_time }}{% endif %}</span>
+      <span class="cal-acc__time">{{ start_time }}{% if end_time %}&ndash;{{ end_time }}{% endif %}</span>
     </span>
-    <span class="cal-acc__title">
-      {{ node.label }}
-      {% if konsert %}<span class="chip chip--concert">Konsert</span>{% endif %}
-    </span>
+    <span class="cal-acc__title">{{ node.label }}</span>
     {# Answering must never require expanding the row: state and buttons
        live in the always-visible summary. The flag links reload the page,
        so a stray details-toggle on click has no lasting effect. #}
@@ -80,7 +77,8 @@
             {%- set fixer = item.entity -%}
             {%- if fixer -%}
               <a href="mailto:{{ fixer.mail.value }}">{{ fixer.label }}</a>
-              {%- if fixer.field_telefonnummer.value %} ({{ fixer.field_telefonnummer.value }}){% endif -%}
+              {#- tel: link lets the phone offer both call and SMS -#}
+              {%- if fixer.field_telefonnummer.value %} (<a href="tel:{{ fixer.field_telefonnummer.value|replace({' ': '', '-': ''}) }}">{{ fixer.field_telefonnummer.value }}</a>){% endif -%}
               {{ not loop.last ? ', ' }}
             {%- endif -%}
           {%- endfor -%}
