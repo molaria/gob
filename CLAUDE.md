@@ -49,9 +49,28 @@ Detta är en grundbult i allt som byggs på sajten och väger tyngre än teknisk
 - Twig-sandboxen tillåter inte `.count` på fältlistor - använd `|length`.
 - Datum lagras i UTC; konvertera alltid via Europe/Stockholm vid skapande (sommartid/vintertid skiljer).
 
+## Klart (hösten 2026-arbetet)
+
+- Eget tema `gob` med designsystem enligt godkänd skiss, Nunito självhostad.
+- Kalendariet: händelsekort med accordion, trelägesanmälan i hopfällt läge ("Kommer du? Ja/Nej", statuschip + Ändra), fika- och programlistor, sluttidsfält (time_field).
+- Apple-lik navigering: tunn blur-list, rullgardiner utan symboler som öppnas vid hover/fokus, hamburgarmeny på mobil, välkomstrad för inloggade.
+- Admin-menyn dold och åtkomstskyddad för vanliga medlemmar (epost/telefon-vyerna kräver administrator eller kalendarium_admin).
+- Matrikeln: klientsökning, sortering, kombinerat löpnummer (13:1).
+- Städat: sticky-modulen avinstallerad, asset injector-snuttarna avstängda.
+
 ## Pågående och planerat
 
 - Anmälan har tre lägen: anmäld, avanmäld, ej svarat. Idag löst med fyra flaggor i par (`deltar`/`deltar_andrad`, `deltar_ej`/`delta_ej_andrad`) där ändrad-flaggan inverterar förstasvaret. Systemet ska ersättas med en riktig trelägesmodell (egen tabell: uid, nid, status, tidpunkt; ingen rad = ej svarat) med migrering av befintliga flaggningar.
 - Notregistret (`/musik`) väntar på omdesign (bort från jQuery UI-dragspel, mot katalogmönster som noter).
 - Publika startsidan ska få hero enligt designskissen (`web/designforslag.html`, tas bort när klar).
 - Deploy-rutin (`deploy.sh` efter noters mönster) byggs inför driftsättning.
+
+## Deploylista: lokala INNEHÅLLSÄNDRINGAR (följer inte med config/git)
+
+Produktionens databas behålls vid driftsättning; dessa lokala databasändringar måste göras om eller migreras dit:
+
+- Menylänken Hem: `internal:#` ändrad till `internal:/`.
+- Menylänken "Kören Gott och Blandat" (dubblett av startsidan) borttagen ur huvudmenyn.
+- 20 kalendarieposter hösten 2026 (16 övningar onsdagar 18.20 med sluttid 20.35, gudstjänst 15/11, adventskör 29/11, julkonsert 16/12, seminarium 10/10 utan anmälan).
+- Nya taxonomitermer i `datum_framforande` skapade via autocreate.
+- Alla lösenord nollställs inför lansering; medlemmarna sätter nya (Carina67 har lokalt testlösenord).
