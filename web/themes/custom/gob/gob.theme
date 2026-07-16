@@ -46,6 +46,10 @@ function gob_preprocess_views_view(array &$variables): void {
   if ($variables['view']->id() === 'musik') {
     $variables['#attached']['library'][] = 'gob/musik';
   }
+  // Tinted tile grid for the info page.
+  if ($variables['view']->id() === 'info') {
+    $variables['#attached']['library'][] = 'gob/info';
+  }
 }
 
 /**

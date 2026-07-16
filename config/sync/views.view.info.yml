@@ -226,21 +226,11 @@ display:
             - 222
           vid: tags
       style:
-        type: views_accordion
+        type: default
         options:
-          grouping: {  }
           row_class: ''
           default_row_class: true
-          disableifone: 0
-          row-start-open: none
-          collapsible: 1
-          animated: none
-          animation_time: '300'
-          heightStyle: content
-          event: click
-          use_header_icons: 1
-          icon_header: ui-icon-triangle-1-e
-          icon_active_header: ui-icon-triangle-1-s
+          uses_fields: false
       row:
         type: fields
         options:

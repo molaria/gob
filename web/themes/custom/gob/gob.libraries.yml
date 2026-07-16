@@ -150,3 +150,9 @@ user:
     component:
       css/components/user.css:
         weight: -10
+
+info:
+  version: VERSION
+  css:
+    component:
+      css/components/info.css: {}

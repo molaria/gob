@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * Info tile: one short practical fact about how the choir works.
+ * The tiles form a colourful benefit grid in the manner of Apple's
+ * "why buy here" section; tint cycling happens in CSS.
+ */
+#}
+{% set node = row._entity %}
+<article class="info-tile">
+  <h2 class="info-tile__title">{{ node.label }}</h2>
+  <div class="info-tile__text">{{ node.body.processed }}</div>
+</article>
