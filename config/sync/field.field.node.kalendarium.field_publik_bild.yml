@@ -1,0 +1,38 @@
+uuid: 8658378c-20da-43d1-8c89-ac7d5ac519fa
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_publik_bild
+    - node.type.kalendarium
+  module:
+    - image
+id: node.kalendarium.field_publik_bild
+field_name: field_publik_bild
+entity_type: node
+bundle: kalendarium
+label: 'Bild till publika startsidan'
+description: 'Visas på konsertkortet för alla besökare. Liggande bild fungerar bäst.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: publikbild
+  file_extensions: 'png jpg jpeg webp'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: false
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: null
+    alt: ''
+    title: ''
+    width: null
+    height: null
+field_type: image

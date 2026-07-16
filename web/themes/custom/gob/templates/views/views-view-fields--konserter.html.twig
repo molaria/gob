@@ -11,6 +11,12 @@
    conversion to Stockholm actually happens #}
 {% set datum = node.field_datum.0.value ~ 'Z' %}
 <article class="concert-card">
+  {% if node.field_publik_bild.0.entity %}
+    <img class="concert-card__img"
+         src="{{ file_url(node.field_publik_bild.0.entity.uri.value) }}"
+         alt="{{ node.field_publik_bild.0.alt }}" loading="lazy">
+  {% endif %}
+  <div class="concert-card__body">
   <p class="concert-card__date">{{ datum|date('j F Y', 'Europe/Stockholm')|replace({
     'January': 'januari', 'February': 'februari', 'March': 'mars', 'April': 'april',
     'May': 'maj', 'June': 'juni', 'July': 'juli', 'August': 'augusti',
@@ -20,4 +26,5 @@
   {% if node.field_information.value %}
     <div class="concert-card__info">{{ node.field_information.processed }}</div>
   {% endif %}
+  </div>
 </article>

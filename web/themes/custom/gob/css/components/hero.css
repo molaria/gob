@@ -118,34 +118,62 @@
   margin: 0 0 var(--space-6);
 }
 
+/* Product-grid cards in Apple's shop manner: photo on top, airy body,
+   soft lift on hover. Cards without a photo get a coloured top band
+   from the logotype dots instead. */
 .concerts__list .view-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: var(--space-5);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-6);
 }
 
 .concert-card {
-  background: var(--color-surface);
+  background: var(--color-surface-raised);
   border: var(--border-hairline);
   border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--duration-base) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out);
+}
+
+.concert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -18px rgba(34, 41, 59, 0.3);
+}
+
+.concert-card__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.concert-card:not(:has(.concert-card__img)) {
   border-top: 4px solid var(--dot-purple);
 }
 
-/* The cards cycle through the logotype's dot colours */
-.concerts__list .views-row:nth-child(4n + 2) .concert-card { border-top-color: var(--dot-red); }
-.concerts__list .views-row:nth-child(4n + 3) .concert-card { border-top-color: var(--dot-gold); }
-.concerts__list .views-row:nth-child(4n + 4) .concert-card { border-top-color: var(--dot-navy); }
+.concerts__list .views-row:nth-child(4n + 2) .concert-card:not(:has(.concert-card__img)) { border-top-color: var(--dot-red); }
+.concerts__list .views-row:nth-child(4n + 3) .concert-card:not(:has(.concert-card__img)) { border-top-color: var(--dot-gold); }
+.concerts__list .views-row:nth-child(4n + 4) .concert-card:not(:has(.concert-card__img)) { border-top-color: var(--dot-navy); }
+
+.concert-card__body {
+  padding: var(--space-6) var(--space-6) var(--space-7);
+}
 
 .concert-card__date {
-  font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--color-ink-secondary);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-accent-strong);
   margin: 0 0 var(--space-3);
 }
 
 .concert-card__title {
-  font-size: var(--text-lg);
+  font-size: var(--text-xl);
   margin: 0;
 }
 

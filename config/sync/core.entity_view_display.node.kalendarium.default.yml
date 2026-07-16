@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.kalendarium.field_information
     - field.field.node.kalendarium.field_konsert
     - field.field.node.kalendarium.field_publik
+    - field.field.node.kalendarium.field_publik_bild
     - field.field.node.kalendarium.field_sluttid
     - node.type.kalendarium
   module:
@@ -83,6 +84,7 @@ hidden:
   feeds_item: true
   field_anmalan_mojlig: true
   field_publik: true
+  field_publik_bild: true
   field_sluttid: true
   flag_delta_ej_andrad: true
   flag_deltar: true

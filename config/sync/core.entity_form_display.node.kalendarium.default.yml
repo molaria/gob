@@ -10,10 +10,13 @@ dependencies:
     - field.field.node.kalendarium.field_information
     - field.field.node.kalendarium.field_konsert
     - field.field.node.kalendarium.field_publik
+    - field.field.node.kalendarium.field_publik_bild
     - field.field.node.kalendarium.field_sluttid
+    - image.style.thumbnail
     - node.type.kalendarium
   module:
     - datetime
+    - image
     - text
     - time_field
 id: node.kalendarium.default
@@ -68,6 +71,14 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_publik_bild:
+    type: image_image
+    weight: 8
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
     third_party_settings: {  }
   field_sluttid:
     type: time_widget
