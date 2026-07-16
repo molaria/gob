@@ -144,8 +144,9 @@
 /* --- Voice part rows --- */
 .gob-player__track {
   display: grid;
-  grid-template-columns: 92px minmax(0, 1fr) auto;
-  gap: var(--space-4);
+  /* name | volume (flexes, can shrink) | Tyst/Solo, always right */
+  grid-template-columns: 88px minmax(40px, 1fr) auto;
+  gap: var(--space-3);
   align-items: center;
   padding: var(--space-3) 0;
 }
@@ -232,11 +233,15 @@
     padding: var(--space-6) var(--space-5);
   }
 
+  /* Keep the three columns; the name shrinks so the buttons stay
+     right and the volume slider just gets shorter */
   .gob-player__track {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 64px minmax(32px, 1fr) auto;
+    gap: var(--space-2);
   }
 
-  .gob-player__volume {
-    grid-column: 1 / 3;
+  .gob-player__mute,
+  .gob-player__solo {
+    padding: 0.45em 0.7em;
   }
 }
