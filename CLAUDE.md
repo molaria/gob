@@ -69,7 +69,7 @@ Detta är en grundbult i allt som byggs på sajten och väger tyngre än teknisk
 ## Pågående och planerat
 
 - Notregistret omdesignat 2026-07-16: katalograder (titel, medverkande, fil-chips där Noter-pdf har accentton och stämfilerna är tysta, framförd-rad) plus snabbsök via `notes-filter.js`. Stämetiketter parsas ur filnamnsmönstret "Titel - Stämma.mp3". Kvarvarande städkandidater: modulerna views_accordion, jquery_ui_accordion, jquery_ui när inget annat använder dem.
-- Publika startsidan fick sin hero 2026-07-16 (`page--front.html.twig` + `hero.css`): prickarna landar en i taget, devisen som H1, CTA till Bildas intresseanmälan samt inloggningsknapp för anonyma. Designskissen `web/designforslag.html` är borttagen - designsystemet lever i temat nu.
+- Publika startsidan ombyggd 2026-07-16 (`page--front.html.twig` + `hero.css`): säljande hero (mottot som H1, "Gör din röst hörd" är bara byline i loggan), porträttplats som väntar på `web/themes/custom/gob/images/mats-olof.jpg` (döljs tills filen finns), CTA till Bilda. Sektionen "Här hör du oss nästa gång" hämtas ur vyn `konserter`: kalendarieposter med bocken `field_publik` visas för alla (node access-omskrivning avstängd i vyn - medvetet, admin väljer vad som blir publikt) och försvinner automatiskt efter sitt datum. Designskissen `web/designforslag.html` är borttagen.
 - Deploy-rutin (`deploy.sh` efter noters mönster) byggs inför driftsättning.
 
 ## Deploylista: lokala INNEHÅLLSÄNDRINGAR (följer inte med config/git)

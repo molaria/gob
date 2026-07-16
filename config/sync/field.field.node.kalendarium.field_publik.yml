@@ -1,0 +1,21 @@
+uuid: b0ef5951-b094-4cba-a5ec-97c5124cdb84
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_publik
+    - node.type.kalendarium
+id: node.kalendarium.field_publik
+field_name: field_publik
+entity_type: node
+bundle: kalendarium
+label: 'Visa på publika startsidan'
+description: 'Kryssa i för konserter och gudstjänster som alla besökare ska se.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: På
+  off_label: Av
+field_type: boolean

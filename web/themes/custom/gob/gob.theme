@@ -16,6 +16,22 @@ function gob_preprocess_page(array &$variables): void {
     $variables['welcome_name'] = $account->getDisplayName();
   }
   $variables['#cache']['contexts'][] = 'user';
+
+  if (!empty($variables['is_front'])) {
+    // Upcoming public events; the view filters on today so past events
+    // drop off the front page by themselves.
+    $konserter = views_embed_view('konserter');
+    if (!empty($konserter)) {
+      $variables['konserter'] = $konserter;
+    }
+
+    // The hero portrait ships as a theme asset; skip the figure until
+    // the file exists so the page never shows a broken image.
+    $theme_path = \Drupal::service('extension.list.theme')->getPath('gob');
+    if (file_exists(DRUPAL_ROOT . '/' . $theme_path . '/images/mats-olof.jpg')) {
+      $variables['hero_photo'] = '/' . $theme_path . '/images/mats-olof.jpg';
+    }
+  }
 }
 
 /**

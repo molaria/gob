@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.kalendarium.field_fikafixare
     - field.field.node.kalendarium.field_information
     - field.field.node.kalendarium.field_konsert
+    - field.field.node.kalendarium.field_publik
     - field.field.node.kalendarium.field_sluttid
     - node.type.kalendarium
   module:
@@ -71,6 +72,7 @@ hidden:
   field_fikafixare: true
   field_information: true
   field_konsert: true
+  field_publik: true
   field_sluttid: true
   langcode: true
   vapn: true

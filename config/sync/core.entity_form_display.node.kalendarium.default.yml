@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.kalendarium.field_fikafixare
     - field.field.node.kalendarium.field_information
     - field.field.node.kalendarium.field_konsert
+    - field.field.node.kalendarium.field_publik
     - field.field.node.kalendarium.field_sluttid
     - node.type.kalendarium
   module:
@@ -60,6 +61,13 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_publik:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   field_sluttid:
     type: time_widget

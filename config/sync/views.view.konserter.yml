@@ -1,0 +1,108 @@
+uuid: 813581f7-05d9-4992-8cd5-d7c8e4515597
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.kalendarium
+  module:
+    - datetime
+    - node
+id: konserter
+label: 'Kommande konserter'
+module: views
+description: 'Publika händelser på startsidan, försvinner automatiskt efter sitt datum.'
+tag: ''
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      fields:
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+          label: ''
+          exclude: false
+          settings:
+            link_to_entity: false
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 5
+      access:
+        type: none
+        options: {  }
+      cache:
+        type: tag
+        options: {  }
+      sorts:
+        field_datum_value:
+          id: field_datum_value
+          table: node__field_datum
+          field: field_datum_value
+          plugin_id: datetime
+          order: ASC
+          granularity: second
+      filters:
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          value:
+            kalendarium: kalendarium
+        field_publik_value:
+          id: field_publik_value
+          table: node__field_publik
+          field: field_publik_value
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+        field_datum_value:
+          id: field_datum_value
+          table: node__field_datum
+          field: field_datum_value
+          plugin_id: datetime
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: today
+            type: offset
+      style:
+        type: default
+        options: {  }
+      row:
+        type: fields
+        options: {  }
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: true
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+      tags: {  }

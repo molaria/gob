@@ -1,24 +1,65 @@
 /* ==========================================================================
-   Gott och Blandat — Front page hero
-   The voice-part dots settle in one by one, then the slogan from the
-   logotype carries the page. Global reduced-motion rules in base.css
-   neutralise the animation for those who ask for calm.
+   Gott och Blandat — Public front page
+   Hero selling the choir: text and portrait side by side, the voice-part
+   dots as a quiet signature, then concert cards with cycling dot-colour
+   accents. Global reduced-motion rules in base.css neutralise motion.
    ========================================================================== */
 
 .hero {
-  padding: var(--space-10) 0 var(--space-9);
-  max-width: 34em;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: var(--space-9);
+  align-items: center;
+  padding: var(--space-9) 0;
+}
+
+.hero__eyebrow {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-accent-strong);
+  margin: 0 0 var(--space-4);
+}
+
+.hero__slogan {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-display);
+  line-height: 1.06;
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+}
+
+.hero__lede {
+  margin: var(--space-5) 0 0;
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
+  color: var(--color-ink-secondary);
+  max-width: 32em;
+}
+
+.hero__cta {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+  flex-wrap: wrap;
+}
+
+.hero__cta .button {
+  font-size: var(--text-md);
+  padding: 0.65em 1.4em;
 }
 
 .hero__dots {
   display: flex;
   gap: 9px;
-  margin-bottom: var(--space-5);
+  margin-top: var(--space-8);
 }
 
 .hero__dots i {
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   animation: hero-settle 0.55s cubic-bezier(0.2, 0.7, 0.3, 1.15) backwards;
 }
@@ -40,31 +81,99 @@
   }
 }
 
-.hero__slogan {
-  font-family: var(--font-display);
-  font-weight: var(--weight-display);
-  font-size: var(--text-display);
-  line-height: 1.08;
-  letter-spacing: var(--tracking-tight);
+/* --- Portrait --- */
+.hero__photo {
+  margin: 0;
+  justify-self: end;
+  max-width: 380px;
+}
+
+.hero__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 48px -20px rgba(34, 41, 59, 0.35);
+}
+
+.hero__photo figcaption {
+  margin-top: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--color-ink-tertiary);
+  text-align: right;
+}
+
+/* --- Upcoming public concerts --- */
+.concerts {
+  padding: var(--space-8) 0 var(--space-9);
+  border-top: var(--border-hairline);
+}
+
+.concerts .hero__eyebrow {
+  margin-bottom: var(--space-2);
+}
+
+.concerts__title {
+  font-size: var(--text-2xl);
+  margin: 0 0 var(--space-6);
+}
+
+.concerts__list .view-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: var(--space-5);
+}
+
+.concert-card {
+  background: var(--color-surface);
+  border: var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  border-top: 4px solid var(--dot-purple);
+}
+
+/* The cards cycle through the logotype's dot colours */
+.concerts__list .views-row:nth-child(4n + 2) .concert-card { border-top-color: var(--dot-red); }
+.concerts__list .views-row:nth-child(4n + 3) .concert-card { border-top-color: var(--dot-gold); }
+.concerts__list .views-row:nth-child(4n + 4) .concert-card { border-top-color: var(--dot-navy); }
+
+.concert-card__date {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-ink-secondary);
+  margin: 0 0 var(--space-3);
+}
+
+.concert-card__title {
+  font-size: var(--text-lg);
   margin: 0;
 }
 
-.hero__lede {
-  margin: var(--space-5) 0 0;
-  font-size: var(--text-md);
+.concert-card__info {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
   color: var(--color-ink-secondary);
-  max-width: 30em;
 }
 
-.hero__cta {
-  display: flex;
-  gap: var(--space-4);
-  margin-top: var(--space-7);
-  flex-wrap: wrap;
+.concert-card__info p {
+  margin: 0;
 }
 
 /* The hero is the front page's one heading; the duplicate page title
    block would just repeat the site name under it */
 .path-frontpage .block-page-title-block {
   display: none;
+}
+
+@media (max-width: 780px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+    padding: var(--space-7) 0;
+  }
+
+  .hero__photo {
+    justify-self: start;
+    max-width: 320px;
+  }
 }
