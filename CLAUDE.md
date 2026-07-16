@@ -68,7 +68,7 @@ Detta är en grundbult i allt som byggs på sajten och väger tyngre än teknisk
 
 ## Pågående och planerat
 
-- Notregistret omdesignat 2026-07-16: katalograder (titel, medverkande, fil-chips där Noter-pdf har accentton och stämfilerna är tysta, framförd-rad) plus snabbsök via `notes-filter.js`. Stämetiketter parsas ur filnamnsmönstret "Titel - Stämma.mp3". Kvarvarande städkandidater: modulerna views_accordion, jquery_ui_accordion, jquery_ui när inget annat använder dem.
+- Notregistret omdesignat 2026-07-16: katalograder med snabbsök (`notes-filter.js`). Titeln länkar till redigeringsformuläret för behöriga (edit_node-fältet måste vara exclude: false - exkluderade vyfält når inte mallen). Ljudfiler är dolda bakom Lyssna-knappen som öppnar stämmixern (`player.js` + `player.css`): dialog-popup med Web Audio, samtidig uppspelning, volym/Tyst/Solo per stämma, spellista som JSON i knappen i nodens fältordning, fullskärm på mobil. Gamla vue-audio-mixer-snuttarna (unpkg-CDN) är rensade ur 13 musiknoders brödtext. Städkandidater: views_accordion, jquery_ui_accordion, jquery_ui.
 - Publika startsidan ombyggd 2026-07-16 (`page--front.html.twig` + `hero.css`): säljande hero (mottot som H1, "Gör din röst hörd" är bara byline i loggan), porträttplats som väntar på `web/themes/custom/gob/images/mats-olof.jpg` (döljs tills filen finns), CTA till Bilda. Sektionen "Här hör du oss nästa gång" hämtas ur vyn `konserter`: kalendarieposter med bocken `field_publik` visas för alla (node access-omskrivning avstängd i vyn - medvetet, admin väljer vad som blir publikt) och försvinner automatiskt efter sitt datum. Designskissen `web/designforslag.html` är borttagen.
 - Deploy-rutin (`deploy.sh` efter noters mönster) byggs inför driftsättning.
 
@@ -81,5 +81,6 @@ Produktionens databas behålls vid driftsättning; dessa lokala databasändringa
 - 20 kalendarieposter hösten 2026 (16 övningar onsdagar 18.20 med sluttid 20.35, gudstjänst 15/11, adventskör 29/11, julkonsert 16/12, seminarium 10/10 utan anmälan).
 - Nya taxonomitermer i `datum_framforande` skapade via autocreate.
 - Tre Pixabay-platshållarbilder i `sites/default/files/publikbild/` kopplade till höstens publika poster via `field_publik_bild` (bild + fil-entiteter är innehåll, följer inte git).
+- 13 musiknoders brödtext rensad från inbäddade vue-audio-mixer-spelare (ersatta av temats mixer).
 - Kyrkans namnbyte till Equmeniakyrkan Betel: brödtexten, 13 kalendarieposters information och 11 termer i `datum_framforande` omskrivna lokalt (skriptet `_import/byt-kyrknamn.php` kan köras om mot produktionsdatabasen).
 - Alla lösenord nollställs inför lansering; medlemmarna sätter nya (Carina67 har lokalt testlösenord).

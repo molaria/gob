@@ -93,7 +93,7 @@ display:
           entity_type: node
           plugin_id: entity_link_edit
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
