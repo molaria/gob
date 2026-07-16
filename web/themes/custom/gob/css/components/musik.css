@@ -1,0 +1,95 @@
+/* ==========================================================================
+   Gott och Blandat — Note register
+   Catalogue rows: title, credits, and the files as clickable chips.
+   Sheet music (pdf) gets the accent wash, listening files stay quiet.
+   ========================================================================== */
+
+.view-id-musik {
+  padding: var(--space-3) var(--space-6);
+}
+
+.note-row {
+  padding: var(--space-5) 0;
+}
+
+.views-row + .views-row .note-row {
+  border-top: var(--border-hairline);
+}
+
+.note-row__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.note-row__title {
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  letter-spacing: normal;
+  margin: 0;
+}
+
+.note-row__edit {
+  margin-left: auto;
+}
+
+.note-row__edit a {
+  font-size: var(--text-xs);
+  color: var(--color-ink-tertiary);
+}
+
+.note-row__edit a:hover {
+  color: var(--color-accent-strong);
+}
+
+.note-row__credits {
+  font-size: var(--text-sm);
+  color: var(--color-ink-secondary);
+  margin: var(--space-1) 0 0;
+}
+
+.note-row__files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+/* File chips: real links with generous hit areas */
+a.chip--file {
+  background: var(--color-surface-raised);
+  border-color: var(--color-line);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-medium);
+  padding: 5px 12px;
+  text-decoration: none;
+}
+
+a.chip--file:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-tint);
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+/* Sheet music stands out from the listening files */
+a.chip--file-pdf {
+  background: var(--color-accent-tint);
+  border-color: transparent;
+  color: var(--color-accent-strong);
+  font-weight: var(--weight-semibold);
+}
+
+a.chip--file-pdf:hover {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.note-row__meta {
+  font-size: var(--text-xs);
+  color: var(--color-ink-tertiary);
+  margin: var(--space-3) 0 0;
+}

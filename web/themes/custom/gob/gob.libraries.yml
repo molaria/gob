@@ -22,6 +22,18 @@ members:
     js/members-table.js: {}
   dependencies:
     - core/drupal
+
+musik:
+  version: VERSION
+  css:
+    component:
+      css/components/musik.css: {}
+      css/components/table-tools.css: {}
+  js:
+    js/notes-filter.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
     - core/once
 
 base:

@@ -26,6 +26,10 @@ function gob_preprocess_views_view(array &$variables): void {
   if ($variables['view']->id() === 'medlemmar') {
     $variables['#attached']['library'][] = 'gob/members';
   }
+  // Catalogue styling and instant filtering for the note register.
+  if ($variables['view']->id() === 'musik') {
+    $variables['#attached']['library'][] = 'gob/musik';
+  }
 }
 
 /**

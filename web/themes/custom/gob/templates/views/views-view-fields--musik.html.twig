@@ -1,0 +1,77 @@
+{#
+/**
+ * @file
+ * Note register row: everything visible at once, no accordion.
+ * Sheet music and listening files render as clickable chips. The voice
+ * label is parsed from the filename pattern "Title - Voice.mp3".
+ */
+#}
+{% set node = row._entity %}
+{% set title = node.label %}
+
+{# Credit line: composers, lyricists, arrangers, artists #}
+{% set kompositorer = [] %}
+{% for item in node.field_kompositor %}
+  {% if item.entity %}{% set kompositorer = kompositorer|merge([item.entity.label]) %}{% endif %}
+{% endfor %}
+{% set textforfattare = [] %}
+{% for item in node.field_textforfattare %}
+  {% if item.entity %}{% set textforfattare = textforfattare|merge([item.entity.label]) %}{% endif %}
+{% endfor %}
+{% set arrangorer = [] %}
+{% for item in node.field_arrangor %}
+  {% if item.entity %}{% set arrangorer = arrangorer|merge([item.entity.label]) %}{% endif %}
+{% endfor %}
+{% set artister = [] %}
+{% for item in node.field_artister %}
+  {% if item.entity %}{% set artister = artister|merge([item.entity.label]) %}{% endif %}
+{% endfor %}
+{% set credits = [] %}
+{% if kompositorer|length %}{% set credits = credits|merge([kompositorer|join(', ')]) %}{% endif %}
+{% if textforfattare|length %}{% set credits = credits|merge(['text ' ~ textforfattare|join(', ')]) %}{% endif %}
+{% if arrangorer|length %}{% set credits = credits|merge(['arr. ' ~ arrangorer|join(', ')]) %}{% endif %}
+{% if artister|length %}{% set credits = credits|merge(['med ' ~ artister|join(', ')]) %}{% endif %}
+
+<article class="note-row">
+  <div class="note-row__head">
+    <h3 class="note-row__title">{{ title }}</h3>
+    {% if node.field_sattning.0.entity %}
+      <span class="chip chip--plain">{{ node.field_sattning.0.entity.label }}</span>
+    {% endif %}
+    <span class="note-row__edit">{{ fields.edit_node.content }}</span>
+  </div>
+
+  {% if credits|length %}
+    <p class="note-row__credits">{{ credits|join(' · ') }}</p>
+  {% endif %}
+
+  {% if node.field_filer|length %}
+    <div class="note-row__files">
+      {% for item in node.field_filer %}
+        {% set file = item.entity %}
+        {% if file %}
+          {% set is_pdf = 'pdf' in file.filemime.value %}
+          {# Strip extension, then the "Title - " prefix #}
+          {% set base = file.filename.value|split('.')|slice(0, -1)|join('.') %}
+          {% set voice = base|replace({(title ~ ' - '): '', (title): ''})|trim(' -–') %}
+          {% if is_pdf %}
+            {% set label = voice ?: 'Noter' %}
+            {% set label = label == 'Noter' ? 'Noter' : 'Noter ' ~ label %}
+          {% else %}
+            {% set label = voice ?: 'Lyssna' %}
+          {% endif %}
+          <a class="chip chip--file{{ is_pdf ? ' chip--file-pdf' }}"
+             href="{{ file_url(file.uri.value) }}" target="_blank" rel="noopener">{{ label }}</a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if node.field_hepp|length %}
+    {% set framforanden = [] %}
+    {% for item in node.field_hepp %}
+      {% if item.entity %}{% set framforanden = framforanden|merge([item.entity.label]) %}{% endif %}
+    {% endfor %}
+    <p class="note-row__meta">Framförd: {{ framforanden|join(', ') }}</p>
+  {% endif %}
+</article>
