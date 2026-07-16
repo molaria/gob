@@ -1,6 +1,6 @@
 # Gott och Blandat (gob.betelkyrkan.se)
 
-Sajt för kören Gott och Blandat vid Betelkyrkan i Örebro. Drupal 11, Composer-hanterad. Publik presentationssida plus intranät för ca 40 körmedlemmar: kalendarium med anmälan, notregister med lyssning, medlemsmatrikel, fikalista.
+Sajt för kören Gott och Blandat vid Equmeniakyrkan Betel i Örebro (fram till 2026 kallad Betelkyrkan - domänen gob.betelkyrkan.se lever kvar). Drupal 11, Composer-hanterad. Publik presentationssida plus intranät för ca 40 körmedlemmar: kalendarium med anmälan, notregister med lyssning, medlemsmatrikel, fikalista.
 
 ## GRUNDBULT: extrem enkelhet för medlemmarna
 
@@ -81,4 +81,5 @@ Produktionens databas behålls vid driftsättning; dessa lokala databasändringa
 - 20 kalendarieposter hösten 2026 (16 övningar onsdagar 18.20 med sluttid 20.35, gudstjänst 15/11, adventskör 29/11, julkonsert 16/12, seminarium 10/10 utan anmälan).
 - Nya taxonomitermer i `datum_framforande` skapade via autocreate.
 - Tre Pixabay-platshållarbilder i `sites/default/files/publikbild/` kopplade till höstens publika poster via `field_publik_bild` (bild + fil-entiteter är innehåll, följer inte git).
+- Kyrkans namnbyte till Equmeniakyrkan Betel: brödtexten, 13 kalendarieposters information och 11 termer i `datum_framforande` omskrivna lokalt (skriptet `_import/byt-kyrknamn.php` kan köras om mot produktionsdatabasen).
 - Alla lösenord nollställs inför lansering; medlemmarna sätter nya (Carina67 har lokalt testlösenord).
