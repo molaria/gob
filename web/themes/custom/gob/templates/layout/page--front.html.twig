@@ -1,0 +1,64 @@
+{#
+/**
+ * @file
+ * Front page: the hero from the approved design proposal sits between
+ * the header and the content. The voice-part dots settle in one by one
+ * (motion killed globally under prefers-reduced-motion), the slogan
+ * carries the identity, and the primary call to action leads to the
+ * Bilda sign-up. Members who are not logged in get the login link as
+ * the secondary action.
+ */
+#}
+<header role="banner">
+  <div class="site-nav">
+    {{ page.header }}
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Meny">
+      <span class="nav-toggle__bar"></span>
+      <span class="nav-toggle__bar"></span>
+    </button>
+  </div>
+</header>
+
+{% if logged_in and welcome_name %}
+  <div class="site-welcome">Välkommen {{ welcome_name }} till Kören Gott och Blandats intranätsidor.</div>
+{% endif %}
+
+<div class="layout-container">
+
+  {{ page.highlighted }}
+
+  <section class="hero">
+    <div class="hero__dots" aria-hidden="true">
+      <i style="background:var(--dot-purple)"></i>
+      <i style="background:var(--dot-red)"></i>
+      <i style="background:var(--dot-gold)"></i>
+      <i style="background:var(--dot-navy)"></i>
+      <i style="background:var(--dot-gold)"></i>
+      <i style="background:var(--dot-plum)"></i>
+    </div>
+    <h1 class="hero__slogan">Gör din röst hörd</h1>
+    <p class="hero__lede">Vi är kören i Betelkyrkan Örebro som sjungit ihop sedan 1997. Blandad repertoar, medveten röstträning och alltid fika före sången.</p>
+    <div class="hero__cta">
+      <a class="button button--primary" href="https://www.bilda.nu/arr/1154066/damkoren-gott-och-blandat-intresseanmalan-557324">Sjung med oss</a>
+      {% if not logged_in %}
+        <a class="button" href="/user/login">Logga in som medlem</a>
+      {% endif %}
+    </div>
+  </section>
+
+  <main role="main">
+    <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
+
+    <div class="layout-content">
+      {{ page.content }}
+    </div>{# /.layout-content #}
+
+  </main>
+
+  {% if page.footer %}
+    <footer role="contentinfo">
+      {{ page.footer }}
+    </footer>
+  {% endif %}
+
+</div>{# /.layout-container #}

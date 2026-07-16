@@ -69,7 +69,7 @@ Detta är en grundbult i allt som byggs på sajten och väger tyngre än teknisk
 ## Pågående och planerat
 
 - Notregistret omdesignat 2026-07-16: katalograder (titel, medverkande, fil-chips där Noter-pdf har accentton och stämfilerna är tysta, framförd-rad) plus snabbsök via `notes-filter.js`. Stämetiketter parsas ur filnamnsmönstret "Titel - Stämma.mp3". Kvarvarande städkandidater: modulerna views_accordion, jquery_ui_accordion, jquery_ui när inget annat använder dem.
-- Publika startsidan ska få hero enligt designskissen (`web/designforslag.html`, tas bort när klar).
+- Publika startsidan fick sin hero 2026-07-16 (`page--front.html.twig` + `hero.css`): prickarna landar en i taget, devisen som H1, CTA till Bildas intresseanmälan samt inloggningsknapp för anonyma. Designskissen `web/designforslag.html` är borttagen - designsystemet lever i temat nu.
 - Deploy-rutin (`deploy.sh` efter noters mönster) byggs inför driftsättning.
 
 ## Deploylista: lokala INNEHÅLLSÄNDRINGAR (följer inte med config/git)

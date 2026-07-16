@@ -1,0 +1,70 @@
+/* ==========================================================================
+   Gott och Blandat — Front page hero
+   The voice-part dots settle in one by one, then the slogan from the
+   logotype carries the page. Global reduced-motion rules in base.css
+   neutralise the animation for those who ask for calm.
+   ========================================================================== */
+
+.hero {
+  padding: var(--space-10) 0 var(--space-9);
+  max-width: 34em;
+}
+
+.hero__dots {
+  display: flex;
+  gap: 9px;
+  margin-bottom: var(--space-5);
+}
+
+.hero__dots i {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  animation: hero-settle 0.55s cubic-bezier(0.2, 0.7, 0.3, 1.15) backwards;
+}
+
+.hero__dots i:nth-child(2) { animation-delay: 0.07s; }
+.hero__dots i:nth-child(3) { animation-delay: 0.14s; }
+.hero__dots i:nth-child(4) { animation-delay: 0.21s; }
+.hero__dots i:nth-child(5) { animation-delay: 0.28s; }
+.hero__dots i:nth-child(6) { animation-delay: 0.35s; }
+
+@keyframes hero-settle {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero__slogan {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-display);
+  line-height: 1.08;
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+}
+
+.hero__lede {
+  margin: var(--space-5) 0 0;
+  font-size: var(--text-md);
+  color: var(--color-ink-secondary);
+  max-width: 30em;
+}
+
+.hero__cta {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+  flex-wrap: wrap;
+}
+
+/* The hero is the front page's one heading; the duplicate page title
+   block would just repeat the site name under it */
+.path-frontpage .block-page-title-block {
+  display: none;
+}
