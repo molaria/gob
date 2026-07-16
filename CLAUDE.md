@@ -58,9 +58,16 @@ Detta är en grundbult i allt som byggs på sajten och väger tyngre än teknisk
 - Matrikeln: klientsökning, sortering, kombinerat löpnummer (13:1).
 - Städat: sticky-modulen avinstallerad, asset injector-snuttarna avstängda.
 
+## Anmälan: trelägesmodellen (klar 2026-07-16)
+
+- Modulen `gob_attendance`: tabellen `gob_attendance` (uid, nid, status attending/declined, changed; ingen rad = ej svarat), service `gob_attendance.manager`, rutt `/anmalan/{node}/{ja|nej}` (inloggning + CSRF-token, kräver anmälningsbar kalendariumnod) med bekräftelsemeddelanden.
+- Vyn kalendarium är rensad från flaggfält/relationer och kör cache none (raderna varierar per användare); status och svarslänkar injiceras i preprocess från modulen.
+- Närvarosidan (`gob_attending`) portad till nya tabellen; `FlagStatusResolver` borttagen.
+- 939 flaggningar migrerade till 853 besked (583 anmälda, 270 avanmälda) med samma resolverlogik, stickprovsverifierat inklusive ändringspar.
+- Flaggdata och flag-modulen ligger KVAR orörda som säkerhetsnät. Städkandidater när modellen bevisat sig i drift: modulerna flag och kalendarium_deltagande, de fyra flaggorna, flaggningstabellens data.
+
 ## Pågående och planerat
 
-- Anmälan har tre lägen: anmäld, avanmäld, ej svarat. Idag löst med fyra flaggor i par (`deltar`/`deltar_andrad`, `deltar_ej`/`delta_ej_andrad`) där ändrad-flaggan inverterar förstasvaret. Systemet ska ersättas med en riktig trelägesmodell (egen tabell: uid, nid, status, tidpunkt; ingen rad = ej svarat) med migrering av befintliga flaggningar.
 - Notregistret (`/musik`) väntar på omdesign (bort från jQuery UI-dragspel, mot katalogmönster som noter).
 - Publika startsidan ska få hero enligt designskissen (`web/designforslag.html`, tas bort när klar).
 - Deploy-rutin (`deploy.sh` efter noters mönster) byggs inför driftsättning.

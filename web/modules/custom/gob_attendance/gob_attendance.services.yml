@@ -1,0 +1,4 @@
+services:
+  gob_attendance.manager:
+    class: Drupal\gob_attendance\AttendanceManager
+    arguments: ['@database', '@datetime.time']

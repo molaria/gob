@@ -1,0 +1,8 @@
+name: 'GoB Attendance'
+type: module
+description: 'Three-state attendance for kalendarium events: attending, declined or no answer. Replaces the old four-flag workaround.'
+core_version_requirement: ^11
+package: GoB
+dependencies:
+  - drupal:node
+  - drupal:user

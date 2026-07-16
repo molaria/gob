@@ -7,4 +7,4 @@ dependencies:
   - drupal:user
   - drupal:node
   - drupal:taxonomy
-  - drupal:flag
+  - gob_attendance:gob_attendance

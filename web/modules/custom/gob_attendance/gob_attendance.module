@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Injects attendance state and answer URLs into the kalendarium rows.
+ */
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ *
+ * The kalendarium view has render caching disabled, so per-user values
+ * are safe to inject here.
+ */
+function gob_attendance_preprocess_views_view_fields(array &$variables): void {
+  if ($variables['view']->id() !== 'kalendarium') {
+    return;
+  }
+
+  $node = $variables['row']->_entity;
+  $account = \Drupal::currentUser();
+  /** @var \Drupal\gob_attendance\AttendanceManager $manager */
+  $manager = \Drupal::service('gob_attendance.manager');
+
+  $variables['attendance_status'] = $manager->getStatus((int) $account->id(), (int) $node->id());
+
+  $destination = \Drupal::destination()->getAsArray();
+  foreach (['ja' => 'attend_url', 'nej' => 'decline_url'] as $answer => $key) {
+    $variables[$key] = Url::fromRoute('gob_attendance.set', [
+      'node' => $node->id(),
+      'answer' => $answer,
+    ], ['query' => $destination])->toString();
+  }
+}

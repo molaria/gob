@@ -130,17 +130,16 @@
   justify-content: center;
 }
 
-.cal-acc__state:has(.chip--attending) .flag a,
-.cal-acc__state:has(.chip--declined) .flag a {
+.cal-acc__state:has(.chip--attending) .att-btn,
+.cal-acc__state:has(.chip--declined) .att-btn {
   display: block;
   text-align: center;
   /* Same pill radius as the status chip above */
   border-radius: var(--radius-pill);
 }
 
-/* Flag links dressed as buttons. The flag module wraps each link in
-   <div class="flag flag-NAME"> so the flag name selects the variant. */
-.cal-acc__state .flag a {
+/* Answer links dressed as buttons */
+.cal-acc__state .att-btn {
   display: inline-block;
   font-size: var(--text-xs);
   font-weight: var(--weight-semibold);
@@ -152,10 +151,9 @@
 }
 
 /* First answer: both buttons identical, so neither looks pre-selected.
-   Filled purple also separates them from the quiet change buttons
-   that appear once an answer is given. */
-.cal-acc__state .flag-deltar a,
-.cal-acc__state .flag-deltar-ej a {
+   Filled purple also separates them from the quiet change button
+   that appears once an answer is given. */
+.att-btn--answer {
   background: var(--color-accent);
   border-color: var(--color-accent);
   color: var(--color-on-accent);
@@ -164,24 +162,24 @@
   text-align: center;
 }
 
-.cal-acc__state .flag-deltar a:hover,
-.cal-acc__state .flag-deltar-ej a:hover {
+.att-btn--answer:hover {
   background: var(--color-accent-hover);
   border-color: var(--color-accent-hover);
+  color: var(--color-on-accent);
+  text-decoration: none;
 }
 
-/* Change-of-mind links: small quiet buttons, no fill */
-.cal-acc__state .flag-deltar-andrad a,
-.cal-acc__state .flag-delta-ej-andrad a {
+/* Change-of-mind link: small quiet button, no fill */
+.att-btn--change {
   background: transparent;
   border-color: var(--color-line);
   color: var(--color-ink-secondary);
 }
 
-.cal-acc__state .flag-deltar-andrad a:hover,
-.cal-acc__state .flag-delta-ej-andrad a:hover {
+.att-btn--change:hover {
   border-color: var(--color-ink-tertiary);
   color: var(--color-ink);
+  text-decoration: none;
 }
 
 /* --- Body --- */
@@ -263,7 +261,7 @@
     gap: var(--space-2);
   }
 
-  .cal-acc__state .flag a {
+  .cal-acc__state .att-btn {
     display: block;
     text-align: center;
   }

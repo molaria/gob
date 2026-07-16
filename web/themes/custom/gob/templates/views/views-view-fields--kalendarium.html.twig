@@ -4,21 +4,15 @@
  * Kalendarium row: a native <details> accordion.
  * The first row (= next upcoming event) starts open via the counter field.
  *
- * Attendance state comes from the four-flag system:
- *   flagged   = deltar          flagged_2 = deltar_andrad
- *   flagged_1 = deltar_ej       flagged_3 = delta_ej_andrad
- * deltar without ändrad = attending, with ändrad = declined; the
- * deltar_ej pair mirrors that. No flags at all = no answer yet.
+ * Attendance comes from the gob_attendance module, which injects
+ * attendance_status ('attending', 'declined' or null = no answer yet)
+ * plus attend_url and decline_url in preprocess. Answer links reload
+ * the page and leave a confirmation message.
  */
 #}
 {% set node = row._entity %}
 {% set signup = node.field_anmalan_mojlig.value == '1' %}
 {% set is_first = fields.counter.content|render|striptags|trim == '1' %}
-{# flag_flagged renders the string 0 or 1 #}
-{% set f  = fields.flagged.content|render|striptags|trim == '1' %}
-{% set f1 = fields.flagged_1.content|render|striptags|trim == '1' %}
-{% set f2 = fields.flagged_2.content|render|striptags|trim == '1' %}
-{% set f3 = fields.flagged_3.content|render|striptags|trim == '1' %}
 {# Concert terms are named with an ISO date prefix (2026-10-24 ...),
    so sorting on the label gives chronological order, soonest first #}
 {% set konserter = [] %}
@@ -28,13 +22,6 @@
   {% endif %}
 {% endfor %}
 {% set konserter = konserter|sort((a, b) => a.label > b.label ? 1 : -1) %}
-{% if (f and not f2) or (f1 and f3) %}
-  {% set state = 'attending' %}
-{% elseif (f and f2) or (f1 and not f3) %}
-  {% set state = 'declined' %}
-{% else %}
-  {% set state = 'none' %}
-{% endif %}
 
 <details class="cal-acc" {% if is_first %}open{% endif %}>
   <summary class="cal-acc__summary">
@@ -52,20 +39,20 @@
     </span>
     <span class="cal-acc__title">{{ node.label }}</span>
     {# Answering must never require expanding the row: state and buttons
-       live in the always-visible summary. The flag links reload the page,
+       live in the always-visible summary. The links reload the page,
        so a stray details-toggle on click has no lasting effect. #}
     <span class="cal-acc__state">
       {% if signup %}
-        {% if state == 'attending' %}
+        {% if attendance_status == 'attending' %}
           <span class="chip chip--attending">Du är anmäld</span>
-          {{ f ? fields.link_flag_2.content : fields.link_flag_3.content }}
-        {% elseif state == 'declined' %}
+          <a class="att-btn att-btn--change" href="{{ decline_url }}">Ändra</a>
+        {% elseif attendance_status == 'declined' %}
           <span class="chip chip--declined">Du är avanmäld</span>
-          {{ f ? fields.link_flag_2.content : fields.link_flag_3.content }}
+          <a class="att-btn att-btn--change" href="{{ attend_url }}">Ändra</a>
         {% else %}
           <span class="cal-acc__ask">Kommer du?</span>
-          {{ fields.link_flag.content }}
-          {{ fields.link_flag_1.content }}
+          <a class="att-btn att-btn--answer" href="{{ attend_url }}">Ja</a>
+          <a class="att-btn att-btn--answer" href="{{ decline_url }}">Nej</a>
         {% endif %}
       {% endif %}
     </span>

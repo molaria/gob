@@ -5,6 +5,7 @@ namespace Drupal\gob_attending\Service;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\gob_attendance\AttendanceManager;
 use Drupal\user\Entity\User;
 
 /**
@@ -12,19 +13,11 @@ use Drupal\user\Entity\User;
  */
 class AttendingService {
 
-  protected EntityTypeManagerInterface $entityTypeManager;
-  protected Connection $database;
-  protected FlagStatusResolver $resolver;
-
   public function __construct(
-    EntityTypeManagerInterface $entityTypeManager,
-    Connection $database,
-    FlagStatusResolver $resolver
-  ) {
-    $this->entityTypeManager = $entityTypeManager;
-    $this->database = $database;
-    $this->resolver = $resolver;
-  }
+    protected EntityTypeManagerInterface $entityTypeManager,
+    protected Connection $database,
+    protected AttendanceManager $attendance,
+  ) {}
 
   /**
    * Bygger ALL data som Twig behöver.
@@ -35,8 +28,7 @@ class AttendingService {
     $nodes = $this->loadKalendariumNodes();
     $users = $this->loadActiveChoirMembers();
 
-    // 🔴 Viktigt: array_keys($nodes) är nu RIKTIGA nid
-    $flagMap = $this->loadFlagMap(array_keys($users), array_keys($nodes));
+    $statusMap = $this->attendance->getStatusMap(array_keys($users), array_keys($nodes));
 
     foreach ($nodes as $nid => $node) {
 
@@ -47,19 +39,11 @@ class AttendingService {
       ];
 
       foreach ($users as $uid => $user) {
-        $flags = $flagMap[$uid][$nid] ?? [];
-
-        // 🔍 Logg för felsökning (kan tas bort senare)
-        \Drupal::logger('gob_attending')->notice(
-          'Resolver input: uid=@uid nid=@nid flags=@flags',
-          [
-            '@uid' => $uid,
-            '@nid' => $nid,
-            '@flags' => print_r($flags, TRUE),
-          ]
-        );
-
-        $status = $this->resolver->resolve($flags);
+        $status = match ($statusMap[$uid][$nid] ?? NULL) {
+          AttendanceManager::ATTENDING => 'kommer',
+          AttendanceManager::DECLINED => 'kommer_ej',
+          default => 'inget_besked',
+        };
         $rows[$status][] = $this->buildUserRow($user);
       }
 
@@ -117,38 +101,6 @@ class AttendingService {
       ->execute();
 
     return $storage->loadMultiple($ids);
-  }
-
-  /**
-   * Bygger flaggkarta: [uid][nid][flag_id] = TRUE
-   */
-  protected function loadFlagMap(array $uids, array $nids): array {
-    $map = [];
-
-    if (!$uids || !$nids) {
-      return $map;
-    }
-
-    // 🔍 Debug
-    \Drupal::logger('gob_attending')->notice(
-      'FlagMap query uids=@uids nids=@nids',
-      [
-        '@uids' => implode(',', $uids),
-        '@nids' => implode(',', $nids),
-      ]
-    );
-
-    $result = $this->database->select('flagging', 'f')
-      ->fields('f', ['uid', 'entity_id', 'flag_id'])
-      ->condition('uid', $uids, 'IN')
-      ->condition('entity_id', $nids, 'IN')
-      ->execute();
-
-    foreach ($result as $row) {
-      $map[$row->uid][$row->entity_id][$row->flag_id] = TRUE;
-    }
-
-    return $map;
   }
 
   /**
