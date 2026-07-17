@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Song tip row: number, title and composer as a quiet catalogue line,
+ * matching the note register. Everything is read from the node so the
+ * client-side search filters on all of it.
+ */
+#}
+{% set node = row._entity %}
+{% set kompositorer = [] %}
+{% for item in node.field_kompositor2 %}
+  {% if item.entity %}{% set kompositorer = kompositorer|merge([item.entity.label]) %}{% endif %}
+{% endfor %}
+
+<article class="tip-row">
+  <span class="tip-row__nr">{{ fields.counter.content }}</span>
+  <span class="tip-row__title">{{ node.label }}</span>
+  {% if kompositorer|length %}
+    <span class="tip-row__by">{{ kompositorer|join(', ') }}</span>
+  {% endif %}
+</article>

@@ -179,3 +179,15 @@ historik:
     component:
       css/components/timeline.css: {}
       css/components/chips.css: {}
+
+lattips:
+  version: VERSION
+  css:
+    component:
+      css/components/lattips.css: {}
+      css/components/table-tools.css: {}
+  js:
+    js/notes-filter.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

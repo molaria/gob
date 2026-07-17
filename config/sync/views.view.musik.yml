@@ -456,7 +456,7 @@ display:
       display_extenders: {  }
       path: musik2
       menu:
-        type: normal
+        type: none
         title: Noter
         description: 'Noter och lyssning'
         weight: -46
