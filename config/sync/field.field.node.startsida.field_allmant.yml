@@ -1,0 +1,22 @@
+uuid: 5f3e9cc5-d5be-4c64-8c31-45502a7b5bf1
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_allmant
+    - node.type.startsida
+  module:
+    - text
+id: node.startsida.field_allmant
+field_name: field_allmant
+entity_type: node
+bundle: startsida
+label: 'Allmän information'
+description: 'Visas efter konserterna, före körledaren.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

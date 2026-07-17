@@ -49,6 +49,9 @@
 .hero__cta .button {
   font-size: var(--text-md);
   padding: 0.65em 1.4em;
+  /* Core adds 15px side margins to some buttons; the flex gap owns
+     the spacing here so every button sits equally apart */
+  margin: 0;
 }
 
 .hero__dots {
@@ -158,6 +161,19 @@
   .leader__photo {
     max-width: 200px;
   }
+}
+
+/* General info block, before the leader section */
+.about {
+  max-width: 40em;
+  margin: var(--space-8) 0;
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
+  color: var(--color-ink-secondary);
+}
+
+.about p {
+  margin: 0 0 var(--space-4);
 }
 
 /* --- Upcoming public concerts --- */

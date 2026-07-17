@@ -3,6 +3,7 @@ langcode: sv
 status: true
 dependencies:
   config:
+    - field.field.node.startsida.field_allmant
     - field.field.node.startsida.field_ingress
     - field.field.node.startsida.field_ledare_bild
     - field.field.node.startsida.field_ledare_text
@@ -22,6 +23,7 @@ content:
     region: content
 hidden:
   body: true
+  field_allmant: true
   field_ingress: true
   field_ledare_bild: true
   field_ledare_text: true

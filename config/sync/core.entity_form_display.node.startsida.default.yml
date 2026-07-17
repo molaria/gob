@@ -3,6 +3,7 @@ langcode: sv
 status: true
 dependencies:
   config:
+    - field.field.node.startsida.field_allmant
     - field.field.node.startsida.field_ingress
     - field.field.node.startsida.field_ledare_bild
     - field.field.node.startsida.field_ledare_text
@@ -29,6 +30,14 @@ content:
     weight: 10
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_allmant:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
     third_party_settings: {  }
   field_ingress:
     type: text_textarea

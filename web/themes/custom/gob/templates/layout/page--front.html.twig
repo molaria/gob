@@ -65,6 +65,12 @@
     </section>
   {% endif %}
 
+  {% if node.field_allmant.value %}
+    <section class="about">
+      {{ node.field_allmant.processed }}
+    </section>
+  {% endif %}
+
   {% if node.field_ledare_text.value or node.field_ledare_bild.entity %}
     <section class="leader">
       {% if node.field_ledare_bild.entity %}

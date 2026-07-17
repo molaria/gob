@@ -8,4 +8,4 @@ description: 'En dirigent i körens historia. Titeln är namnet.'
 help: null
 new_revision: true
 preview_mode: 1
-display_submitted: true
+display_submitted: false
