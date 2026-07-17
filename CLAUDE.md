@@ -49,6 +49,7 @@ Detta är en grundbult i allt som byggs på sajten och väger tyngre än teknisk
 - Twig-sandboxen tillåter inte `.count` på fältlistor - använd `|length`.
 - Datum lagras i UTC; konvertera alltid via Europe/Stockholm vid skapande (sommartid/vintertid skiljer).
 - Avinstallation av en modul RADERAR config som beror på den. En vy kan ha ett stalt `views_accordion` kvar i `dependencies.module` fastän ingen display använder stilen - rensa beroendet i config/sync innan modulen tas bort, annars försvinner vyn.
+- **VAPN (behörighet för musik/kalendarium/internt) implementerar bara `hook_node_access`, inte `hook_node_access_records`.** Det skyddar enskilda nodsidor, filnedladdningar (mp3/pdf) och Views-listningssidor korrekt (alla verifierade 2026-07-17: anonym nekas, inloggad medlem släpps in). Men `node_access`-databastabellen är aldrig ifylld av VAPN - den innehåller bara Drupals standardrad "alla ser allt". Varje NY funktion som filtrerar bulklistor via den tabellen (kärnans sökmodul gjorde det - fixat genom att ta bort `search content`/`access content overview` från anonym 2026-07-17) kommer läcka skyddat innehåll. Kontrollera detta INNAN du lägger till: JSON:API, RSS/sitemap, eller en Views-vy med tillägget "Access: node access checked" på musik/kalendarium/internt-innehåll.
 
 ## Klart (hösten 2026-arbetet)
 
