@@ -1,0 +1,11 @@
+uuid: d3ac05d4-b608-4d67-8fe8-378c1538f5f0
+langcode: sv
+status: true
+dependencies: {  }
+name: Dirigent
+type: dirigent
+description: 'En dirigent i körens historia. Titeln är namnet.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

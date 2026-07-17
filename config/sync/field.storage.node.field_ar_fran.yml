@@ -1,0 +1,20 @@
+uuid: d987cc43-4a11-4876-8565-3a298b086a65
+langcode: sv
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_ar_fran
+field_name: field_ar_fran
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

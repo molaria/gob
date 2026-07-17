@@ -1,12 +1,13 @@
 {#
 /**
  * @file
- * Front page: sell the choir. Hero with the new portrait, an automatic
- * "hear us live" section fed by the konserter view (public events
- * disappear by themselves once their date has passed), then the
- * editable presentation text from the node below.
+ * Front page (startsida content type). Everything visible here is edited
+ * on the node: motto, ingress, and the körledare photo + text. Concerts
+ * come from the konserter view (past events drop off by themselves).
  *
- * hero_photo and konserter are provided by gob_preprocess_page().
+ * The node's own fields are hidden from the default view so nothing is
+ * duplicated; this template renders them. `konserter` is provided by
+ * gob_preprocess_page().
  */
 #}
 <header role="banner">
@@ -27,11 +28,13 @@
 
   {{ page.highlighted }}
 
-  <section class="hero">
+  <section class="hero hero--text">
     <div class="hero__text">
       <p class="hero__eyebrow">Kören Gott och Blandat · Equmeniakyrkan Betel Örebro</p>
-      <h1 class="hero__slogan">Glädje, gemenskap och sång&shy;utveckling</h1>
-      <p class="hero__lede">Vi i Kören Gott och Blandat har sjungit ihop sedan 1997. Vi är numera en kör för kvinnoröster och vi sjunger musik i många olika stilar, pop, rock och klassiskt. Ingen genre är främmande för oss. Medveten röstträning och alltid fika före sången. Nu finns det plats för fler röster.</p>
+      <h1 class="hero__slogan">{{ node.field_motto.value }}</h1>
+      {% if node.field_ingress.value %}
+        <div class="hero__lede">{{ node.field_ingress.processed }}</div>
+      {% endif %}
       <div class="hero__cta">
         <a class="button button--primary" href="https://www.bilda.nu/arr/1154066/damkoren-gott-och-blandat-intresseanmalan-557324">Sjung med oss</a>
         <a class="button" href="/info">Så funkar det</a>
@@ -50,12 +53,6 @@
         <i style="background:var(--dot-plum)"></i>
       </div>
     </div>
-    {% if hero_photo %}
-      <figure class="hero__photo">
-        <img src="{{ hero_photo }}" alt="Mats-Olof Liljegren, körledare, framför Equmeniakyrkan Betel" fetchpriority="high">
-        <figcaption>Mats-Olof Liljegren leder kören sedan 2012</figcaption>
-      </figure>
-    {% endif %}
   </section>
 
   {% if konserter %}
@@ -68,13 +65,27 @@
     </section>
   {% endif %}
 
+  {% if node.field_ledare_text.value or node.field_ledare_bild.entity %}
+    <section class="leader">
+      {% if node.field_ledare_bild.entity %}
+        <figure class="leader__photo">
+          <img src="{{ file_url(node.field_ledare_bild.entity.uri.value) }}"
+               alt="{{ node.field_ledare_bild.alt }}">
+        </figure>
+      {% endif %}
+      <div class="leader__text">
+        <p class="hero__eyebrow">Körledaren</p>
+        {{ node.field_ledare_text.processed }}
+        <p class="leader__more"><a href="/historik">Körens dirigenter genom åren →</a></p>
+      </div>
+    </section>
+  {% endif %}
+
   <main role="main">
     <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
-
     <div class="layout-content">
       {{ page.content }}
-    </div>{# /.layout-content #}
-
+    </div>
   </main>
 
   {% if page.footer %}

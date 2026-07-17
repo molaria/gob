@@ -1,0 +1,109 @@
+/* ==========================================================================
+   Gott och Blandat — Conductor timeline (/historik)
+   Vertical line, newest on top, a dot per conductor in the logotype's
+   colours, years in the margin, name + portrait + text in a card.
+   ========================================================================== */
+
+.view-id-historik .view-content {
+  position: relative;
+  max-width: 640px;
+  margin: var(--space-7) 0;
+  padding-left: var(--space-8);
+}
+
+/* The vertical line */
+.view-id-historik .view-content::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--color-line-strong);
+}
+
+.tl-item {
+  position: relative;
+  padding: 0 0 var(--space-8) var(--space-6);
+}
+
+.tl-item:last-child {
+  padding-bottom: 0;
+}
+
+/* Dot on the line, cycling through the logotype palette */
+.tl-item__dot {
+  position: absolute;
+  left: calc(-1 * var(--space-8) + 1px);
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--dot-purple);
+  border: 3px solid var(--color-canvas);
+}
+
+.tl-item:nth-child(5n + 2) .tl-item__dot { background: var(--dot-red); }
+.tl-item:nth-child(5n + 3) .tl-item__dot { background: var(--dot-gold); }
+.tl-item:nth-child(5n + 4) .tl-item__dot { background: var(--dot-navy); }
+.tl-item:nth-child(5n + 5) .tl-item__dot { background: var(--dot-plum); }
+
+.tl-item--current .tl-item__dot {
+  box-shadow: 0 0 0 4px var(--color-accent-tint);
+}
+
+.tl-item__years {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink-secondary);
+  margin: 0 0 var(--space-3);
+}
+
+.tl-item__card {
+  display: flex;
+  gap: var(--space-5);
+  align-items: flex-start;
+  background: var(--color-surface);
+  border: var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.tl-item--current .tl-item__card {
+  border-color: var(--color-line-strong);
+  box-shadow: 0 12px 28px -18px rgba(34, 41, 59, 0.25);
+}
+
+.tl-item__photo {
+  width: 72px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.tl-item__name {
+  font-size: var(--text-lg);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.tl-item__text {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-ink-secondary);
+}
+
+.tl-item__text p {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .tl-item__card {
+    flex-direction: column;
+  }
+}

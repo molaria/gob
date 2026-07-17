@@ -1,0 +1,20 @@
+uuid: ef5daac9-200d-4349-8152-c27543e3810f
+langcode: sv
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_ar_till
+field_name: field_ar_till
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

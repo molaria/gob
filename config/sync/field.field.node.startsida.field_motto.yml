@@ -1,0 +1,19 @@
+uuid: 9960d97c-507e-495c-aef4-4d0410c4ae35
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_motto
+    - node.type.startsida
+id: node.startsida.field_motto
+field_name: field_motto
+entity_type: node
+bundle: startsida
+label: Motto
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Conductor timeline entry: years, name, portrait and text on a vertical
+ * line. Sorted newest first by the view, so the present sits on top; the
+ * current conductor (no end year) is marked. Dot colours cycle through
+ * the logotype palette (set in CSS).
+ */
+#}
+{% set node = row._entity %}
+{% set from = node.field_ar_fran.0.value %}
+{% set to = node.field_ar_till.0.value %}
+{# Only the topmost (most recent) entry with no end year is the sitting
+   conductor; an older entry without an end year just has an unknown one. #}
+{% set is_first = fields.counter.content|render|striptags|trim == '1' %}
+{% set current = is_first and to is empty %}
+
+<article class="tl-item{{ current ? ' tl-item--current' }}">
+  <span class="tl-item__dot" aria-hidden="true"></span>
+  <p class="tl-item__years">{% if current %}{{ from }}&ndash;nu{% elseif to %}{{ from }}&ndash;{{ to }}{% else %}från {{ from }}{% endif %}</p>
+  <div class="tl-item__card">
+    {% if node.field_portratt.entity %}
+      <img class="tl-item__photo" src="{{ file_url(node.field_portratt.entity.uri.value) }}" alt="{{ node.field_portratt.alt }}">
+    {% endif %}
+    <div class="tl-item__body">
+      <h2 class="tl-item__name">{{ node.label }}{% if current %} <span class="chip chip--attending">Nuvarande</span>{% endif %}</h2>
+      {% if node.body.value %}
+        <div class="tl-item__text">{{ node.body.processed }}</div>
+      {% endif %}
+    </div>
+  </div>
+</article>

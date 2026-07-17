@@ -103,6 +103,63 @@
   text-align: right;
 }
 
+/* Text-only hero (portrait now lives in the leader section) */
+.hero--text {
+  grid-template-columns: 1fr;
+  max-width: 40em;
+}
+
+/* --- Körledaren: photo beside bio, a warm panel --- */
+.leader {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: center;
+  margin: var(--space-9) 0;
+  padding: var(--space-8);
+  background: var(--color-surface);
+  border: var(--border-hairline);
+  border-radius: var(--radius-lg);
+}
+
+.leader__photo {
+  margin: 0;
+}
+
+.leader__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16px 36px -18px rgba(34, 41, 59, 0.35);
+}
+
+.leader__text {
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
+  color: var(--color-ink-secondary);
+}
+
+.leader__text p {
+  margin: 0 0 var(--space-4);
+}
+
+.leader__more a {
+  font-weight: var(--weight-semibold);
+}
+
+@media (max-width: 640px) {
+  .leader {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding: var(--space-6);
+  }
+
+  .leader__photo {
+    max-width: 200px;
+  }
+}
+
 /* --- Upcoming public concerts --- */
 .concerts {
   padding: var(--space-8) 0 var(--space-9);

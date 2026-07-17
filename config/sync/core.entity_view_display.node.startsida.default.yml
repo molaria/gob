@@ -1,0 +1,29 @@
+uuid: 1e83b8a7-a98b-4187-a106-e9490f2204fa
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.field.node.startsida.field_ingress
+    - field.field.node.startsida.field_ledare_bild
+    - field.field.node.startsida.field_ledare_text
+    - field.field.node.startsida.field_motto
+    - node.type.startsida
+  module:
+    - user
+id: node.startsida.default
+targetEntityType: node
+bundle: startsida
+mode: default
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  body: true
+  field_ingress: true
+  field_ledare_bild: true
+  field_ledare_text: true
+  field_motto: true
+  langcode: true

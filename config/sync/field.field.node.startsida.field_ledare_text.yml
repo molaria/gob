@@ -1,0 +1,22 @@
+uuid: a72a907b-c8de-4b12-ad3e-ef37967c23c0
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ledare_text
+    - node.type.startsida
+  module:
+    - text
+id: node.startsida.field_ledare_text
+field_name: field_ledare_text
+entity_type: node
+bundle: startsida
+label: 'Körledare, text'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

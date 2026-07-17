@@ -1,0 +1,22 @@
+uuid: 9b1aefca-08e8-414f-b144-7600532d5da9
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ingress
+    - node.type.startsida
+  module:
+    - text
+id: node.startsida.field_ingress
+field_name: field_ingress
+entity_type: node
+bundle: startsida
+label: Ingress
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

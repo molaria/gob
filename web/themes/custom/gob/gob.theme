@@ -24,13 +24,6 @@ function gob_preprocess_page(array &$variables): void {
     if (!empty($konserter)) {
       $variables['konserter'] = $konserter;
     }
-
-    // The hero portrait ships as a theme asset; skip the figure until
-    // the file exists so the page never shows a broken image.
-    $theme_path = \Drupal::service('extension.list.theme')->getPath('gob');
-    if (file_exists(DRUPAL_ROOT . '/' . $theme_path . '/images/mats-olof.jpg')) {
-      $variables['hero_photo'] = '/' . $theme_path . '/images/mats-olof.jpg';
-    }
   }
 }
 
@@ -49,6 +42,10 @@ function gob_preprocess_views_view(array &$variables): void {
   // Tinted tile grid for the info page.
   if ($variables['view']->id() === 'info') {
     $variables['#attached']['library'][] = 'gob/info';
+  }
+  // Conductor timeline.
+  if ($variables['view']->id() === 'historik') {
+    $variables['#attached']['library'][] = 'gob/historik';
   }
 }
 

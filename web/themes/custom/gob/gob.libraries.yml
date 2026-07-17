@@ -172,3 +172,10 @@ program:
   dependencies:
     - core/drupal
     - core/once
+
+historik:
+  version: VERSION
+  css:
+    component:
+      css/components/timeline.css: {}
+      css/components/chips.css: {}
