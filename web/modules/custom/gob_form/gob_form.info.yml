@@ -1,5 +1,5 @@
 name: 'GoB Form'
 type: module
-description: 'Layout tweaks for GoB editing forms, independent of the admin theme.'
+description: 'GoB glue: form layout tweaks, concert programme sync and access.'
 core_version_requirement: ^11
 package: GoB

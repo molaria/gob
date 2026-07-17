@@ -1,0 +1,28 @@
+uuid: dc4021e1-a845-47e9-9a94-2ef54df59fc6
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_program
+    - node.type.musik
+    - taxonomy.vocabulary.datum_framforande
+id: taxonomy_term.datum_framforande.field_program
+field_name: field_program
+entity_type: taxonomy_term
+bundle: datum_framforande
+label: Program
+description: 'Välj noterna som framförs och dra dem i den ordning de ska stå.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      musik: musik
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+field_type: entity_reference

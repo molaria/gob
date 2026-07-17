@@ -5,6 +5,23 @@
  * Layout tweaks for GoB editing forms.
  */
 
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_access() for taxonomy_term.
+ *
+ * Concert term pages list songs with listening, like the note
+ * register, so they are for logged-in members only.
+ */
+function gob_form_taxonomy_term_access(EntityInterface $term, $operation, AccountInterface $account) {
+  if ($operation === 'view' && $term->bundle() === 'datum_framforande' && $account->isAnonymous()) {
+    return AccessResult::forbidden()->addCacheContexts(['user.roles:anonymous']);
+  }
+  return AccessResult::neutral();
+}
+
 /**
  * Implements hook_form_alter().
  */
@@ -12,5 +29,67 @@ function gob_form_form_alter(array &$form, $form_state, $form_id) {
   // Start and end time side by side on the kalendarium form.
   if (in_array($form_id, ['node_kalendarium_form', 'node_kalendarium_edit_form'])) {
     $form['#attached']['library'][] = 'gob_form/kalendarium-form';
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert() for taxonomy_term.
+ */
+function gob_form_taxonomy_term_insert(EntityInterface $term) {
+  _gob_form_sync_hepp($term);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update() for taxonomy_term.
+ */
+function gob_form_taxonomy_term_update(EntityInterface $term) {
+  _gob_form_sync_hepp($term);
+}
+
+/**
+ * Keeps the songs' field_hepp (the "Framförd" list) in step with the
+ * concert term's field_program. The term is the place you manage the
+ * programme; the reverse reference on each song is maintained here so
+ * the note register keeps showing where a song was performed.
+ */
+function _gob_form_sync_hepp(EntityInterface $term): void {
+  if ($term->bundle() !== 'datum_framforande' || !$term->hasField('field_program')) {
+    return;
+  }
+  $tid = (int) $term->id();
+
+  // Songs the term now points to, in programme order.
+  $wanted = [];
+  foreach ($term->get('field_program') as $item) {
+    if ($item->target_id) {
+      $wanted[(int) $item->target_id] = TRUE;
+    }
+  }
+
+  // Songs that currently list this term in field_hepp.
+  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $has_now = $node_storage->getQuery()
+    ->condition('type', 'musik')
+    ->condition('field_hepp', $tid)
+    ->accessCheck(FALSE)
+    ->execute();
+  $has_now = array_map('intval', $has_now);
+
+  // Add the term to songs newly in the programme.
+  $to_add = array_diff(array_keys($wanted), $has_now);
+  // Remove the term from songs dropped from the programme.
+  $to_remove = array_diff($has_now, array_keys($wanted));
+
+  foreach ($node_storage->loadMultiple(array_merge($to_add, $to_remove)) as $node) {
+    $nid = (int) $node->id();
+    $values = array_filter(
+      array_map(fn($i) => (int) $i['target_id'], $node->get('field_hepp')->getValue()),
+      fn($v) => $v !== $tid
+    );
+    if (isset($wanted[$nid])) {
+      $values[] = $tid;
+    }
+    $node->set('field_hepp', array_values(array_unique($values)));
+    $node->save();
   }
 }

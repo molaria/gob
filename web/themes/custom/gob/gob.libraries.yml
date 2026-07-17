@@ -158,3 +158,17 @@ info:
   css:
     component:
       css/components/info.css: {}
+
+program:
+  version: VERSION
+  css:
+    component:
+      css/components/program.css: {}
+      css/components/chips.css: {}
+      css/components/musik.css: {}
+      css/components/player.css: {}
+  js:
+    js/player.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

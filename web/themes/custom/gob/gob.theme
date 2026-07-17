@@ -53,6 +53,15 @@ function gob_preprocess_views_view(array &$variables): void {
 }
 
 /**
+ * Implements hook_preprocess_taxonomy_term().
+ */
+function gob_preprocess_taxonomy_term(array &$variables): void {
+  if ($variables['term']->bundle() === 'datum_framforande') {
+    $variables['#attached']['library'][] = 'gob/program';
+  }
+}
+
+/**
  * Implements hook_preprocess_image_widget().
  */
 function gob_preprocess_image_widget(array &$variables): void {
