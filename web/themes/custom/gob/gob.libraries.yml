@@ -191,3 +191,9 @@ lattips:
   dependencies:
     - core/drupal
     - core/once
+
+utskick:
+  version: VERSION
+  css:
+    component:
+      css/components/news.css: {}

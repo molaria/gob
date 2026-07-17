@@ -51,6 +51,10 @@ function gob_preprocess_views_view(array &$variables): void {
   if ($variables['view']->id() === 'lattips') {
     $variables['#attached']['library'][] = 'gob/lattips';
   }
+  // News accordion.
+  if ($variables['view']->id() === 'utskick') {
+    $variables['#attached']['library'][] = 'gob/utskick';
+  }
 }
 
 /**

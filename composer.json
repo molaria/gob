@@ -28,8 +28,6 @@
         "drupal/flag": "^5.0",
         "drupal/honeypot": "^2.2",
         "drupal/imce": "^3.1",
-        "drupal/jquery_ui": "^1.7",
-        "drupal/jquery_ui_accordion": "^2.1",
         "drupal/login_destination": "^2.0@beta",
         "drupal/mail_login": "^4.0",
         "drupal/mailsystem": "^4.5",
@@ -44,7 +42,6 @@
         "drupal/time_field": "^2.2",
         "drupal/token": "^1.17",
         "drupal/vapn": "^3.0@alpha",
-        "drupal/views_accordion": "^2.0",
         "drush/drush": "^13",
         "phpmailer/phpmailer": "^6.12",
         "psr/log": "^3.0"

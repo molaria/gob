@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Utskick (news) row: a native <details> accordion. Title in the always
+ * visible summary, the body opens below. Newest is first (view sorts on
+ * created DESC) and starts open.
+ */
+#}
+{% set node = row._entity %}
+{% set is_first = fields.counter.content|render|striptags|trim == '1' %}
+
+<details class="news-item"{% if is_first %} open{% endif %}>
+  <summary class="news-item__summary">
+    <span class="news-item__title">{{ node.label }}</span>
+    <span class="news-item__date">{{ node.created.value|date('j M Y', 'Europe/Stockholm')|replace({
+      'Jan':'jan','Feb':'feb','Mar':'mar','Apr':'apr','May':'maj','Jun':'jun',
+      'Jul':'jul','Aug':'aug','Sep':'sep','Oct':'okt','Nov':'nov','Dec':'dec',
+    }) }}</span>
+  </summary>
+  {% if node.body.value %}
+    <div class="news-item__body">{{ node.body.processed }}</div>
+  {% endif %}
+</details>
