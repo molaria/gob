@@ -1,11 +1,11 @@
-uuid: 28dfbdd3-e144-4402-8f8c-2be826225c2e
+uuid: 29286bf2-3744-46b5-890f-477f2dc6dbc4
 langcode: sv
 status: false
 dependencies:
   module:
     - node
 _core:
-  default_config_hash: 6GCOQ-jP2RbdbHA5YWQ6bT8CfGbqrBYKOSC_XY4E3ZM
+  default_config_hash: d8wBEm7XvJ6H3S0IneDD9PfTBklPIH7GMpxElVemPf8
 id: node.search_result
 label: 'Sökresultat framhäver inmatning'
 description: ''

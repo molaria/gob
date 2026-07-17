@@ -6,7 +6,6 @@ dependencies:
     - node.type.tips
     - taxonomy.vocabulary.lattips_kompositor
   module:
-    - actions_permissions
     - contact
     - flag
     - node
@@ -21,7 +20,6 @@ permissions:
   - 'access user contact forms'
   - 'create terms in lattips_kompositor'
   - 'create tips content'
-  - 'execute flag_delete_flagging flagging'
   - 'flag delta_ej_andrad'
   - 'flag deltar'
   - 'flag deltar_andrad'
