@@ -83,10 +83,13 @@
   {% endif %}
 
   {% if node.field_hepp|length %}
-    {% set framforanden = [] %}
-    {% for item in node.field_hepp %}
-      {% if item.entity %}{% set framforanden = framforanden|merge([item.entity.label]) %}{% endif %}
-    {% endfor %}
-    <p class="note-row__meta">Framförd: {{ framforanden|join(', ') }}</p>
+    <div class="note-row__meta">
+      <b class="note-row__meta-label">Framförd:</b>
+      <ul class="note-row__performances">
+        {% for item in node.field_hepp %}
+          {% if item.entity %}<li>{{ item.entity.label }}</li>{% endif %}
+        {% endfor %}
+      </ul>
+    </div>
   {% endif %}
 </article>

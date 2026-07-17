@@ -93,3 +93,19 @@ a.chip--file-pdf:hover {
   color: var(--color-ink-tertiary);
   margin: var(--space-3) 0 0;
 }
+
+.note-row__meta-label {
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink-secondary);
+}
+
+/* Performances: one per line, tight bullets */
+.note-row__performances {
+  margin: var(--space-1) 0 0;
+  padding-left: 1.3em;
+  list-style: disc;
+}
+
+.note-row__performances li + li {
+  margin-top: 2px;
+}
