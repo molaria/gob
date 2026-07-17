@@ -1,6 +1,6 @@
 name: 'Gott och Blandat'
 type: theme
-'base theme': stable9
+'base theme': false
 version: 1.0.0
 libraries:
   - gob/global
