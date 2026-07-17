@@ -6,8 +6,6 @@ dependencies:
     - comment
     - contact
     - media
-    - node
-    - search
     - system
 _core:
   default_config_hash: 6WavjUYXIegP9AAg2zXGx54MWIVoomC3SZhNiqe-Dyk
@@ -18,7 +16,5 @@ is_admin: false
 permissions:
   - 'access comments'
   - 'access content'
-  - 'access content overview'
   - 'access site-wide contact form'
-  - 'search content'
   - 'view media'
