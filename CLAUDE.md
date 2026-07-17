@@ -56,7 +56,7 @@ Detta är en grundbult i allt som byggs på sajten och väger tyngre än teknisk
 - Apple-lik navigering: tunn blur-list, rullgardiner utan symboler som öppnas vid hover/fokus, hamburgarmeny på mobil, välkomstrad för inloggade.
 - Admin-menyn dold och åtkomstskyddad för vanliga medlemmar (epost/telefon-vyerna kräver administrator eller kalendarium_admin).
 - Matrikeln: klientsökning, sortering, kombinerat löpnummer (13:1).
-- Städat: sticky-modulen avinstallerad, asset injector-snuttarna avstängda.
+- Städat 2026-07-17: Drupal-kärnan säkerhetsuppdaterad 11.3.13 -> 11.4.4. Avinstallerade och borttagna ur composer: webform-sviten (oanvänd), asset_injector, countdown, counter, menu_bootstrap_icon, twbstools, views_bulk_operations, views_field_view, samt aldrig-aktiverade registration, css_editor, block_field, field_permissions, user_display_name, htmlmail, upgrade_status. Gamla Bootstrap-temana (bootstrap5, bootstrap5_admin, custom gobsubtheme + b5subtheme) borttagna - bara `gob` + admin `claro` kvar. Contrib-moduler: 41 -> 29. Kvar att städa: flag-stacken (se nedan) och views_accordion/jquery_ui (behövs av vyerna lattips och utskick som Mats-Olof använder).
 
 ## Anmälan: trelägesmodellen (klar 2026-07-16)
 
