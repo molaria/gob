@@ -43,7 +43,7 @@
             {% set base = file.filename.value|split('.')|slice(0, -1)|join('.') %}
             {% set voice = base|replace({(title ~ ' - '): '', (title): ''})|trim(' -–') %}
             {% if 'pdf' in file.filemime.value %}
-              {% set pdfs = pdfs|merge([{'label': voice ? 'Noter ' ~ voice : 'Noter', 'url': file_url(file.uri.value)}]) %}
+              {% set pdfs = pdfs|merge([{'voice': voice, 'url': file_url(file.uri.value)}]) %}
             {% elseif 'audio' in file.filemime.value %}
               {% set tracks = tracks|merge([{'label': voice ?: 'Lyssningsexempel', 'url': file_url(file.uri.value)}]) %}
             {% endif %}
@@ -57,8 +57,9 @@
               {% if node.field_sattning.0.entity %}<span class="chip chip--plain">{{ node.field_sattning.0.entity.label }}</span>{% endif %}
             </span>
             <span class="prog-acc__actions">
+              {# One PDF: just "Noter". Several: name each so the voice shows #}
               {% for pdf in pdfs %}
-                <a class="chip chip--file chip--file-pdf" href="{{ pdf.url }}" target="_blank" rel="noopener">{{ pdf.label }}</a>
+                <a class="chip chip--file chip--file-pdf" href="{{ pdf.url }}" target="_blank" rel="noopener">{{ pdfs|length > 1 and pdf.voice ? 'Noter ' ~ pdf.voice : 'Noter' }}</a>
               {% endfor %}
               {% if tracks|length %}
                 <button class="note-row__listen" type="button"

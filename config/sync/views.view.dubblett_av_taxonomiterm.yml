@@ -1357,6 +1357,7 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      enabled: false
       fields:
         title:
           id: title
@@ -2556,6 +2557,7 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      enabled: false
       fields:
         title:
           id: title
