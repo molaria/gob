@@ -18,7 +18,8 @@ Detta är en grundbult i allt som byggs på sajten och väger tyngre än teknisk
 
 - Lokal utveckling via DDEV. Kör alltid drush och composer genom DDEV: `ddev drush ...`, `ddev composer ...`.
 - Docroot: `web/`. Lokal adress: https://gob.ddev.site
-- Produktion: `mol@e-pro.se -p 1369`, `/var/www/gob.betelkyrkan.se/` (äldre layout, migreras till `web/`-docroot vid driftsättning). Produktion rörs aldrig härifrån utan uttrycklig överenskommelse.
+- Produktion: `mol@e-pro.se -p 1369`, `/var/www/gob.betelkyrkan.se/`, `web/`-docroot (cutovern klar 2026-07-18). Produktion rörs aldrig härifrån utan uttrycklig överenskommelse.
+- Deploy: git-pull-baserad pipeline (`.github/workflows/deploy.yml`), triggas av push till `main` på GitHub. Se `DEPLOY.md` för hela flödet, dagliga kommandon och felsökning. Gamla rsync-skriptet `deploy.sh` är borttaget.
 - Databas lokalt: MySQL 8.4, collation `utf8mb4_sv_0900_ai_ci` (`.ddev/mysql/collation.cnf`).
 - Privata filer lokalt: `../private/` (utanför docroot, gitignorerad). På servern `/var/www/private/`.
 
@@ -77,7 +78,8 @@ Detta är en grundbult i allt som byggs på sajten och väger tyngre än teknisk
 - Konsertprogram 2026-07-17: dragbart fält `field_program` (referens till musiknoder, obegränsat) på `datum_framforande`-termer - allt sköts på termen: välj noter, dra ordning, skriv fri info i beskrivningen. Termsidan (`taxonomy-term--datum-framforande.html.twig` + `program.css`) visar programmet som accordion (hopfällt: titel + Noter/Lyssna, utfällt: full notinfo), inloggat-bara via `gob_form_taxonomy_term_access`. Sångernas `field_hepp` (Framförd-listan) synkas automatiskt från programmet i `gob_form` (`_gob_form_sync_hepp`). 24 termer migrerade från befintliga field_hepp-kopplingar (bokstavsordning som start).
 - Publika startsidan är egen innehållstyp `startsida` (nod 899, ersatte page-nod 770 som avpublicerades): motto, ingress, körledare-foto + text redigeras på noden, fälten dolda i standardvisningen och ritas av `page--front.html.twig`. Körledarsektion (foto + bakgrund, länk till /historik) efter konserterna. Dirigenthistorik: innehållstyp `dirigent` (från/till-år, porträtt, text), vyn `historik` på publika `/historik` som tidslinje (`views-view-fields--historik.html.twig` + `timeline.css`), nutid överst via counter, prickar ur logopaletten. Tre dirigenter inlagda (Caroline Ericson Welin från 1997, Emila Kiland 2010-2012, Mats-Olof 2012-nu).
 - Konserter på framsidan hämtas ur vyn `konserter`: kalendarieposter med bocken `field_publik` (+ ev. `field_publik_bild`) visas för alla (node access-omskrivning avstängd i vyn - medvetet, admin väljer vad som blir publikt) och försvinner automatiskt efter sitt datum (tidscache 6 h). Korten i Apple-stil (`hero.css`).
-- Deploy-rutin (`deploy.sh` efter noters mönster) byggs inför driftsättning.
+- Driftsättningen av kod/config klar 2026-07-19: servern körde redan `web/`-docroot och rätt tema (cutovern hade skett manuellt), kopplades om från en fristående `master`-gren till att spåra den riktiga `main`-historiken (`git checkout -b main origin/main`, verifierat ofarligt - bara `.claude/settings.local.json` och två DDEV-filer skiljde). Git-pull-pipelinen (se Miljö-sektionen) verifierad med ett skarpt test: nod-antal 307 före och efter, sajten svarade 200 genom hela flödet.
+- **Kvar:** köra `_import/`-skripten (listan nedan) mot produktionsdatabasen - det är nästa steg, inget av det sker automatiskt via pipelinen (den rör aldrig nodinnehåll, se `DEPLOY.md` punkt c).
 
 ## Deploylista: lokala INNEHÅLLSÄNDRINGAR (följer inte med config/git)
 
