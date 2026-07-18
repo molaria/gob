@@ -50,6 +50,36 @@ class AttendanceManager {
   }
 
   /**
+   * Aggregate counts for one event, among a given set of member uids.
+   *
+   * @return array{attending: int, declined: int, no_response: int}
+   */
+  public function getCounts(int $nid, array $memberUids): array {
+    $attending = 0;
+    $declined = 0;
+    if ($memberUids) {
+      $result = $this->database->select('gob_attendance', 'a')
+        ->fields('a', ['status'])
+        ->condition('nid', $nid)
+        ->condition('uid', $memberUids, 'IN')
+        ->execute();
+      foreach ($result as $row) {
+        if ($row->status === self::ATTENDING) {
+          $attending++;
+        }
+        elseif ($row->status === self::DECLINED) {
+          $declined++;
+        }
+      }
+    }
+    return [
+      'attending' => $attending,
+      'declined' => $declined,
+      'no_response' => max(0, count($memberUids) - $attending - $declined),
+    ];
+  }
+
+  /**
    * Status map for many members and events: [uid][nid] => status.
    */
   public function getStatusMap(array $uids, array $nids): array {

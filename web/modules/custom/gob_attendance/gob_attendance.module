@@ -32,4 +32,22 @@ function gob_attendance_preprocess_views_view_fields(array &$variables): void {
       'answer' => $answer,
     ], ['query' => $destination])->toString();
   }
+
+  $variables['attendance_counts'] = $manager->getCounts((int) $node->id(), _gob_attendance_member_uids());
+}
+
+/**
+ * Uids of active choir members - the roster "no response" is counted
+ * against. Cached per request since every kalendarium row needs it.
+ */
+function _gob_attendance_member_uids(): array {
+  $uids = &drupal_static(__FUNCTION__);
+  if ($uids === NULL) {
+    $uids = array_values(array_map('intval', \Drupal::entityQuery('user')
+      ->condition('status', 1)
+      ->condition('roles', 'aktiv_kormedlem')
+      ->accessCheck(FALSE)
+      ->execute()));
+  }
+  return $uids;
 }
