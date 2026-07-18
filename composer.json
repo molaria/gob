@@ -23,6 +23,7 @@
         "drupal/core-project-message": "^11",
         "drupal/core-recommended": "^11.3.3",
         "drupal/core-vendor-hardening": "^11",
+        "drupal/draggableviews": "^2.1",
         "drupal/entity_reference_revisions": "^1.14",
         "drupal/feeds": "^3.2",
         "drupal/flag": "^5.0",

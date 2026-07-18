@@ -6,6 +6,10 @@
  * supporting copy, and a large line drawing anchored bottom right.
  * Rubrik, text and ikon are all real fields on the infokort content
  * type - no more guessing from the title or splitting the body text.
+ * Icon is one of the full Lucide set (lucide.dev, ISC licence), vendored
+ * locally as a sprite - referenced by <use>, nothing fetched externally.
+ * Redigera-länken syns bara för den som har redigeringsrätt (Views
+ * entity-länkfält självbegränsar).
  */
 #}
 {% set node = row._entity %}
@@ -15,31 +19,18 @@
 {% set ikon = node.field_icon.0.value %}
 
 <article class="info-tile">
+  {% if fields.edit_node.content|render|striptags|trim %}
+    <span class="info-tile__edit">{{ fields.edit_node.content }}</span>
+  {% endif %}
   <p class="info-tile__label">{{ titel }}</p>
   <h2 class="info-tile__statement">{{ statement }}</h2>
   {% if rest %}
     <p class="info-tile__text">{{ rest }}</p>
   {% endif %}
 
-  {# Icons from the Lucide catalogue (lucide.dev, ISC licence), inlined
-     so nothing is fetched from outside #}
   <span class="info-tile__art" aria-hidden="true">
-    {% if ikon == 'cup' %}
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></svg>
-    {% elseif ikon == 'card' %}
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-    {% elseif ikon == 'shirt' %}
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
-    {% elseif ikon == 'binder' %}
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M16 2v20"/></svg>
-    {% elseif ikon == 'pin' %}
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
-    {% elseif ikon == 'note' %}
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-    {% elseif ikon == 'clock' %}
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
-    {% else %}
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-    {% endif %}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <use href="/themes/custom/gob/icons/lucide-sprite.svg#{{ ikon }}"></use>
+    </svg>
   </span>
 </article>

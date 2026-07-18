@@ -44,6 +44,26 @@
   box-shadow: 0 24px 48px -20px rgba(34, 41, 59, 0.35);
 }
 
+/* Only rendered for users with edit access to the node - invisible to
+   everyone else, so it never clutters the card for a general visitor. */
+.info-tile__edit {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink-tertiary);
+}
+
+.info-tile__edit a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.info-tile__edit a:hover {
+  color: var(--color-accent);
+}
+
 /* Category label and artwork share the card's colour; the cards cycle
    through the logotype palette (readable ink variants) */
 .info-tile__label,
