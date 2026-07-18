@@ -19,8 +19,13 @@
    conductor; an older entry without an end year just has an unknown one. #}
 {% set is_first = fields.counter.content|render|striptags|trim == '1' %}
 {% set current = is_first and to is empty and not hiatus %}
-{% set name_parts = node.label|split(' ') %}
-{% set initials = (name_parts|first|slice(0, 1)) ~ (name_parts|length > 1 ? name_parts|last|slice(0, 1) : '') %}
+{# One letter per name part, splitting on both spaces and hyphens, so
+   "Mats-Olof Liljegren" becomes MOL, not just ML. #}
+{% set name_parts = node.label|replace({'-': ' '})|split(' ') %}
+{% set initials = '' %}
+{% for part in name_parts %}
+  {% set initials = initials ~ part|slice(0, 1) %}
+{% endfor %}
 
 <article class="tl-item{{ current ? ' tl-item--current' }}{{ hiatus ? ' tl-item--hiatus' }}">
   <span class="tl-item__dot" aria-hidden="true"></span>
