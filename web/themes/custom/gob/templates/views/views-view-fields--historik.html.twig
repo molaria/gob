@@ -28,8 +28,8 @@
 {% endfor %}
 
 <article class="tl-item{{ current ? ' tl-item--current' }}{{ hiatus ? ' tl-item--hiatus' }}">
+  <p class="tl-item__years">{% if current %}{{ from }}&ndash;nu{% elseif to and to != from %}{{ from }}&ndash;{{ to }}{% elseif to %}{{ from }}{% else %}från {{ from }}{% endif %}</p>
   <span class="tl-item__dot" aria-hidden="true"></span>
-  <p class="tl-item__years">{% if current %}{{ from }}&ndash;nu{% elseif to %}{{ from }}&ndash;{{ to }}{% else %}från {{ from }}{% endif %}</p>
   {% if hiatus %}
     <div class="tl-item__hiatus-text">
       <p class="tl-item__hiatus-label">Vilande</p>
