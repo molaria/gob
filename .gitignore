@@ -25,6 +25,19 @@
 
 # OS cruft
 .DS_Store
+Thumbs.db
+
+# Editors/IDE
+/.idea/
+/.vscode/
+*.swp
+
+# Logs
+*.log
+
+# Secrets kept outside of settings.php (API keys, tokens, etc.)
+.env
+.env.local
 
 # Local private files directory (Drupal file_private_path)
 /private/
