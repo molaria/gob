@@ -1,0 +1,5 @@
+name: 'GoB Infokort'
+type: module
+description: 'Sparar dragen ordning för info-korten på /info.'
+package: GoB
+core_version_requirement: ^11

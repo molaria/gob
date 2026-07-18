@@ -1,0 +1,25 @@
+uuid: ec713fe3-84a2-4408-90f1-c0be7bf34f61
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight
+    - node.type.infokort
+id: node.infokort.field_weight
+field_name: field_weight
+entity_type: node
+bundle: infokort
+label: Ordning
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

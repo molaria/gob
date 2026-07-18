@@ -55,6 +55,28 @@ function gob_preprocess_views_view(array &$variables): void {
   if ($variables['view']->id() === 'utskick') {
     $variables['#attached']['library'][] = 'gob/utskick';
   }
+  // Drag-and-drop card reordering, only worth loading for someone who can
+  // actually use it. Url::fromRoute()->toString() would embed a caching
+  // PLACEHOLDER hash here, not the real token (it's meant to be resolved
+  // later by the render pipeline, which a plain drupalSettings string
+  // never goes through) - call the CSRF service directly instead, with
+  // the same path string the access checker itself computes
+  // (RoutePathGenerationTrait: the route path, leading slash trimmed).
+  if ($variables['view']->id() === 'info' && \Drupal::currentUser()->hasPermission('administer nodes')) {
+    $variables['#attached']['library'][] = 'gob/info-drag';
+    $variables['#attached']['drupalSettings']['gobInfoDrag']['saveUrl'] = '/infokort/ordna?token=' . \Drupal::csrfToken()->get('infokort/ordna');
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ */
+function gob_preprocess_views_view_fields(array &$variables): void {
+  // Lets the info-tile template add the drag handle + data attributes
+  // only for someone who can actually save a new order.
+  if ($variables['view']->id() === 'info') {
+    $variables['can_reorder'] = \Drupal::currentUser()->hasPermission('administer nodes');
+  }
 }
 
 /**

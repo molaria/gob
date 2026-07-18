@@ -3,16 +3,12 @@ langcode: sv
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
     - field.storage.node.body
     - node.type.infokort
-    - system.menu.admin
     - system.menu.main
   module:
-    - draggableviews
     - node
     - text
-    - user
 id: info
 label: Info
 module: views
@@ -156,19 +152,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        draggableviews:
-          id: draggableviews
-          table: node_field_data
-          field: draggableviews
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: nid
-          plugin_id: draggable_views_field
-          label: Innehåll
-          exclude: true
-          element_label_colon: true
         edit_node:
           id: edit_node
           table: node
@@ -245,36 +228,17 @@ display:
         options: {  }
       empty: {  }
       sorts:
-        weight:
-          id: weight
-          table: draggableviews_structure
-          field: weight
+        field_weight_value:
+          id: field_weight_value
+          table: node__field_weight
+          field: field_weight_value
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: draggable_views_sort_default
+          plugin_id: numeric
           order: ASC
           expose:
             label: ''
-            field_identifier: ''
-          exposed: false
-          draggable_views_reference: 'info:infokort_ordning'
-          draggable_views_null_order: after
-          draggable_views_pass_arguments: 0
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: standard
-          order: ASC
-          expose:
-            label: ''
-            field_identifier: ''
           exposed: false
       arguments: {  }
       filters:
@@ -324,75 +288,11 @@ display:
       footer: {  }
       display_extenders: {  }
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
-      tags:
-        - 'config:field.storage.node.body'
-  infokort_ordning:
-    id: infokort_ordning
-    display_title: 'Ordna infokort'
-    display_plugin: page
-    position: 3
-    display_options:
-      title: 'Ordna infokort'
-      access:
-        type: perm
-        options:
-          perm: 'access draggableviews'
-      style:
-        type: table
-        options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          columns:
-            title: title
-          default: '-1'
-          info:
-            title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          override: true
-          sticky: false
-          summary: ''
-          empty_table: false
-          caption: ''
-          description: ''
-          class: ''
-      row:
-        type: 'entity:node'
-        options:
-          view_mode: teaser
-      defaults:
-        access: false
-        title: false
-        style: false
-        row: false
-      display_extenders: {  }
-      path: admin/content/infokort-ordning
-      menu:
-        type: normal
-        title: 'Ordna infokort'
-        description: ''
-        weight: 0
-        expanded: false
-        menu_name: admin
-        parent: ''
-        context: '0'
-    cache_metadata:
-      max-age: 0
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - 'user.node_grants:view'
-        - user.permissions
       tags:
         - 'config:field.storage.node.body'
   page_1:
@@ -425,7 +325,7 @@ display:
         parent: 'menu_link_content:c6ffe0e0-5dbb-4b28-bf92-95b964f71d98'
         context: '0'
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'

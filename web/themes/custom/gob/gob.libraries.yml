@@ -159,6 +159,14 @@ info:
     component:
       css/components/info.css: {}
 
+info-drag:
+  version: VERSION
+  js:
+    js/info-drag.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
 program:
   version: VERSION
   css:

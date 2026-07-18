@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.infokort.body
     - field.field.node.infokort.field_icon
     - field.field.node.infokort.field_statement
+    - field.field.node.infokort.field_weight
     - node.type.infokort
   module:
     - path
@@ -43,6 +44,13 @@ content:
     region: content
     settings:
       size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_weight:
+    type: number
+    weight: 124
+    region: content
+    settings:
       placeholder: ''
     third_party_settings: {  }
   langcode:

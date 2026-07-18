@@ -17,7 +17,6 @@ module:
   datetime: 0
   datetime_range: 0
   dblog: 0
-  draggableviews: 0
   dynamic_page_cache: 0
   editor: 0
   entity_reference_revisions: 0
@@ -30,6 +29,7 @@ module:
   gob_attendance: 0
   gob_attending: 0
   gob_form: 0
+  gob_infokort: 0
   gob_vapn_default: 0
   help: 0
   history: 0

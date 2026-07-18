@@ -64,6 +64,38 @@
   color: var(--color-accent);
 }
 
+/* Drag handle - admin only (see info-tile__edit above). Own corner so
+   it never overlaps the redigera-link. */
+.info-tile__drag {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-ink-tertiary);
+  border-radius: var(--radius-sm);
+  cursor: grab;
+  touch-action: none;
+}
+
+.info-tile__drag:hover {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+.info-tile__drag svg {
+  width: 18px;
+  height: 18px;
+}
+
+.info-tile--dragging {
+  opacity: 0.5;
+  cursor: grabbing;
+}
+
 /* Category label and artwork share the card's colour; the cards cycle
    through the logotype palette (readable ink variants) */
 .info-tile__label,
