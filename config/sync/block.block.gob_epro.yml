@@ -1,0 +1,23 @@
+uuid: eba3ba76-d8cd-4484-99f8-44546990c63a
+langcode: sv
+status: true
+dependencies:
+  content:
+    - 'block_content:e_pro:bd83bf2d-5dd9-4613-a82b-be2930a68f7f'
+  module:
+    - block_content
+  theme:
+    - gob
+id: gob_epro
+theme: gob
+region: footer
+weight: 0
+provider: null
+plugin: 'block_content:bd83bf2d-5dd9-4613-a82b-be2930a68f7f'
+settings:
+  id: 'block_content:bd83bf2d-5dd9-4613-a82b-be2930a68f7f'
+  label: e-pro
+  label_display: '0'
+  provider: block_content
+  view_mode: full
+visibility: {  }

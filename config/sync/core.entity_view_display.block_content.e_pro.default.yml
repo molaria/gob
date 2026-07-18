@@ -1,0 +1,23 @@
+uuid: fe97f42e-5681-44f1-a4b5-f70318e0199b
+langcode: sv
+status: true
+dependencies:
+  config:
+    - block_content.type.e_pro
+    - field.field.block_content.e_pro.field_e_pro
+  module:
+    - text
+id: block_content.e_pro.default
+targetEntityType: block_content
+bundle: e_pro
+mode: default
+content:
+  field_e_pro:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true

@@ -1,0 +1,22 @@
+uuid: 268d4f70-c863-4c65-8244-8dd1f80e06aa
+langcode: sv
+status: true
+dependencies:
+  config:
+    - block_content.type.e_pro
+    - field.storage.block_content.field_e_pro
+  module:
+    - text
+id: block_content.e_pro.field_e_pro
+field_name: field_e_pro
+entity_type: block_content
+bundle: e_pro
+label: e-pro
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text

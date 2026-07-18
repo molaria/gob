@@ -11,7 +11,7 @@ dependencies:
 id: gob_footer_menu
 theme: gob
 region: footer
-weight: 0
+weight: -4
 provider: null
 plugin: 'system_menu_block:footer'
 settings:

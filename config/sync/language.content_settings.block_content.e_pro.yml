@@ -1,0 +1,11 @@
+uuid: d3883dc4-432b-4b12-907c-e1285e67d185
+langcode: sv
+status: true
+dependencies:
+  config:
+    - block_content.type.e_pro
+id: block_content.e_pro
+target_entity_type_id: block_content
+target_bundle: e_pro
+default_langcode: site_default
+language_alterable: false
