@@ -4,14 +4,10 @@ status: true
 dependencies:
   config:
     - field.storage.node.body
-    - node.type.internt
+    - node.type.infokort
     - system.menu.main
-    - taxonomy.vocabulary.tags
-  content:
-    - 'taxonomy_term:tags:3fb613e7-603d-4154-966a-8d1871725405'
   module:
     - node
-    - taxonomy
     - text
 id: info
 label: Info
@@ -215,15 +211,7 @@ display:
           entity_field: type
           plugin_id: bundle
           value:
-            internt: internt
-        tid:
-          id: tid
-          table: taxonomy_index
-          field: tid
-          plugin_id: taxonomy_index_tid
-          value:
-            - 222
-          vid: tags
+            infokort: infokort
       style:
         type: default
         options:

@@ -1,0 +1,45 @@
+uuid: ac1fdbed-6ac2-45f4-ad2a-57afea623231
+langcode: sv
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_icon
+field_name: field_icon
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: cup
+      label: Kopp
+    -
+      value: card
+      label: Kort
+    -
+      value: shirt
+      label: Skjorta
+    -
+      value: binder
+      label: Pärm
+    -
+      value: pin
+      label: Nål
+    -
+      value: note
+      label: Not
+    -
+      value: clock
+      label: Klocka
+    -
+      value: dots
+      label: Prickar
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

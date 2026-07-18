@@ -1,0 +1,21 @@
+uuid: 1478d47c-4f10-4f83-ac87-2670c2a08d2b
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_icon
+    - node.type.infokort
+  module:
+    - options
+id: node.infokort.field_icon
+field_name: field_icon
+entity_type: node
+bundle: infokort
+label: Ikon
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

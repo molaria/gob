@@ -2,32 +2,21 @@
 /**
  * @file
  * Info tile in the manner of Apple's "why buy here" cards: a small
- * coloured category label (the node title), the body's first sentence
- * as a big bold statement, the rest as quiet copy, and a large line
- * drawing anchored bottom right. The icon is picked from keywords in
- * the title, with the voice-part dots as fallback.
+ * coloured category label (the node title), a big bold statement, quiet
+ * supporting copy, and a large line drawing anchored bottom right.
+ * Rubrik, text and ikon are all real fields on the infokort content
+ * type - no more guessing from the title or splitting the body text.
  */
 #}
 {% set node = row._entity %}
 {% set titel = node.label %}
-{% set t = titel|lower %}
-{% set text = node.body.processed|striptags('<br>')|replace({'&nbsp;': ' '})|trim %}
-{% set meningar = text|split('. ') %}
-{% set statement = meningar|first %}
-{% set rest = meningar|slice(1)|join('. ')|trim %}
-
-{% if 'fika' in t %}{% set ikon = 'cup' %}
-{% elseif 'avgift' in t %}{% set ikon = 'card' %}
-{% elseif 'kläder' in t %}{% set ikon = 'shirt' %}
-{% elseif 'pärm' in t %}{% set ikon = 'binder' %}
-{% elseif 'lokal' in t %}{% set ikon = 'pin' %}
-{% elseif 'noter' in t %}{% set ikon = 'note' %}
-{% elseif 'övning' in t %}{% set ikon = 'clock' %}
-{% else %}{% set ikon = 'dots' %}{% endif %}
+{% set statement = node.field_statement.0.value %}
+{% set rest = node.body.0.value ? node.body.processed : '' %}
+{% set ikon = node.field_icon.0.value %}
 
 <article class="info-tile">
   <p class="info-tile__label">{{ titel }}</p>
-  <h2 class="info-tile__statement">{{ statement }}{% if statement|last != '.' and statement|last != '!' %}.{% endif %}</h2>
+  <h2 class="info-tile__statement">{{ statement }}</h2>
   {% if rest %}
     <p class="info-tile__text">{{ rest }}</p>
   {% endif %}

@@ -1,0 +1,24 @@
+uuid: 91029d3f-e0cc-45f7-9fcc-38e88669457b
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.infokort
+  module:
+    - text
+id: node.infokort.body
+field_name: body
+entity_type: node
+bundle: infokort
+label: Text
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

@@ -1,0 +1,19 @@
+uuid: e61043d8-54ce-45b5-bd66-3d637fcd8835
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_statement
+    - node.type.infokort
+id: node.infokort.field_statement
+field_name: field_statement
+entity_type: node
+bundle: infokort
+label: Rubrik
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
