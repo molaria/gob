@@ -2,6 +2,8 @@
 
 Referens för hur kod och konfiguration tar sig från din Mac till produktionsservern, och var gränsen går mot sådant som aldrig ska automatiseras (databasen, uppladdade filer).
 
+<!-- Pipeline first verified end-to-end: 2026-07-19 -->
+
 ## a) Deploy-flödet
 
 Pipelinen (`.github/workflows/deploy.yml`) triggas av varje push till `main` på GitHub. Den loggar in på servern över SSH och kör, i denna ordning:
