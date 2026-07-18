@@ -19,6 +19,7 @@
         "consolidation/log": "^3.0",
         "drupal/address": "^2.0",
         "drupal/admin_toolbar": "^3.6.3",
+        "drupal/config_ignore": "^3.0",
         "drupal/core-composer-scaffold": "^11",
         "drupal/core-project-message": "^11",
         "drupal/core-recommended": "^11.3.3",
