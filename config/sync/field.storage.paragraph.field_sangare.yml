@@ -1,0 +1,20 @@
+uuid: 21b0f4d8-6f1e-4843-add9-9618540f2a3b
+langcode: sv
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - user
+id: paragraph.field_sangare
+field_name: field_sangare
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: user
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

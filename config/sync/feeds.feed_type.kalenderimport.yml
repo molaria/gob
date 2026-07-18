@@ -1,0 +1,106 @@
+uuid: 749e4c68-45ec-408e-b60f-ad252070d573
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.field.node.kalendarium.field_anmalan_mojlig
+    - field.field.node.kalendarium.field_datum
+    - field.field.node.kalendarium.field_information
+    - field.field.node.kalendarium.field_konsert
+    - node.type.kalendarium
+  module:
+    - node
+label: Kalenderimport
+id: kalenderimport
+description: ''
+help: ''
+import_period: -1
+import_period_per_feed: false
+fetcher: upload
+fetcher_configuration:
+  allowed_extensions: 'txt csv tsv xml opml'
+  directory: 'private://feeds'
+parser: csv
+parser_configuration:
+  delimiter: ','
+  no_headers: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  values:
+    type: kalendarium
+  langcode: sv
+  insert_new: 1
+  update_existing: 1
+  update_non_existent: _keep
+  skip_hash_check: false
+  skip_validation: false
+  skip_validation_types: {  }
+  authorize: true
+  revision: false
+  expire: -1
+  owner_feed_author: false
+  owner_id: 1
+custom_sources:
+  titel:
+    value: Titel
+    label: Titel
+    machine_name: titel
+    type: csv
+  datum_och_tid:
+    value: 'Datum och tid'
+    label: 'Datum och tid'
+    machine_name: datum_och_tid
+    type: csv
+  information:
+    value: Information
+    label: Information
+    machine_name: information
+    type: csv
+  anmalan:
+    value: Anmälan
+    label: Anmälan
+    machine_name: anmalan
+    type: csv
+  konsert:
+    value: Konsert
+    label: Konsert
+    machine_name: konsert
+    type: csv
+mappings:
+  -
+    target: title
+    map:
+      value: titel
+    settings:
+      language: sv
+    unique: {  }
+  -
+    target: field_datum
+    map:
+      value: datum_och_tid
+    settings:
+      language: sv
+      timezone: Europe/Stockholm
+  -
+    target: field_information
+    map:
+      value: information
+    settings:
+      language: sv
+      format: plain_text
+  -
+    target: field_anmalan_mojlig
+    map:
+      value: anmalan
+    settings:
+      language: null
+  -
+    target: field_konsert
+    map:
+      target_id: konsert
+    settings:
+      language: null
+      reference_by: name
+      autocreate: false
+      autocreate_bundle: datum_framforande

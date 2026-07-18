@@ -1,0 +1,27 @@
+uuid: d2f6c0bd-6b70-454b-aad3-2a446b0892d4
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_filer
+    - node.type.internt
+  module:
+    - file
+id: node.internt.field_filer
+field_name: field_filer
+entity_type: node
+bundle: internt
+label: Filer
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'txt pdf doc docx jpg png gif mp3 m4a mov'
+  max_filesize: '2 GB'
+  description_field: true
+field_type: file

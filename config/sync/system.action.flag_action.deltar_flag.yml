@@ -1,0 +1,15 @@
+uuid: 6dc02ba5-11c8-403a-b5b4-0ce1f70047c6
+langcode: sv
+status: true
+dependencies:
+  config:
+    - flag.flag.deltar
+  module:
+    - flag
+id: flag_action.deltar_flag
+label: 'Jag vill delta'
+type: node
+plugin: 'flag_action:deltar_flag'
+configuration:
+  flag_id: deltar
+  flag_action: flag

@@ -1,0 +1,14 @@
+uuid: ffc1855b-aa2d-46e9-821e-5d0169012f36
+langcode: sv
+status: true
+dependencies:
+  config:
+    - user.role.aktiv_kormedlem
+  module:
+    - user
+id: user_add_role_action.aktiv_kormedlem
+label: 'Lägg till rollen Aktiv körmedlem till de vald(a) användare'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: aktiv_kormedlem

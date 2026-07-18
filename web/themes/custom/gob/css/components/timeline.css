@@ -1,0 +1,203 @@
+/* ==========================================================================
+   Gott och Blandat — Conductor timeline (/historik)
+   Three-column layout per row: bold year range (its own column, reading
+   toward the line), a dot on the connecting line in the logotype's
+   colours, then a card with initials monogram + name + notice. No
+   photos - most former conductors have none on file, so every entry
+   gets a monogram instead, in its dot's colour. Years the choir had no
+   conductor at all ("viloperiod") render as a thin, muted row - same
+   year column, no card, so the whole timeline stays easy to scan.
+   ========================================================================== */
+
+.view-id-historik .view-content {
+  position: relative;
+  max-width: 700px;
+  margin: var(--space-7) 0;
+}
+
+/* The vertical line, centred on the dot column (84px year col + 8px gap
+   + half of the 24px dot col = 104px from the left edge). */
+.view-id-historik .view-content::before {
+  content: "";
+  position: absolute;
+  left: 104px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--color-line-strong);
+}
+
+.tl-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 84px 24px 1fr;
+  column-gap: var(--space-3);
+  align-items: start;
+  padding-bottom: var(--space-8);
+}
+
+.tl-item:last-child {
+  padding-bottom: 0;
+}
+
+/* The year range is the whole point of a timeline - full ink colour,
+   bold display face, its own column, right-aligned toward the line. */
+.tl-item__years {
+  grid-column: 1;
+  justify-self: end;
+  text-align: right;
+  margin: 0;
+  padding-top: 2px;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-md);
+  line-height: var(--leading-tight);
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+/* Dot on the line, cycling through the logotype palette */
+.tl-item__dot {
+  grid-column: 2;
+  justify-self: center;
+  align-self: start;
+  margin-top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--dot-purple);
+  border: 3px solid var(--color-canvas);
+}
+
+.tl-item:nth-child(5n + 2) .tl-item__dot,
+.tl-item:nth-child(5n + 2) .tl-item__monogram { background: var(--dot-red); }
+.tl-item:nth-child(5n + 3) .tl-item__dot,
+.tl-item:nth-child(5n + 3) .tl-item__monogram { background: var(--dot-gold); }
+.tl-item:nth-child(5n + 4) .tl-item__dot,
+.tl-item:nth-child(5n + 4) .tl-item__monogram { background: var(--dot-navy); }
+.tl-item:nth-child(5n + 5) .tl-item__dot,
+.tl-item:nth-child(5n + 5) .tl-item__monogram { background: var(--dot-plum); }
+
+.tl-item--current .tl-item__dot {
+  box-shadow: 0 0 0 4px var(--color-accent-tint);
+}
+
+/* Viloperiod: no conductor that year. Same year column so the eye
+   never has to relearn the layout, but a smaller muted dot and no
+   card - clearly a different kind of row, not a missing conductor. */
+.tl-item--hiatus {
+  padding-bottom: var(--space-5);
+}
+
+.tl-item--hiatus .tl-item__years {
+  color: var(--color-ink-tertiary);
+  font-weight: var(--weight-semibold);
+}
+
+.tl-item--hiatus .tl-item__dot {
+  background: var(--color-ink-tertiary);
+  width: 10px;
+  height: 10px;
+  margin-top: 6px;
+}
+
+.tl-item__card {
+  grid-column: 3;
+  display: flex;
+  gap: var(--space-5);
+  align-items: center;
+  background: var(--color-surface);
+  border: var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.tl-item--current .tl-item__card {
+  border-color: var(--color-line-strong);
+  box-shadow: 0 12px 28px -18px rgba(34, 41, 59, 0.25);
+}
+
+.tl-item__monogram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--dot-purple);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-lg);
+  letter-spacing: 0.02em;
+}
+
+.tl-item__name {
+  font-size: var(--text-lg);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.tl-item__text {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-ink-secondary);
+}
+
+.tl-item__text p {
+  margin: 0;
+}
+
+.tl-item__hiatus-text {
+  grid-column: 3;
+  padding-top: var(--space-2);
+}
+
+.tl-item__hiatus-label {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink-tertiary);
+}
+
+.tl-item--hiatus .tl-item__text {
+  color: var(--color-ink-tertiary);
+}
+
+@media (max-width: 640px) {
+  /* Line and strict columns stop paying off at this width - let the
+     year sit next to its dot, then the card wraps to its own line. */
+  .view-id-historik .view-content::before {
+    display: none;
+  }
+
+  .tl-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--space-3);
+    row-gap: var(--space-3);
+  }
+
+  .tl-item__years {
+    text-align: left;
+    padding-top: 0;
+  }
+
+  .tl-item__dot {
+    margin-top: 0;
+  }
+
+  .tl-item__card,
+  .tl-item__hiatus-text {
+    flex-basis: 100%;
+  }
+
+  .tl-item__card {
+    flex-direction: column;
+  }
+}

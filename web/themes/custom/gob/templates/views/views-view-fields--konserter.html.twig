@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Public concert card on the front page: date block, title and the
+ * optional information text. Rendered for anonymous visitors, so only
+ * what an admin marked as public ever reaches this template.
+ */
+#}
+{% set node = row._entity %}
+{# The raw value is UTC without suffix; tag it so the timezone
+   conversion to Stockholm actually happens #}
+{% set datum = node.field_datum.0.value ~ 'Z' %}
+<article class="concert-card">
+  {% if node.field_publik_bild.0.entity %}
+    <img class="concert-card__img"
+         src="{{ file_url(node.field_publik_bild.0.entity.uri.value) }}"
+         alt="{{ node.field_publik_bild.0.alt }}" loading="lazy">
+  {% endif %}
+  <div class="concert-card__body">
+  <p class="concert-card__date">{{ datum|date('j F Y', 'Europe/Stockholm')|replace({
+    'January': 'januari', 'February': 'februari', 'March': 'mars', 'April': 'april',
+    'May': 'maj', 'June': 'juni', 'July': 'juli', 'August': 'augusti',
+    'September': 'september', 'October': 'oktober', 'November': 'november', 'December': 'december',
+  }) }} kl {{ datum|date('H.i', 'Europe/Stockholm') }}</p>
+  <h3 class="concert-card__title">{{ node.label }}</h3>
+  {% if node.field_information.value %}
+    <div class="concert-card__info">{{ node.field_information.processed }}</div>
+  {% endif %}
+  </div>
+</article>

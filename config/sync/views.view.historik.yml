@@ -1,0 +1,111 @@
+uuid: b4056a18-de89-45ed-b0fc-60ac55b413b1
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.dirigent
+  module:
+    - node
+id: historik
+label: 'Historik - dirigenter'
+module: views
+description: ''
+tag: ''
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'Körens dirigenter genom åren'
+      fields:
+        counter:
+          id: counter
+          table: views
+          field: counter
+          relationship: none
+          plugin_id: counter
+          label: ''
+          exclude: false
+          counter_start: 1
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+          label: ''
+          exclude: false
+          settings:
+            link_to_entity: false
+      pager:
+        type: none
+        options: {  }
+      access:
+        type: none
+        options: {  }
+      cache:
+        type: tag
+        options: {  }
+      sorts:
+        field_ar_fran_value:
+          id: field_ar_fran_value
+          table: node__field_ar_fran
+          field: field_ar_fran_value
+          plugin_id: numeric
+          order: DESC
+      filters:
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          value:
+            dirigent: dirigent
+      style:
+        type: default
+        options: {  }
+      row:
+        type: fields
+        options: {  }
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: true
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+      tags: {  }
+  page_1:
+    id: page_1
+    display_title: Sida
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: historik
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+      tags: {  }

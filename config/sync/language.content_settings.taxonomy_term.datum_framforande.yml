@@ -1,0 +1,11 @@
+uuid: 06606f29-fc69-4a52-9ca4-59326370f56b
+langcode: sv
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.datum_framforande
+id: taxonomy_term.datum_framforande
+target_entity_type_id: taxonomy_term
+target_bundle: datum_framforande
+default_langcode: site_default
+language_alterable: false

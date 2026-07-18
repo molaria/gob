@@ -1,0 +1,9 @@
+uuid: a1018ab2-ff5a-4837-adf6-17b6700e7179
+langcode: sv
+status: true
+dependencies: {  }
+name: 'Låttips kompositör'
+vid: lattips_kompositor
+description: Kompositör
+weight: 0
+new_revision: false

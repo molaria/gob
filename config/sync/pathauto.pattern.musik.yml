@@ -1,0 +1,23 @@
+uuid: 34fe9d0e-4a8d-4c32-bbd8-6b95b277476f
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.musik
+  module:
+    - node
+id: musik
+label: Musik
+type: 'canonical_entities:node'
+pattern: '/musik/[node:title]'
+selection_criteria:
+  184db6fd-6aa7-43f1-8558-8c5cd4e56dbf:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      musik: musik
+selection_logic: and
+weight: -5
+relationships: {  }

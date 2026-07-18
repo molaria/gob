@@ -1,0 +1,51 @@
+{#
+/**
+ * @file
+ * Conductor timeline entry: years, name, initials monogram and a short
+ * note on a vertical line. Sorted newest first by the view, so the
+ * present sits on top; the current conductor (no end year) is marked.
+ * No photos - most former conductors have none, so every entry gets an
+ * initials monogram instead, coloured the same as its line dot (the
+ * dot colours cycle through the logotype palette, set in CSS).
+ * A "viloperiod" entry (field_viloperiod) marks a year the choir had no
+ * conductor at all and renders as a thin, muted row instead of a card.
+ */
+#}
+{% set node = row._entity %}
+{% set from = node.field_ar_fran.0.value %}
+{% set to = node.field_ar_till.0.value %}
+{% set hiatus = node.field_viloperiod.0.value %}
+{# Only the topmost (most recent) entry with no end year is the sitting
+   conductor; an older entry without an end year just has an unknown one. #}
+{% set is_first = fields.counter.content|render|striptags|trim == '1' %}
+{% set current = is_first and to is empty and not hiatus %}
+{# One letter per name part, splitting on both spaces and hyphens, so
+   "Mats-Olof Liljegren" becomes MOL, not just ML. #}
+{% set name_parts = node.label|replace({'-': ' '})|split(' ') %}
+{% set initials = '' %}
+{% for part in name_parts %}
+  {% set initials = initials ~ part|slice(0, 1) %}
+{% endfor %}
+
+<article class="tl-item{{ current ? ' tl-item--current' }}{{ hiatus ? ' tl-item--hiatus' }}">
+  <p class="tl-item__years">{% if current %}{{ from }}&ndash;nu{% elseif to and to != from %}{{ from }}&ndash;{{ to }}{% elseif to %}{{ from }}{% else %}från {{ from }}{% endif %}</p>
+  <span class="tl-item__dot" aria-hidden="true"></span>
+  {% if hiatus %}
+    <div class="tl-item__hiatus-text">
+      <p class="tl-item__hiatus-label">Vilande</p>
+      {% if node.body.0.value %}
+        <div class="tl-item__text">{{ node.body.processed }}</div>
+      {% endif %}
+    </div>
+  {% else %}
+    <div class="tl-item__card">
+      <span class="tl-item__monogram" aria-hidden="true">{{ initials|upper }}</span>
+      <div class="tl-item__body">
+        <h2 class="tl-item__name">{{ node.label }}{% if current %} <span class="chip chip--attending">Nuvarande</span>{% endif %}</h2>
+        {% if node.body.0.value %}
+          <div class="tl-item__text">{{ node.body.processed }}</div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</article>

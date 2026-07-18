@@ -1,0 +1,30 @@
+uuid: e85241c9-f5a8-4de1-b43d-d3eaceafd4c3
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.tips
+    - taxonomy.vocabulary.lattips_kompositor
+  module:
+    - contact
+    - flag
+    - node
+    - system
+    - taxonomy
+id: aktiv_kormedlem
+label: 'Aktiv körmedlem'
+weight: 4
+is_admin: null
+permissions:
+  - 'access content'
+  - 'access user contact forms'
+  - 'create terms in lattips_kompositor'
+  - 'create tips content'
+  - 'flag delta_ej_andrad'
+  - 'flag deltar'
+  - 'flag deltar_andrad'
+  - 'flag deltar_ej'
+  - 'unflag delta_ej_andrad'
+  - 'unflag deltar'
+  - 'unflag deltar_andrad'
+  - 'unflag deltar_ej'

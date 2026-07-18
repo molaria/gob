@@ -1,0 +1,62 @@
+uuid: 4cb7b1e9-bde9-48c9-82e7-90cc1ff827c7
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.datum_framforande.field_program
+    - taxonomy.vocabulary.datum_framforande
+  module:
+    - path
+    - text
+id: taxonomy_term.datum_framforande.default
+targetEntityType: taxonomy_term
+bundle: datum_framforande
+mode: default
+content:
+  description:
+    type: text_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_program:
+    type: entity_reference_autocomplete
+    weight: 10
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: 'Skriv notens titel'
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 100
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden: {  }

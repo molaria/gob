@@ -1,0 +1,13 @@
+uuid: 850623f1-11cd-4620-bbe7-efe89199982e
+langcode: sv
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: sOb26JSy3fGpWkvR0WYN6_hMqj_6d1rvbvrkzp1yya0
+id: node_make_sticky_action
+label: 'Visa inlägg överst i listor'
+type: node
+plugin: node_make_sticky_action
+configuration: {  }

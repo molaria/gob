@@ -1,0 +1,20 @@
+uuid: aa9d7480-a3cf-451d-b93b-bb4c91a7b7ef
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.kalendarium
+  module:
+    - file
+    - node
+    - system
+id: kalendarium_admin
+label: Kalendarium_admin
+weight: 5
+is_admin: null
+permissions:
+  - 'create kalendarium content'
+  - 'delete own files'
+  - 'delete own kalendarium content'
+  - 'edit any kalendarium content'
+  - 'view the administration theme'

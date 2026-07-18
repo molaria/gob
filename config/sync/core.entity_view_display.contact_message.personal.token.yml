@@ -1,0 +1,28 @@
+uuid: f147d71e-0a42-4cdd-bc51-82ae2ae85739
+langcode: sv
+status: false
+dependencies:
+  config:
+    - contact.form.personal
+    - core.entity_view_mode.contact_message.token
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: contact_message.personal.token
+targetEntityType: contact_message
+bundle: personal
+mode: token
+content:
+  message:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  layout_builder__layout: true

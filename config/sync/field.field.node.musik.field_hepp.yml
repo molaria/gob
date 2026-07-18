@@ -1,0 +1,29 @@
+uuid: 8ceb5387-c5d1-4170-9217-1459b37b2a0f
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hepp
+    - node.type.musik
+    - taxonomy.vocabulary.datum_framforande
+id: node.musik.field_hepp
+field_name: field_hepp
+entity_type: node
+bundle: musik
+label: Framföranden
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      datum_framforande: datum_framforande
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: datum_framforande
+field_type: entity_reference

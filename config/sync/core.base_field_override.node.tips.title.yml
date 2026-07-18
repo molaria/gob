@@ -1,0 +1,18 @@
+uuid: b572d530-beb7-4ad9-b1e4-1b66193b1352
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.tips
+id: node.tips.title
+field_name: title
+entity_type: node
+bundle: tips
+label: 'Tips på sång'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

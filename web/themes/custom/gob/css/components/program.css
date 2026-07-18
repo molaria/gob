@@ -1,0 +1,82 @@
+/* ==========================================================================
+   Gott och Blandat — Concert programme (datum_framforande term page)
+   Note-style accordion: title + Noter/Lyssna collapsed, full details on
+   expand. Shares the note register's chips and Lyssna button.
+   ========================================================================== */
+
+.prog-page__info {
+  font-size: var(--text-md);
+  color: var(--color-ink-secondary);
+  margin-bottom: var(--space-6);
+}
+
+.prog-list {
+  background: var(--color-surface);
+  border: var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-6);
+}
+
+.prog-acc + .prog-acc {
+  border-top: var(--border-hairline);
+}
+
+.prog-acc__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  padding: var(--space-4) 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.prog-acc__summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Chevron marking the collapsed/expanded state */
+.prog-acc__summary::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-right: 2px solid var(--color-ink-tertiary);
+  border-bottom: 2px solid var(--color-ink-tertiary);
+  transform: rotate(-45deg);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.prog-acc[open] > .prog-acc__summary::before {
+  transform: rotate(45deg);
+}
+
+.prog-acc__title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.prog-acc__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.prog-acc__body {
+  padding: 0 0 var(--space-5) calc(8px + var(--space-4));
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (max-width: 640px) {
+  .prog-acc__actions {
+    margin-left: calc(8px + var(--space-4));
+    width: 100%;
+  }
+}

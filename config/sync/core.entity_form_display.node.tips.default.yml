@@ -1,0 +1,38 @@
+uuid: ad3713fe-0a0d-4fc1-a5e6-6cd06878a463
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.field.node.tips.field_kompositor2
+    - node.type.tips
+id: node.tips.default
+targetEntityType: node
+bundle: tips
+mode: default
+content:
+  field_kompositor2:
+    type: entity_reference_autocomplete
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: 'Ange kompositör/låtskrivare här'
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: 'Ange sångens titel här'
+    third_party_settings: {  }
+hidden:
+  created: true
+  langcode: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true

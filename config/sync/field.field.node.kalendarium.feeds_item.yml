@@ -1,0 +1,23 @@
+uuid: f84695cd-4f50-48ff-b370-bdeb6d7c9aba
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.feeds_item
+    - node.type.kalendarium
+  module:
+    - feeds
+id: node.kalendarium.feeds_item
+field_name: feeds_item
+entity_type: node
+bundle: kalendarium
+label: 'Feeds item'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:feeds_feed'
+  handler_settings: {  }
+field_type: feeds_item

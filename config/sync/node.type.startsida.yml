@@ -1,0 +1,11 @@
+uuid: 24713e03-9e0c-44b8-984f-962552cf600f
+langcode: sv
+status: true
+dependencies: {  }
+name: Startsida
+type: startsida
+description: 'Innehållet på den publika startsidan.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

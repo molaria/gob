@@ -1,0 +1,9 @@
+uuid: 233d391b-6d55-4a9f-868f-142ad68f5e6f
+langcode: sv
+status: true
+dependencies: {  }
+name: Artister
+vid: artister
+description: null
+weight: 0
+new_revision: false

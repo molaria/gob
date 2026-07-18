@@ -1,0 +1,22 @@
+uuid: ca240283-c3f7-4483-bd9a-51bbbdaa9730
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.kalendarium
+id: node.kalendarium.promote
+field_name: promote
+entity_type: node
+bundle: kalendarium
+label: 'Visas på startsidan'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: På
+  off_label: Av
+field_type: boolean

@@ -1,0 +1,60 @@
+uuid: 4653ee5d-a7c8-4bc4-934a-cf860a0d9c12
+langcode: sv
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+  module:
+    - ckeditor5
+format: full_html
+editor: ckeditor5
+settings:
+  toolbar:
+    items:
+      - undo
+      - redo
+      - heading
+      - bold
+      - italic
+      - blockQuote
+      - bulletedList
+      - numberedList
+      - horizontalLine
+      - alignment
+      - drupalInsertImage
+      - link
+      - drupalMedia
+      - imce_image
+      - imce_link
+      - sourceEditing
+      - bootstrapIcons
+  plugins:
+    ckeditor5_alignment:
+      enabled_alignments:
+        - center
+        - justify
+        - left
+        - right
+    ckeditor5_heading:
+      enabled_headings:
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+    ckeditor5_imageResize:
+      allow_resize: true
+    ckeditor5_list:
+      properties:
+        reversed: true
+        startIndex: true
+        styles: true
+      multiBlock: true
+    ckeditor5_sourceEditing:
+      allowed_tags: {  }
+    media_media:
+      allow_view_mode_override: false
+    menu_bootstrap_icon_plugins:
+      cdn_bootstrap: true
+image_upload:
+  status: false

@@ -1,0 +1,13 @@
+uuid: 793e6427-d6d8-4ea6-ad7f-dde38262fc1d
+langcode: sv
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: AeW1SEDgb1OTQACAWGhzvMknMYAJlcZu0jljfeU3oso
+name: Artikel
+type: article
+description: 'Använd <em>artiklar</em> för tidskänsligt innehåll som nyheter, pressreleaser eller blogginlägg.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

@@ -1,0 +1,247 @@
+/* ==========================================================================
+   Gott och Blandat — Voice-part mixer popup
+   A modal dialog: song title and a clear Stäng button on top, master
+   transport, then one row per voice part with volume, Tyst and Solo.
+   Full-screen sheet on small screens, card in the middle on desktop.
+   ========================================================================== */
+
+.gob-player {
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 24px;
+  padding: var(--space-7);
+  width: min(560px, calc(100vw - 2 * var(--space-5)));
+  /* Never taller than the viewport minus a margin: the content
+     scrolls inside instead, so Stäng and every track stay reachable */
+  max-height: calc(100dvh - 2 * var(--space-7));
+  overflow-y: auto;
+  background: var(--color-surface-raised);
+  color: var(--color-ink);
+  box-shadow: 0 32px 80px -24px rgba(34, 41, 59, 0.45);
+}
+
+.gob-player::backdrop {
+  background: rgba(34, 41, 59, 0.45);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.gob-player__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+.gob-player__title {
+  font-size: var(--text-2xl);
+  margin: 0;
+  flex: 1;
+}
+
+.gob-player__close {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
+  background: var(--color-surface);
+  border: var(--border-strong);
+  border-radius: var(--radius-pill);
+  padding: 0.5em 1.2em;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.gob-player__close:hover {
+  border-color: var(--color-ink-tertiary);
+}
+
+.gob-player__status {
+  font-size: var(--text-sm);
+  color: var(--color-ink-secondary);
+  padding: var(--space-6) 0;
+}
+
+/* --- Master transport --- */
+.gob-player__master {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.gob-player__play {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.gob-player__play:hover {
+  background: var(--color-accent-hover);
+}
+
+.gob-player__play svg {
+  width: 26px;
+  height: 26px;
+}
+
+.gob-player__time {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-ink-secondary);
+  white-space: nowrap;
+}
+
+/* --- Sliders, shared look --- */
+.gob-player input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 28px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.gob-player input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-line);
+}
+
+.gob-player input[type="range"]::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-line);
+}
+
+.gob-player input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 3px solid var(--color-surface-raised);
+  box-shadow: 0 1px 4px rgba(34, 41, 59, 0.3);
+  margin-top: -8px;
+}
+
+.gob-player input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 3px solid var(--color-surface-raised);
+  box-shadow: 0 1px 4px rgba(34, 41, 59, 0.3);
+}
+
+/* --- Voice part rows --- */
+.gob-player__track {
+  display: grid;
+  /* name | volume (flexes, can shrink) | Tyst/Solo, always right */
+  grid-template-columns: 88px minmax(40px, 1fr) auto;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3) 0;
+}
+
+.gob-player__track + .gob-player__track {
+  border-top: var(--border-hairline);
+}
+
+.gob-player__name {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.gob-player__track.is-muted .gob-player__name {
+  color: var(--color-ink-tertiary);
+}
+
+.gob-player__buttons {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.gob-player__mute,
+.gob-player__solo {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  padding: 0.45em 0.8em;
+  border-radius: var(--radius-pill);
+  border: var(--border-strong);
+  background: var(--color-surface);
+  color: var(--color-ink-secondary);
+  cursor: pointer;
+}
+
+.gob-player__mute.is-on {
+  background: var(--color-critical);
+  border-color: var(--color-critical);
+  color: var(--color-on-accent);
+}
+
+.gob-player__solo.is-on {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+/* --- The Lyssna button in the register rows --- */
+.note-row__listen {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.note-row__listen::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 8px solid currentColor;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+
+.note-row__listen:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+/* --- Small screens: card with margins, scrolls inside if needed --- */
+@media (max-width: 640px) {
+  .gob-player {
+    width: calc(100vw - 2 * var(--space-4));
+    max-height: calc(100dvh - 2 * var(--space-5));
+    border-radius: 20px;
+    padding: var(--space-6) var(--space-5);
+  }
+
+  /* Keep the three columns; the name shrinks so the buttons stay
+     right and the volume slider just gets shorter */
+  .gob-player__track {
+    grid-template-columns: 64px minmax(32px, 1fr) auto;
+    gap: var(--space-2);
+  }
+
+  .gob-player__mute,
+  .gob-player__solo {
+    padding: 0.45em 0.7em;
+  }
+}

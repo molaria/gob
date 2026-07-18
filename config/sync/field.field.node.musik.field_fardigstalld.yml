@@ -1,0 +1,21 @@
+uuid: a3b5401c-b5ec-49a1-949f-672ee1b56419
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fardigstalld
+    - node.type.musik
+  module:
+    - datetime
+id: node.musik.field_fardigstalld
+field_name: field_fardigstalld
+entity_type: node
+bundle: musik
+label: Färdigställd
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

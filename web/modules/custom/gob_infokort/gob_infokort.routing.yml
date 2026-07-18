@@ -1,0 +1,8 @@
+gob_infokort.save_order:
+  path: '/infokort/ordna'
+  defaults:
+    _controller: '\Drupal\gob_infokort\Controller\InfokortOrderController::save'
+  methods: [POST]
+  requirements:
+    _permission: 'administer nodes'
+    _csrf_token: 'TRUE'

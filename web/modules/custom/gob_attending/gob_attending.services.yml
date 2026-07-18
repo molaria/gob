@@ -1,0 +1,7 @@
+services:
+  gob_attending.attending_service:
+    class: Drupal\gob_attending\Service\AttendingService
+    arguments:
+      - '@entity_type.manager'
+      - '@database'
+      - '@gob_attendance.manager'

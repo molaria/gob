@@ -1,0 +1,118 @@
+uuid: 442aa516-41f2-48f6-97ef-e589ca4bedc3
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.field.node.kalendarium.feeds_item
+    - field.field.node.kalendarium.field_anmalan_mojlig
+    - field.field.node.kalendarium.field_datum
+    - field.field.node.kalendarium.field_fikafixare
+    - field.field.node.kalendarium.field_information
+    - field.field.node.kalendarium.field_konsert
+    - field.field.node.kalendarium.field_publik
+    - field.field.node.kalendarium.field_publik_bild
+    - field.field.node.kalendarium.field_sluttid
+    - image.style.thumbnail
+    - node.type.kalendarium
+  module:
+    - datetime
+    - image
+    - text
+    - time_field
+id: node.kalendarium.default
+targetEntityType: node
+bundle: kalendarium
+mode: default
+content:
+  field_anmalan_mojlig:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_datum:
+    type: datetime_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_fikafixare:
+    type: entity_reference_autocomplete
+    weight: 3
+    region: content
+    settings:
+      match_operator: STARTS_WITH
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_information:
+    type: text_textarea
+    weight: 4
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_konsert:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_publik:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_publik_bild:
+    type: image_image
+    weight: 8
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_sluttid:
+    type: time_widget
+    weight: 2
+    region: content
+    settings:
+      enabled: false
+      step: 5
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: 'Övning '
+    third_party_settings: {  }
+  url_redirects:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  vapn:
+    type: options_buttons
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  feeds_item: true
+  langcode: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true

@@ -1,0 +1,19 @@
+uuid: c0f8b95a-66b4-4526-afe4-a43ff0eb0028
+langcode: sv
+status: true
+dependencies:
+  module:
+    - node
+    - time_field
+id: node.field_sluttid
+field_name: field_sluttid
+entity_type: node
+type: time
+settings: {  }
+module: time_field
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

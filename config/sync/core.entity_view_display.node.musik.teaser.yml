@@ -1,0 +1,49 @@
+uuid: f2b1fe91-6159-4f0b-b38c-21a3c8a3be82
+langcode: sv
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.musik.body
+    - field.field.node.musik.field_arrangor
+    - field.field.node.musik.field_artister
+    - field.field.node.musik.field_fardigstalld
+    - field.field.node.musik.field_filer
+    - field.field.node.musik.field_hepp
+    - field.field.node.musik.field_kompositor
+    - field.field.node.musik.field_sattning
+    - field.field.node.musik.field_textforfattare
+    - field.field.node.musik.layout_builder__layout
+    - node.type.musik
+  module:
+    - text
+    - user
+id: node.musik.teaser
+targetEntityType: node
+bundle: musik
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_arrangor: true
+  field_artister: true
+  field_fardigstalld: true
+  field_filer: true
+  field_hepp: true
+  field_kompositor: true
+  field_sattning: true
+  field_textforfattare: true
+  langcode: true
+  layout_builder__layout: true

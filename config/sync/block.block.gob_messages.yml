@@ -1,0 +1,20 @@
+uuid: 9e223e04-a4b8-4058-8e22-b7762707b6c0
+langcode: sv
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - gob
+id: gob_messages
+theme: gob
+region: highlighted
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: Meddelanden
+  label_display: '0'
+  provider: system
+visibility: {  }

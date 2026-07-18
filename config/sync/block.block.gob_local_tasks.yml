@@ -1,0 +1,20 @@
+uuid: 644564eb-6987-415c-ac78-2fb4a68b1fb1
+langcode: sv
+status: true
+dependencies:
+  theme:
+    - gob
+id: gob_local_tasks
+theme: gob
+region: highlighted
+weight: 10
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Sidflikar
+  label_display: '0'
+  provider: system
+  primary: true
+  secondary: true
+visibility: {  }

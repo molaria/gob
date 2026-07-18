@@ -1,0 +1,25 @@
+uuid: ccacc066-73f8-4389-95f2-e4dc1dfd5415
+langcode: sv
+status: true
+dependencies:
+  config:
+    - system.menu.footer
+  module:
+    - system
+  theme:
+    - gob
+id: gob_footer_menu
+theme: gob
+region: footer
+weight: -4
+provider: null
+plugin: 'system_menu_block:footer'
+settings:
+  id: 'system_menu_block:footer'
+  label: Sidfotsmeny
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: null
+  expand_all_items: false
+visibility: {  }

@@ -1,0 +1,23 @@
+uuid: c265b40b-ca45-4ccd-8b7e-c18c26049435
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_viloperiod
+    - node.type.dirigent
+id: node.dirigent.field_viloperiod
+field_name: field_viloperiod
+entity_type: node
+bundle: dirigent
+label: 'Viloperiod (ingen dirigent)'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: På
+  off_label: Av
+field_type: boolean

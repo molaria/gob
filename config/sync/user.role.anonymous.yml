@@ -1,0 +1,20 @@
+uuid: d284fab6-9bfe-4d43-84e8-aaefbd354178
+langcode: sv
+status: true
+dependencies:
+  module:
+    - comment
+    - contact
+    - media
+    - system
+_core:
+  default_config_hash: 6WavjUYXIegP9AAg2zXGx54MWIVoomC3SZhNiqe-Dyk
+id: anonymous
+label: 'Anonym användare'
+weight: 0
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access site-wide contact form'
+  - 'view media'

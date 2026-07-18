@@ -1,0 +1,20 @@
+uuid: 37d0f62c-0bab-4b5e-8e7b-e60fab113bb6
+langcode: sv
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_artister
+field_name: field_artister
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

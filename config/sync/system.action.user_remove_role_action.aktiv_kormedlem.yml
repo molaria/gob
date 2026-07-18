@@ -1,0 +1,14 @@
+uuid: 290e4ca5-5902-4c32-801a-096d60af38bd
+langcode: sv
+status: true
+dependencies:
+  config:
+    - user.role.aktiv_kormedlem
+  module:
+    - user
+id: user_remove_role_action.aktiv_kormedlem
+label: 'Ta bort rollen Aktiv körmedlem från vald(a) användare'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: aktiv_kormedlem

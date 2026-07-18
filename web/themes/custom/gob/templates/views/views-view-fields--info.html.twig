@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Info tile in the manner of Apple's "why buy here" cards: a small
+ * coloured category label (the node title), a big bold statement, quiet
+ * supporting copy, and a large line drawing anchored bottom right.
+ * Rubrik, text and ikon are all real fields on the infokort content
+ * type - no more guessing from the title or splitting the body text.
+ * Icon is one of the full Lucide set (lucide.dev, ISC licence), vendored
+ * locally as a sprite - referenced by <use>, nothing fetched externally.
+ * Redigera-länken syns bara för den som har redigeringsrätt (Views
+ * entity-länkfält självbegränsar). Greppikonen (dragbar ordning) syns
+ * bara när can_reorder är sant - satt i gob_preprocess_views_view_fields().
+ */
+#}
+{% set node = row._entity %}
+{% set titel = node.label %}
+{% set statement = node.field_statement.0.value %}
+{% set rest = node.body.0.value ? node.body.processed : '' %}
+{% set ikon = node.field_icon.0.value %}
+
+<article class="info-tile"{% if can_reorder %} data-nid="{{ node.id }}"{% endif %}>
+  {% if can_reorder %}
+    <span class="info-tile__drag" title="Dra för att ändra ordning" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <use href="/themes/custom/gob/icons/lucide-sprite.svg#grip-vertical"></use>
+      </svg>
+    </span>
+  {% endif %}
+  {% if fields.edit_node.content|render|striptags|trim %}
+    <span class="info-tile__edit">{{ fields.edit_node.content }}</span>
+  {% endif %}
+  <p class="info-tile__label">{{ titel }}</p>
+  <h2 class="info-tile__statement">{{ statement }}</h2>
+  {% if rest %}
+    <p class="info-tile__text">{{ rest }}</p>
+  {% endif %}
+
+  <span class="info-tile__art" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <use href="/themes/custom/gob/icons/lucide-sprite.svg#{{ ikon }}"></use>
+    </svg>
+  </span>
+</article>

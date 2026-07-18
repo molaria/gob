@@ -1,0 +1,16 @@
+uuid: 2c302439-c905-4bcf-ab1e-81d41f4cfd46
+langcode: sv
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: NIKBt6kw_uPhNI0qtR2DnRf7mSOgAQdx7Q94SKMjXbQ
+name: 'Ren text'
+format: plain_text
+weight: -10
+filters:
+  filter_html_escape:
+    id: filter_html_escape
+    provider: filter
+    status: true
+    weight: -10
+    settings: {  }

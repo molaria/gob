@@ -1,0 +1,42 @@
+/* Kalendarium form: start date/time and end time on the same row,
+   in matching boxes. The end time box copies Claro's fieldset look
+   and its internal metrics (label at ~20px, input at 74px, box
+   height 153px) so the pair lines up exactly. */
+
+.field--name-field-datum,
+.field--name-field-sluttid {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.field--name-field-datum {
+  margin-right: 2rem;
+}
+
+.field--name-field-sluttid {
+  box-sizing: border-box;
+  margin: 24px 0;
+  padding: 15px 24px 15px;
+  min-height: 153px;
+  background: #fff;
+  border: 1px solid #dedfe4;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Claro gives the inner form item its own top margin; zero it so the
+   label starts at the same height as the Datum legend */
+.field--name-field-sluttid .form-item {
+  margin: 0;
+}
+
+.field--name-field-sluttid label {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 40px;
+}
+
+.field--name-field-sluttid .form-item__description {
+  margin-top: 8px;
+}

@@ -1,0 +1,11 @@
+uuid: 0e4511f1-c148-42c4-ba04-2ad4cad7a6c9
+langcode: sv
+status: true
+dependencies: {  }
+name: Infokort
+type: infokort
+description: 'Ett kort på /info - kategori, rubrik, text och ikon.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

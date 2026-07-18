@@ -1,0 +1,11 @@
+uuid: 5dd3881e-4bcb-409f-839e-93e1e01f11e0
+langcode: sv
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.stamma
+id: taxonomy_term.stamma
+target_entity_type_id: taxonomy_term
+target_bundle: stamma
+default_langcode: site_default
+language_alterable: false

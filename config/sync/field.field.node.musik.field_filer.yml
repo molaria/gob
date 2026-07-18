@@ -1,0 +1,27 @@
+uuid: bcd2b069-b3fb-4c62-9e68-8c7237c4323c
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_filer
+    - node.type.musik
+  module:
+    - file
+id: node.musik.field_filer
+field_name: field_filer
+entity_type: node
+bundle: musik
+label: Filer
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: noter
+  file_extensions: 'txt pdf doc docx jpg png gif mp3 m4a mov'
+  max_filesize: '1 GB'
+  description_field: true
+field_type: file

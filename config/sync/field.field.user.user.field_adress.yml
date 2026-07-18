@@ -1,0 +1,62 @@
+uuid: a307121d-232f-49ea-9a70-909c50fcab7a
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_adress
+  module:
+    - address
+    - user
+id: user.user.field_adress
+field_name: field_adress
+entity_type: user
+bundle: user
+label: Adress
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    langcode: null
+    country_code: SE
+    administrative_area: null
+    locality: Örebro
+    dependent_locality: null
+    postal_code: ''
+    sorting_code: null
+    address_line1: ''
+    address_line2: ''
+    organization: null
+    given_name: ''
+    additional_name: null
+    family_name: ''
+default_value_callback: ''
+settings:
+  available_countries:
+    SE: SE
+  langcode_override: ''
+  field_overrides:
+    givenName:
+      override: required
+    additionalName:
+      override: hidden
+    familyName:
+      override: required
+    organization:
+      override: hidden
+    addressLine1:
+      override: required
+    addressLine2:
+      override: optional
+    postalCode:
+      override: required
+    sortingCode:
+      override: hidden
+    dependentLocality:
+      override: hidden
+    locality:
+      override: required
+    administrativeArea:
+      override: hidden
+  fields: {  }
+field_type: address

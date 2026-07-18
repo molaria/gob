@@ -1,0 +1,23 @@
+uuid: 528043b1-6c40-4857-a108-7645c63ed3d2
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ar_till
+    - node.type.dirigent
+id: node.dirigent.field_ar_till
+field_name: field_ar_till
+entity_type: node
+bundle: dirigent
+label: 'Till år'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,91 @@
+{#
+/**
+ * @file
+ * Concert term page: free info from the description, then the programme
+ * as a note-style accordion. Each song shows title + Noter/Lyssna
+ * collapsed; expand for the full details as in the note register.
+ * The songs come from field_program in the order set on the term.
+ */
+#}
+<div class="prog-page">
+  {% if term.description.value %}
+    <div class="prog-page__info">{{ term.description.processed }}</div>
+  {% endif %}
+
+  <div class="prog-list">
+    {% for item in term.field_program %}
+      {% set node = item.entity %}
+      {% if node %}
+        {% set title = node.label %}
+
+        {# Credits #}
+        {% set credits = [] %}
+        {% set groups = {
+          'field_kompositor': '',
+          'field_textforfattare': 'text ',
+          'field_arrangor': 'arr. ',
+          'field_artister': 'med '
+        } %}
+        {% for field, prefix in groups %}
+          {% set names = [] %}
+          {% for ref in node.get(field) %}
+            {% if ref.entity %}{% set names = names|merge([ref.entity.label]) %}{% endif %}
+          {% endfor %}
+          {% if names|length %}{% set credits = credits|merge([prefix ~ names|join(', ')]) %}{% endif %}
+        {% endfor %}
+
+        {# Split files into pdf chips and audio tracks (node field order) #}
+        {% set pdfs = [] %}
+        {% set tracks = [] %}
+        {% for f in node.field_filer %}
+          {% set file = f.entity %}
+          {% if file %}
+            {% set base = file.filename.value|split('.')|slice(0, -1)|join('.') %}
+            {% set voice = base|replace({(title ~ ' - '): '', (title): ''})|trim(' -–') %}
+            {% if 'pdf' in file.filemime.value %}
+              {% set pdfs = pdfs|merge([{'voice': voice, 'url': file_url(file.uri.value)}]) %}
+            {% elseif 'audio' in file.filemime.value %}
+              {% set tracks = tracks|merge([{'label': voice ?: 'Lyssningsexempel', 'url': file_url(file.uri.value)}]) %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+        <details class="prog-acc">
+          <summary class="prog-acc__summary">
+            <span class="prog-acc__title">
+              {{ title }}
+              {% if node.field_sattning.0.entity %}<span class="chip chip--plain">{{ node.field_sattning.0.entity.label }}</span>{% endif %}
+            </span>
+            <span class="prog-acc__actions">
+              {# One PDF: just "Noter". Several: name each so the voice shows #}
+              {% for pdf in pdfs %}
+                <a class="chip chip--file chip--file-pdf" href="{{ pdf.url }}" target="_blank" rel="noopener">{{ pdfs|length > 1 and pdf.voice ? 'Noter ' ~ pdf.voice : 'Noter' }}</a>
+              {% endfor %}
+              {% if tracks|length %}
+                <button class="note-row__listen" type="button"
+                        data-player-title="{{ title }}"
+                        data-player-tracks="{{ tracks|json_encode }}">Lyssna</button>
+              {% endif %}
+            </span>
+          </summary>
+
+          <div class="prog-acc__body">
+            {% if credits|length %}
+              <p class="note-row__credits">{{ credits|join(' · ') }}</p>
+            {% endif %}
+            {% if node.field_hepp|length %}
+              <div class="note-row__meta">
+                <b class="note-row__meta-label">Framförd:</b>
+                <ul class="note-row__performances">
+                  {% for h in node.field_hepp %}
+                    {% if h.entity %}<li>{{ h.entity.label }}</li>{% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          </div>
+        </details>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

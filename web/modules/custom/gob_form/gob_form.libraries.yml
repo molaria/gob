@@ -1,0 +1,5 @@
+kalendarium-form:
+  version: VERSION
+  css:
+    component:
+      css/kalendarium-form.css: {}

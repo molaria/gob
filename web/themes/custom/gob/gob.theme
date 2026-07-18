@@ -1,0 +1,104 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming.
+ */
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function gob_preprocess_page(array &$variables): void {
+  // Welcome line under the menu bar for every logged-in member.
+  // Varies per user, so the page render must too.
+  $account = \Drupal::currentUser();
+  if ($account->isAuthenticated()) {
+    $variables['welcome_name'] = $account->getDisplayName();
+  }
+  $variables['#cache']['contexts'][] = 'user';
+
+  if (!empty($variables['is_front'])) {
+    // Upcoming public events; the view filters on today so past events
+    // drop off the front page by themselves.
+    $konserter = views_embed_view('konserter');
+    if (!empty($konserter)) {
+      $variables['konserter'] = $konserter;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function gob_preprocess_views_view(array &$variables): void {
+  // Search, sorting and per-voice numbering for the members table.
+  if ($variables['view']->id() === 'medlemmar') {
+    $variables['#attached']['library'][] = 'gob/members';
+  }
+  // Catalogue styling and instant filtering for the note register.
+  if ($variables['view']->id() === 'musik') {
+    $variables['#attached']['library'][] = 'gob/musik';
+  }
+  // Tinted tile grid for the info page.
+  if ($variables['view']->id() === 'info') {
+    $variables['#attached']['library'][] = 'gob/info';
+  }
+  // Conductor timeline.
+  if ($variables['view']->id() === 'historik') {
+    $variables['#attached']['library'][] = 'gob/historik';
+  }
+  // Song tips catalogue.
+  if ($variables['view']->id() === 'lattips') {
+    $variables['#attached']['library'][] = 'gob/lattips';
+  }
+  // News accordion.
+  if ($variables['view']->id() === 'utskick') {
+    $variables['#attached']['library'][] = 'gob/utskick';
+  }
+  // Drag-and-drop card reordering, only worth loading for someone who can
+  // actually use it. Url::fromRoute()->toString() would embed a caching
+  // PLACEHOLDER hash here, not the real token (it's meant to be resolved
+  // later by the render pipeline, which a plain drupalSettings string
+  // never goes through) - call the CSRF service directly instead, with
+  // the same path string the access checker itself computes
+  // (RoutePathGenerationTrait: the route path, leading slash trimmed).
+  if ($variables['view']->id() === 'info' && \Drupal::currentUser()->hasPermission('administer nodes')) {
+    $variables['#attached']['library'][] = 'gob/info-drag';
+    $variables['#attached']['drupalSettings']['gobInfoDrag']['saveUrl'] = '/infokort/ordna?token=' . \Drupal::csrfToken()->get('infokort/ordna');
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ */
+function gob_preprocess_views_view_fields(array &$variables): void {
+  // Lets the info-tile template add the drag handle + data attributes
+  // only for someone who can actually save a new order.
+  if ($variables['view']->id() === 'info') {
+    $variables['can_reorder'] = \Drupal::currentUser()->hasPermission('administer nodes');
+  }
+}
+
+/**
+ * Implements hook_preprocess_taxonomy_term().
+ */
+function gob_preprocess_taxonomy_term(array &$variables): void {
+  if ($variables['term']->bundle() === 'datum_framforande') {
+    $variables['#attached']['library'][] = 'gob/program';
+  }
+}
+
+/**
+ * Implements hook_preprocess_image_widget().
+ */
+function gob_preprocess_image_widget(array &$variables): void {
+  $data = &$variables['data'];
+
+  // This prevents image widget templates from rendering preview container HTML
+  // to users that do not have permission to access these previews.
+  // @todo revisit in https://drupal.org/node/953034
+  // @todo revisit in https://drupal.org/node/3114318
+  if (isset($data['preview']['#access']) && $data['preview']['#access'] === FALSE) {
+    unset($data['preview']);
+  }
+}

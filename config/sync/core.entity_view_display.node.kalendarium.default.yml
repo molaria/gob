@@ -1,0 +1,96 @@
+uuid: 6b6d1b4a-805d-43e3-b1e4-5af4a1dd7b04
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.field.node.kalendarium.feeds_item
+    - field.field.node.kalendarium.field_anmalan_mojlig
+    - field.field.node.kalendarium.field_datum
+    - field.field.node.kalendarium.field_fikafixare
+    - field.field.node.kalendarium.field_information
+    - field.field.node.kalendarium.field_konsert
+    - field.field.node.kalendarium.field_publik
+    - field.field.node.kalendarium.field_publik_bild
+    - field.field.node.kalendarium.field_sluttid
+    - node.type.kalendarium
+  module:
+    - datetime
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.kalendarium.default
+targetEntityType: node
+bundle: kalendarium
+mode: default
+content:
+  field_datum:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: long
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_fikafixare:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: token
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_information:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_konsert:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  flag_jag_deltar:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_jag_deltar_inte:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_kan_ej_delta:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_participation:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden:
+  feeds_item: true
+  field_anmalan_mojlig: true
+  field_publik: true
+  field_publik_bild: true
+  field_sluttid: true
+  flag_delta_ej_andrad: true
+  flag_deltar: true
+  flag_deltar_andrad: true
+  flag_deltar_ej: true
+  langcode: true
+  layout_builder__layout: true
+  links: true
+  vapn: true

@@ -1,0 +1,18 @@
+uuid: c0123c37-e828-4c29-a9b7-7f547f6517ca
+langcode: sv
+status: true
+dependencies:
+  theme:
+    - gob
+id: gob_page_title
+theme: gob
+region: highlighted
+weight: 5
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: Sidtitel
+  label_display: '0'
+  provider: system
+visibility: {  }

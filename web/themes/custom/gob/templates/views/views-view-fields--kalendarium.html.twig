@@ -1,0 +1,105 @@
+{#
+/**
+ * @file
+ * Kalendarium row: a native <details> accordion.
+ * The first row (= next upcoming event) starts open via the counter field.
+ *
+ * Attendance comes from the gob_attendance module, which injects
+ * attendance_status ('attending', 'declined' or null = no answer yet)
+ * plus attend_url and decline_url in preprocess. Answer links reload
+ * the page and leave a confirmation message.
+ */
+#}
+{% set node = row._entity %}
+{% set signup = node.field_anmalan_mojlig.value == '1' %}
+{% set is_first = fields.counter.content|render|striptags|trim == '1' %}
+{# Concert terms are named with an ISO date prefix (2026-10-24 ...),
+   so sorting on the label gives chronological order, soonest first #}
+{% set konserter = [] %}
+{% for item in node.field_konsert %}
+  {% if item.entity %}
+    {% set konserter = konserter|merge([item.entity]) %}
+  {% endif %}
+{% endfor %}
+{% set konserter = konserter|sort((a, b) => a.label > b.label ? 1 : -1) %}
+
+<details class="cal-acc" {% if is_first %}open{% endif %}>
+  <summary class="cal-acc__summary">
+    {# Times as plain text: the field wrappers otherwise leak uneven
+       whitespace around the dash. The end time is stored by time_field
+       as seconds since midnight. #}
+    {% set start_time = fields.field_datum_1.content|render|striptags|trim %}
+    {% set end_seconds = node.field_sluttid.0.value %}
+    {% set end_time = end_seconds is not null
+      ? '%d.%02d'|format(end_seconds // 3600, (end_seconds % 3600) // 60)
+      : '' %}
+    <span class="cal-acc__date">
+      <b>{{ fields.field_datum.content }}</b>
+      <span class="cal-acc__time">{{ start_time }}{% if end_time %}&ndash;{{ end_time }}{% endif %}</span>
+    </span>
+    <span class="cal-acc__title">
+      <span class="cal-acc__title-name">{{ node.label }}</span>
+      {% if signup %}
+        <span class="cal-acc__counts">Anmälda: {{ attendance_counts.attending }}, Avanmälda: {{ attendance_counts.declined }}, Ej svarat: {{ attendance_counts.no_response }}</span>
+      {% endif %}
+    </span>
+    {# Answering must never require expanding the row: state and buttons
+       live in the always-visible summary. The links reload the page,
+       so a stray details-toggle on click has no lasting effect. #}
+    <span class="cal-acc__state">
+      {% if signup %}
+        {% if attendance_status == 'attending' %}
+          <span class="chip chip--attending">Du är anmäld</span>
+          <a class="att-btn att-btn--change" href="{{ decline_url }}">Ändra</a>
+        {% elseif attendance_status == 'declined' %}
+          <span class="chip chip--declined">Du är avanmäld</span>
+          <a class="att-btn att-btn--change" href="{{ attend_url }}">Ändra</a>
+        {% else %}
+          <span class="cal-acc__ask">Kommer du?</span>
+          <a class="att-btn att-btn--answer" href="{{ attend_url }}">Ja</a>
+          <a class="att-btn att-btn--answer" href="{{ decline_url }}">Nej</a>
+        {% endif %}
+      {% endif %}
+    </span>
+  </summary>
+
+  <div class="cal-acc__body">
+    {% if node.field_information.value %}
+      <div class="cal-acc__meta">{{ node.field_information.processed }}</div>
+    {% endif %}
+
+    {% if signup %}
+      <div class="cal-acc__meta"><b class="cal-acc__meta-label">Fika:</b>
+        {% if node.field_fikafixare|length > 0 %}
+          <ul class="cal-acc__list">
+            {% for item in node.field_fikafixare %}
+              {% set fixer = item.entity %}
+              {% if fixer %}
+                <li>
+                  <a href="mailto:{{ fixer.mail.value }}">{{ fixer.label }}</a>
+                  {#- tel: link lets the phone offer both call and SMS -#}
+                  {% if fixer.field_telefonnummer.value %} (<a href="tel:{{ fixer.field_telefonnummer.value|replace({' ': '', '-': ''}) }}">{{ fixer.field_telefonnummer.value }}</a>){% endif %}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% else %}
+          ingen anmäld än - <a href="mailto:ingierdhallinger@gmail.com?subject=Fikalistan">kontakta Ingierd</a> (<a href="tel:0736502574">0736502574</a>) om du kan ta fikat
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if konserter|length %}
+      <div class="cal-acc__meta">
+        <b class="cal-acc__meta-label">Noter och program:</b>
+        <ul class="cal-acc__list">
+          {% for term in konserter %}
+            <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id}) }}">{{ term.label }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <span class="cal-acc__edit">{{ fields.edit_node.content }}</span>
+  </div>
+</details>

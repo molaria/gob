@@ -1,0 +1,40 @@
+{% for event in data %}
+  <h2>{{ event.title }} – {{ event.date|date('Y-m-d H:i') }}</h2>
+
+  {% for section, rows in event.rows %}
+    {% if rows %}
+      <h3>
+        {{ section == 'kommer' ? 'Kommer' :
+           section == 'kommer_ej' ? 'Kommer ej' : 'Saknar besked' }}
+      </h3>
+
+      <table class="table table-sm">
+        <tbody>
+
+          {# Håller koll på när stämman ändras #}
+          {% set current_stamma = '' %}
+
+          {% for row in rows %}
+            {% if row.stamma != current_stamma %}
+              <tr class="table-secondary">
+                <th colspan="4">
+                  {{ row.stamma }}
+                </th>
+              </tr>
+              {% set current_stamma = row.stamma %}
+            {% endif %}
+
+            <tr>
+              <td>{{ row.nr }}</td>
+              <td>{{ row.nr_local }}</td>
+              <td>{{ row.given }}</td>
+              <td>{{ row.family }}</td>
+            </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+

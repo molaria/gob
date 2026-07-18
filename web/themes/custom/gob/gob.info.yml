@@ -1,0 +1,27 @@
+name: 'Gott och Blandat'
+type: theme
+'base theme': false
+version: 1.0.0
+libraries:
+  - gob/global
+  - gob/base
+  - gob/messages
+  - core/normalize
+libraries-extend:
+  user/drupal.user:
+    - gob/user
+  core/drupal.dropbutton:
+    - gob/dropbutton
+  core/drupal.dialog:
+    - gob/dialog
+  file/drupal.file:
+    - gob/file
+  core/drupal.item-list:
+    - gob/item-list
+  core/drupal.progress:
+    - gob/progress
+  core/drupal.tablesort:
+    - gob/drupal.tablesort
+description: 'Custom theme for the GoB choir site'
+core_version_requirement: ^11
+generator: 'starterkit_theme:11.3.13'

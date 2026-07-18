@@ -1,0 +1,9 @@
+<?php
+
+function gob_attending_theme() {
+  return [
+    'gob_attending_page' => [
+      'variables' => ['data' => NULL],
+    ],
+  ];
+}

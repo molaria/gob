@@ -1,0 +1,22 @@
+{% extends "block.html.twig" %}
+{#
+/**
+ * @file
+ * GoB branding: text wordmark with the voice-part dots from the logotype.
+ * Replaces logo image + site name with a resolution-independent mark.
+ */
+#}
+{% block content %}
+  <a class="gob-wordmark" href="{{ path('<front>') }}" rel="home" aria-label="{{ 'Startsida'|t }}">
+    <span class="eyebrow">Kören</span>
+    <span class="name">Gott och Blandat</span>
+    <span class="dots" aria-hidden="true">
+      <i style="background:var(--dot-purple)"></i>
+      <i style="background:var(--dot-red)"></i>
+      <i style="background:var(--dot-gold)"></i>
+      <i style="background:var(--dot-navy)"></i>
+      <i style="background:var(--dot-gold)"></i>
+      <i style="background:var(--dot-plum)"></i>
+    </span>
+  </a>
+{% endblock %}

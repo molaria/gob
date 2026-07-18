@@ -1,0 +1,38 @@
+uuid: 37496f1a-0a4f-4ef5-a09c-85ce44ad2e54
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ledare_bild
+    - node.type.startsida
+  module:
+    - image
+id: node.startsida.field_ledare_bild
+field_name: field_ledare_bild
+entity_type: node
+bundle: startsida
+label: 'Körledare, foto'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: startsida
+  file_extensions: 'png gif jpg jpeg webp'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: null
+    alt: ''
+    title: ''
+    width: null
+    height: null
+field_type: image

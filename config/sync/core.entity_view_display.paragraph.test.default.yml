@@ -1,0 +1,36 @@
+uuid: f9365024-259a-4c38-909a-1b51f8ddc5de
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.test.field_sangare
+    - field.field.paragraph.test.field_stamma
+    - paragraphs.paragraphs_type.test
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: paragraph.test.default
+targetEntityType: paragraph
+bundle: test
+mode: default
+content:
+  field_sangare:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_stamma:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

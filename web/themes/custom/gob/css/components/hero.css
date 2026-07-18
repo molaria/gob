@@ -1,0 +1,280 @@
+/* ==========================================================================
+   Gott och Blandat — Public front page
+   Hero selling the choir: text and portrait side by side, the voice-part
+   dots as a quiet signature, then concert cards with cycling dot-colour
+   accents. Global reduced-motion rules in base.css neutralise motion.
+   ========================================================================== */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: var(--space-9);
+  align-items: center;
+  padding: var(--space-9) 0;
+}
+
+.hero__eyebrow {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-accent-strong);
+  margin: 0 0 var(--space-4);
+}
+
+.hero__slogan {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-display);
+  line-height: 1.06;
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+}
+
+.hero__lede {
+  margin: var(--space-5) 0 0;
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
+  color: var(--color-ink-secondary);
+  max-width: 32em;
+}
+
+.hero__cta {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+  flex-wrap: wrap;
+}
+
+.hero__cta .button {
+  font-size: var(--text-md);
+  padding: 0.65em 1.4em;
+  /* Core adds 15px side margins to some buttons; the flex gap owns
+     the spacing here so every button sits equally apart */
+  margin: 0;
+}
+
+.hero__dots {
+  display: flex;
+  gap: 9px;
+  margin-top: var(--space-8);
+}
+
+.hero__dots i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: hero-settle 0.55s cubic-bezier(0.2, 0.7, 0.3, 1.15) backwards;
+}
+
+.hero__dots i:nth-child(2) { animation-delay: 0.07s; }
+.hero__dots i:nth-child(3) { animation-delay: 0.14s; }
+.hero__dots i:nth-child(4) { animation-delay: 0.21s; }
+.hero__dots i:nth-child(5) { animation-delay: 0.28s; }
+.hero__dots i:nth-child(6) { animation-delay: 0.35s; }
+
+@keyframes hero-settle {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- Portrait --- */
+.hero__photo {
+  margin: 0;
+  justify-self: end;
+  max-width: 380px;
+}
+
+.hero__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 48px -20px rgba(34, 41, 59, 0.35);
+}
+
+.hero__photo figcaption {
+  margin-top: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--color-ink-tertiary);
+  text-align: right;
+}
+
+/* Text-only hero (portrait now lives in the leader section) */
+.hero--text {
+  grid-template-columns: 1fr;
+  max-width: 40em;
+}
+
+/* --- Körledaren: photo beside bio, a warm panel --- */
+.leader {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: center;
+  margin: var(--space-9) 0;
+  padding: var(--space-8);
+  background: var(--color-surface);
+  border: var(--border-hairline);
+  border-radius: var(--radius-lg);
+}
+
+.leader__photo {
+  margin: 0;
+}
+
+.leader__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16px 36px -18px rgba(34, 41, 59, 0.35);
+}
+
+.leader__text {
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
+  color: var(--color-ink-secondary);
+}
+
+.leader__text p {
+  margin: 0 0 var(--space-4);
+}
+
+.leader__more a {
+  font-weight: var(--weight-semibold);
+}
+
+@media (max-width: 640px) {
+  .leader {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding: var(--space-6);
+  }
+
+  .leader__photo {
+    max-width: 200px;
+  }
+}
+
+/* General info block, before the leader section */
+.about {
+  max-width: 40em;
+  margin: var(--space-8) 0;
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
+  color: var(--color-ink-secondary);
+}
+
+.about p {
+  margin: 0 0 var(--space-4);
+}
+
+/* --- Upcoming public concerts --- */
+.concerts {
+  padding: var(--space-8) 0 var(--space-9);
+  border-top: var(--border-hairline);
+}
+
+.concerts .hero__eyebrow {
+  margin-bottom: var(--space-2);
+}
+
+.concerts__title {
+  font-size: var(--text-2xl);
+  margin: 0 0 var(--space-6);
+}
+
+/* Product-grid cards in Apple's shop manner: photo on top, airy body,
+   soft lift on hover. Cards without a photo get a coloured top band
+   from the logotype dots instead. */
+.concerts__list .view-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-6);
+}
+
+.concert-card {
+  background: var(--color-surface-raised);
+  border: var(--border-hairline);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--duration-base) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out);
+}
+
+.concert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -18px rgba(34, 41, 59, 0.3);
+}
+
+.concert-card__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.concert-card:not(:has(.concert-card__img)) {
+  border-top: 4px solid var(--dot-purple);
+}
+
+.concerts__list .views-row:nth-child(4n + 2) .concert-card:not(:has(.concert-card__img)) { border-top-color: var(--dot-red); }
+.concerts__list .views-row:nth-child(4n + 3) .concert-card:not(:has(.concert-card__img)) { border-top-color: var(--dot-gold); }
+.concerts__list .views-row:nth-child(4n + 4) .concert-card:not(:has(.concert-card__img)) { border-top-color: var(--dot-navy); }
+
+.concert-card__body {
+  padding: var(--space-6) var(--space-6) var(--space-7);
+}
+
+.concert-card__date {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-accent-strong);
+  margin: 0 0 var(--space-3);
+}
+
+.concert-card__title {
+  font-size: var(--text-xl);
+  margin: 0;
+}
+
+.concert-card__info {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-ink-secondary);
+}
+
+.concert-card__info p {
+  margin: 0;
+}
+
+/* The hero is the front page's one heading; the duplicate page title
+   block would just repeat the site name under it */
+.path-frontpage .block-page-title-block {
+  display: none;
+}
+
+@media (max-width: 780px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+    padding: var(--space-7) 0;
+  }
+
+  .hero__photo {
+    justify-self: start;
+    max-width: 320px;
+  }
+}

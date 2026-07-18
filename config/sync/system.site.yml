@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: VDJxTZtQR21qB4lvOq8zszJZLvLKrSPQpdn2E3T71Ww
+langcode: sv
+uuid: c9a50950-b304-44b8-be68-f67d94223d65
+name: 'Kören Gott och Blandat'
+mail: mats-olof@betelkyrkan.se
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /node/899
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: sv
+mail_notification: mats-olof@betelkyrkan.se

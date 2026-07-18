@@ -1,0 +1,21 @@
+uuid: 030e51b0-728c-423f-9727-22fd16b966a5
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_anmalan_mojlig
+    - node.type.kalendarium
+id: node.kalendarium.field_anmalan_mojlig
+field_name: field_anmalan_mojlig
+entity_type: node
+bundle: kalendarium
+label: 'Anmälan möjlig'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Ja
+  off_label: Nej
+field_type: boolean

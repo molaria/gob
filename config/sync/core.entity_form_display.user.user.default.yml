@@ -1,0 +1,56 @@
+uuid: f21ac5b6-bd28-468d-8bea-77df98ca33ac
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.field.user.user.field_adress
+    - field.field.user.user.field_stamma
+    - field.field.user.user.field_telefonnummer
+  module:
+    - address
+    - path
+    - telephone
+    - user
+_core:
+  default_config_hash: FaQ9Ptcpxpg30AtiqRDtl_8zbJArHP1LPfug_s59TOA
+id: user.user.default
+targetEntityType: user
+bundle: user
+mode: default
+content:
+  account:
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_adress:
+    type: address_default
+    weight: 3
+    region: content
+    settings:
+      wrapper_type: details
+    third_party_settings: {  }
+  field_stamma:
+    type: options_buttons
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_telefonnummer:
+    type: telephone_default
+    weight: 4
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  contact: true
+  langcode: true
+  language: true
+  timezone: true

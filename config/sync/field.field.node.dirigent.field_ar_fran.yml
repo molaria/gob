@@ -1,0 +1,23 @@
+uuid: ef606ffc-80d3-4da4-b689-23be90353663
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ar_fran
+    - node.type.dirigent
+id: node.dirigent.field_ar_fran
+field_name: field_ar_fran
+entity_type: node
+bundle: dirigent
+label: 'Från år'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

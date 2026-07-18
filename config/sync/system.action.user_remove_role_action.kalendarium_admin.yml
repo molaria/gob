@@ -1,0 +1,14 @@
+uuid: ec9b085c-e8c5-414e-8ee7-01fc95538459
+langcode: sv
+status: true
+dependencies:
+  config:
+    - user.role.kalendarium_admin
+  module:
+    - user
+id: user_remove_role_action.kalendarium_admin
+label: 'Ta bort rollen Kalendarium_admin från vald(a) användare'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: kalendarium_admin

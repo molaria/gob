@@ -1,0 +1,95 @@
+{#
+/**
+ * @file
+ * Note register row: everything visible at once, no accordion.
+ * Sheet music renders as chips; the audio files are hidden behind a
+ * single Lyssna button that opens the mixer popup. The button carries
+ * the playlist as JSON: label and URL per audio file, in the exact
+ * order the files sit on the node. Editors reach the edit form by
+ * clicking the title (the edit link is access checked by Drupal).
+ */
+#}
+{% set node = row._entity %}
+{% set title = node.label %}
+{% set can_edit = fields.edit_node.content|render|striptags|trim is not empty %}
+
+{# Credit line: composers, lyricists, arrangers, artists #}
+{% set kompositorer = [] %}
+{% for item in node.field_kompositor %}
+  {% if item.entity %}{% set kompositorer = kompositorer|merge([item.entity.label]) %}{% endif %}
+{% endfor %}
+{% set textforfattare = [] %}
+{% for item in node.field_textforfattare %}
+  {% if item.entity %}{% set textforfattare = textforfattare|merge([item.entity.label]) %}{% endif %}
+{% endfor %}
+{% set arrangorer = [] %}
+{% for item in node.field_arrangor %}
+  {% if item.entity %}{% set arrangorer = arrangorer|merge([item.entity.label]) %}{% endif %}
+{% endfor %}
+{% set artister = [] %}
+{% for item in node.field_artister %}
+  {% if item.entity %}{% set artister = artister|merge([item.entity.label]) %}{% endif %}
+{% endfor %}
+{% set credits = [] %}
+{% if kompositorer|length %}{% set credits = credits|merge([kompositorer|join(', ')]) %}{% endif %}
+{% if textforfattare|length %}{% set credits = credits|merge(['text ' ~ textforfattare|join(', ')]) %}{% endif %}
+{% if arrangorer|length %}{% set credits = credits|merge(['arr. ' ~ arrangorer|join(', ')]) %}{% endif %}
+{% if artister|length %}{% set credits = credits|merge(['med ' ~ artister|join(', ')]) %}{% endif %}
+
+{# Split the files: pdf chips stay visible, audio goes to the mixer #}
+{% set pdfs = [] %}
+{% set tracks = [] %}
+{% for item in node.field_filer %}
+  {% set file = item.entity %}
+  {% if file %}
+    {% set base = file.filename.value|split('.')|slice(0, -1)|join('.') %}
+    {% set voice = base|replace({(title ~ ' - '): '', (title): ''})|trim(' -–') %}
+    {% if 'pdf' in file.filemime.value %}
+      {% set pdfs = pdfs|merge([{'voice': voice, 'url': file_url(file.uri.value)}]) %}
+    {% elseif 'audio' in file.filemime.value %}
+      {% set tracks = tracks|merge([{'label': voice ?: 'Lyssningsexempel', 'url': file_url(file.uri.value)}]) %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+<article class="note-row">
+  <div class="note-row__head">
+    {% if can_edit %}
+      <h3 class="note-row__title"><a href="{{ path('entity.node.edit_form', {'node': node.id}, {'query': {'destination': '/musik'}}) }}" title="Redigera {{ title }}">{{ title }}</a></h3>
+    {% else %}
+      <h3 class="note-row__title">{{ title }}</h3>
+    {% endif %}
+    {% if node.field_sattning.0.entity %}
+      <span class="chip chip--plain">{{ node.field_sattning.0.entity.label }}</span>
+    {% endif %}
+  </div>
+
+  {% if credits|length %}
+    <p class="note-row__credits">{{ credits|join(' · ') }}</p>
+  {% endif %}
+
+  {% if pdfs|length or tracks|length %}
+    <div class="note-row__files">
+      {# One PDF: just "Noter". Several: name each so the voice shows #}
+      {% for pdf in pdfs %}
+        <a class="chip chip--file chip--file-pdf" href="{{ pdf.url }}" target="_blank" rel="noopener">{{ pdfs|length > 1 and pdf.voice ? 'Noter ' ~ pdf.voice : 'Noter' }}</a>
+      {% endfor %}
+      {% if tracks|length %}
+        <button class="note-row__listen" type="button"
+                data-player-title="{{ title }}"
+                data-player-tracks="{{ tracks|json_encode }}">Lyssna</button>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if node.field_hepp|length %}
+    <div class="note-row__meta">
+      <b class="note-row__meta-label">Framförd:</b>
+      <ul class="note-row__performances">
+        {% for item in node.field_hepp %}
+          {% if item.entity %}<li>{{ item.entity.label }}</li>{% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+</article>

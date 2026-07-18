@@ -1,0 +1,14 @@
+_core:
+  default_config_hash: rpfRQVoEn2ZWd_lw-iULKPiuina5CqcmzXWlz1OjTwM
+name: 'Kören Gott och Blandat'
+mail: mats-olof@betelkyrkan.se
+simple_address: false
+sitestyle: true
+textonly: false
+linkonly: false
+user_plaintext_field: ''
+format: full_html
+preserve_class: false
+advanced:
+  incoming: false
+  key: pkvdIa8RoOp9wfWOcrRi5ybADCDsr-Z1YeOczcpZyzE

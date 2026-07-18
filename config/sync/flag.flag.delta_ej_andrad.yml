@@ -1,0 +1,31 @@
+uuid: b2e15f28-2942-49c1-af28-95c34bd866f2
+langcode: sv
+status: true
+dependencies:
+  module:
+    - node
+id: delta_ej_andrad
+label: 'Delta ej ändrad D'
+bundles:
+  - kalendarium
+entity_type: node
+global: false
+flag_short: Ändra
+flag_long: ''
+flag_message: 'Ditt svar är ändrat: du är anmäld.'
+unflag_short: Ändra
+unflag_long: ''
+unflag_message: 'Ditt svar är ändrat: du är avanmäld.'
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:node'
+link_type: reload
+flagTypeConfig:
+  show_in_links:
+    full: full
+  show_as_field: true
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

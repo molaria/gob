@@ -1,0 +1,27 @@
+uuid: ca489a81-b62d-4982-a303-b17d6ab7375a
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_mp3
+    - node.type.article
+  module:
+    - file
+id: node.article.field_mp3
+field_name: field_mp3
+entity_type: node
+bundle: article
+label: MP3
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: mp3
+  max_filesize: ''
+  description_field: true
+field_type: file

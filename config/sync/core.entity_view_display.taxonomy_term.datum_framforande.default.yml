@@ -1,0 +1,24 @@
+uuid: e2ab104b-5698-45bb-84dc-b3b6fda39c5d
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.datum_framforande.field_program
+    - taxonomy.vocabulary.datum_framforande
+  module:
+    - text
+id: taxonomy_term.datum_framforande.default
+targetEntityType: taxonomy_term
+bundle: datum_framforande
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_program: true
+  langcode: true

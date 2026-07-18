@@ -1,0 +1,10 @@
+name: GoB Attending
+type: module
+description: Hanterar närvaro för körmedlemmar per Kalendarium.
+core_version_requirement: ^11
+package: GoB
+dependencies:
+  - drupal:user
+  - drupal:node
+  - drupal:taxonomy
+  - gob_attendance:gob_attendance

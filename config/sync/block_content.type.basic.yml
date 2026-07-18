@@ -1,0 +1,10 @@
+uuid: 470ad3d9-3700-43ad-8c52-54273b3ed058
+langcode: sv
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: zglzjmYxi0G0ag9MZ02y0LSJOdpWRwJxyP_OvFojFyo
+id: basic
+label: 'Grundläggande block'
+revision: false
+description: 'Ett enkelt block innehåller en titel och en brödtext.'

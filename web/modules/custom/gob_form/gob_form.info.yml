@@ -1,0 +1,5 @@
+name: 'GoB Form'
+type: module
+description: 'GoB glue: form layout tweaks, concert programme sync and access.'
+core_version_requirement: ^11
+package: GoB

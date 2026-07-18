@@ -1,0 +1,15 @@
+uuid: 39125539-cbf3-4ffe-b62a-67af26b2df68
+langcode: sv
+status: true
+dependencies:
+  config:
+    - flag.flag.deltar
+  module:
+    - flag
+id: flag_action.deltar_unflag
+label: '0'
+type: node
+plugin: 'flag_action:deltar_unflag'
+configuration:
+  flag_id: deltar
+  flag_action: unflag

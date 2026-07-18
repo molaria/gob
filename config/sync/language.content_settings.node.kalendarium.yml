@@ -1,0 +1,11 @@
+uuid: 0826ca1f-b07a-4994-a0f3-aff9208da8a7
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.kalendarium
+id: node.kalendarium
+target_entity_type_id: node
+target_bundle: kalendarium
+default_langcode: site_default
+language_alterable: false

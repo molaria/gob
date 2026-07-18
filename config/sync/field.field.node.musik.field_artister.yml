@@ -1,0 +1,29 @@
+uuid: ffc7028f-5d62-461c-a488-c4e7f9137f8b
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_artister
+    - node.type.musik
+    - taxonomy.vocabulary.artister
+id: node.musik.field_artister
+field_name: field_artister
+entity_type: node
+bundle: musik
+label: Artister
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      artister: artister
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

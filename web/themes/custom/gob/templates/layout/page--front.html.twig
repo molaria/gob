@@ -1,0 +1,103 @@
+{#
+/**
+ * @file
+ * Front page (startsida content type). Everything visible here is edited
+ * on the node: motto, ingress, and the körledare photo + text. Concerts
+ * come from the konserter view (past events drop off by themselves).
+ *
+ * The node's own fields are hidden from the default view so nothing is
+ * duplicated; this template renders them. `konserter` is provided by
+ * gob_preprocess_page().
+ */
+#}
+<header role="banner">
+  <div class="site-nav">
+    {{ page.header }}
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Meny">
+      <span class="nav-toggle__bar"></span>
+      <span class="nav-toggle__bar"></span>
+    </button>
+  </div>
+</header>
+
+{% if logged_in and welcome_name %}
+  <div class="site-welcome">Välkommen {{ welcome_name }} till Kören Gott och Blandats intranätsidor.</div>
+{% endif %}
+
+<div class="layout-container">
+
+  {{ page.highlighted }}
+
+  <section class="hero hero--text">
+    <div class="hero__text">
+      <p class="hero__eyebrow">Kören Gott och Blandat · Equmeniakyrkan Betel Örebro</p>
+      <h1 class="hero__slogan">{{ node.field_motto.value }}</h1>
+      {% if node.field_ingress.value %}
+        <div class="hero__lede">{{ node.field_ingress.processed }}</div>
+      {% endif %}
+      <div class="hero__cta">
+        <a class="button button--primary" href="https://www.bilda.nu/arr/1154066/damkoren-gott-och-blandat-intresseanmalan-557324">Sjung med oss</a>
+        <a class="button" href="/info">Så funkar det</a>
+        {% if konserter %}
+          <a class="button" href="#konserter">Kom och lyssna</a>
+        {% elseif not logged_in %}
+          <a class="button" href="/user/login">Logga in som medlem</a>
+        {% endif %}
+      </div>
+      <div class="hero__dots" aria-hidden="true">
+        <i style="background:var(--dot-purple)"></i>
+        <i style="background:var(--dot-red)"></i>
+        <i style="background:var(--dot-gold)"></i>
+        <i style="background:var(--dot-navy)"></i>
+        <i style="background:var(--dot-gold)"></i>
+        <i style="background:var(--dot-plum)"></i>
+      </div>
+    </div>
+  </section>
+
+  {% if konserter %}
+    <section class="concerts" id="konserter">
+      <p class="hero__eyebrow">Kom och lyssna</p>
+      <h2 class="concerts__title">Här hör du oss nästa gång</h2>
+      <div class="concerts__list">
+        {{ konserter }}
+      </div>
+    </section>
+  {% endif %}
+
+  {% if node.field_allmant.value %}
+    <section class="about">
+      {{ node.field_allmant.processed }}
+    </section>
+  {% endif %}
+
+  {% if node.field_ledare_text.value or node.field_ledare_bild.entity %}
+    <section class="leader">
+      {% if node.field_ledare_bild.entity %}
+        <figure class="leader__photo">
+          <img src="{{ file_url(node.field_ledare_bild.entity.uri.value) }}"
+               alt="{{ node.field_ledare_bild.alt }}">
+        </figure>
+      {% endif %}
+      <div class="leader__text">
+        <p class="hero__eyebrow">Körledaren</p>
+        {{ node.field_ledare_text.processed }}
+        <p class="leader__more"><a href="/historik">Körens dirigenter genom åren →</a></p>
+      </div>
+    </section>
+  {% endif %}
+
+  <main role="main">
+    <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
+    <div class="layout-content">
+      {{ page.content }}
+    </div>
+  </main>
+
+  {% if page.footer %}
+    <footer role="contentinfo">
+      {{ page.footer }}
+    </footer>
+  {% endif %}
+
+</div>{# /.layout-container #}

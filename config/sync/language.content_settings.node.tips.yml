@@ -1,0 +1,11 @@
+uuid: b7eaf541-a0be-4242-8f74-474f4a9dd003
+langcode: sv
+status: true
+dependencies:
+  config:
+    - node.type.tips
+id: node.tips
+target_entity_type_id: node
+target_bundle: tips
+default_langcode: site_default
+language_alterable: false

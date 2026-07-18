@@ -1,0 +1,9 @@
+uuid: 02a1181d-e0f7-4c47-b7ce-35179d3d5685
+langcode: sv
+status: true
+dependencies: {  }
+name: Stämma
+vid: stamma
+description: 'Val av stämma'
+weight: 0
+new_revision: false

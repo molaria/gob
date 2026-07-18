@@ -1,0 +1,29 @@
+uuid: 1dadf25b-0a93-4cd8-b68a-91815977cf10
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kompositor
+    - node.type.musik
+    - taxonomy.vocabulary.personer
+id: node.musik.field_kompositor
+field_name: field_kompositor
+entity_type: node
+bundle: musik
+label: Kompositör
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      personer: personer
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,41 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Sätt VAPN-fältet vid sparning av vissa nodtyper.
+ *
+ * Normalt bara 'authenticated' (medlemmar). Men en kalendariepost med
+ * field_publik ikryssad ska vara riktigt publik - annars nekas anonyma
+ * bilden (field_publik_bild, som ligger på privat filsystem) trots att
+ * själva kortet redan syns på förstasidan (den vyn stänger av
+ * behörighetsfiltret medvetet). Filnedladdningen kollar nodens EGEN
+ * visningsbehörighet, så vapn måste inkludera 'anonymous' för att
+ * bilden ska nå ut - annars vinner nekandet över allt annat.
+ */
+function gob_vapn_default_entity_presave(EntityInterface $entity) {
+  // Kontrollera att det är en nod.
+  if ($entity instanceof NodeInterface) {
+    $types = ['musik', 'kalendarium', 'internt'];
+    $field_name = 'vapn';
+
+    if (in_array($entity->bundle(), $types) && $entity->hasField($field_name)) {
+      $is_public_event = $entity->bundle() === 'kalendarium'
+        && $entity->hasField('field_publik')
+        && (bool) $entity->get('field_publik')->value;
+
+      $target_roles = $is_public_event ? ['anonymous', 'authenticated'] : ['authenticated'];
+
+      $current_roles = array_column($entity->get($field_name)->getValue(), 'target_id');
+      sort($current_roles);
+      $wanted_roles = $target_roles;
+      sort($wanted_roles);
+
+      // Sätt fältet endast om det är tomt eller fel.
+      if ($current_roles !== $wanted_roles) {
+        $entity->set($field_name, array_map(fn ($rid) => ['target_id' => $rid], $target_roles));
+      }
+    }
+  }
+}

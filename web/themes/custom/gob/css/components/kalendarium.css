@@ -1,0 +1,287 @@
+/* ==========================================================================
+   Gott och Blandat — Kalendarium
+   Native <details> accordion rows: date | title | attendance state in the
+   always-visible summary, details and answer buttons in the body.
+   The next upcoming event starts open (template sets the open attribute).
+   ========================================================================== */
+
+.view-id-kalendarium {
+  padding: var(--space-3) var(--space-6);
+}
+
+/* Each event is a soft-cornered card with a tinted header band */
+.cal-acc {
+  background: var(--color-surface-raised);
+  border: var(--border-hairline);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.cal-acc + .cal-acc {
+  margin-top: var(--space-4);
+}
+
+/* --- Summary row: the event's header --- */
+.cal-acc__summary {
+  display: grid;
+  grid-template-columns: 20px 104px minmax(0, 1fr) auto;
+  gap: var(--space-4);
+  /* Top-aligned so the date line and the title sit at the same height */
+  align-items: start;
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-accent-tint);
+  cursor: pointer;
+  list-style: none;
+}
+
+/* Open card: a soft shadow separates the header from the content */
+.cal-acc[open] > .cal-acc__summary {
+  position: relative;
+  box-shadow: 0 3px 8px -2px rgba(34, 41, 59, 0.18);
+}
+
+.cal-acc__summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Chevron that turns when the row is open */
+.cal-acc__summary::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  justify-self: center;
+  margin-top: 0.4em;
+  border-right: 2px solid var(--color-ink-tertiary);
+  border-bottom: 2px solid var(--color-ink-tertiary);
+  transform: rotate(-45deg);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.cal-acc[open] > .cal-acc__summary::before {
+  transform: rotate(45deg);
+}
+
+.cal-acc__summary:hover {
+  background: color-mix(in srgb, var(--color-accent-tint), var(--color-accent) 8%);
+}
+
+.cal-acc__summary:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-sm);
+}
+
+.cal-acc__date b {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.cal-acc__date .cal-acc__time {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-ink-secondary);
+  white-space: nowrap;
+}
+
+/* Field templates wrap values in divs; keep them inline here */
+.cal-acc__date .views-field,
+.cal-acc__date .field-content {
+  display: inline;
+}
+
+.cal-acc__title {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.cal-acc__title-name {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+}
+
+/* Row two: how many members have answered so far */
+.cal-acc__counts {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-regular);
+  color: var(--color-ink-secondary);
+}
+
+/* State and answer buttons: always visible, also when collapsed */
+.cal-acc__state {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* The question the buttons answer */
+.cal-acc__ask {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
+}
+
+/* Answered rows: Ändra sits under the status chip, not beside it.
+   Both stretch to the same width with centred text. */
+.cal-acc__state:has(.chip--attending),
+.cal-acc__state:has(.chip--declined) {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+}
+
+.cal-acc__state:has(.chip--attending) .chip,
+.cal-acc__state:has(.chip--declined) .chip {
+  justify-content: center;
+}
+
+.cal-acc__state:has(.chip--attending) .att-btn,
+.cal-acc__state:has(.chip--declined) .att-btn {
+  display: block;
+  text-align: center;
+  /* Same pill radius as the status chip above */
+  border-radius: var(--radius-pill);
+}
+
+/* Answer links dressed as buttons */
+.cal-acc__state .att-btn {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  padding: 0.45em 0.95em;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* First answer: both buttons identical, so neither looks pre-selected.
+   Filled purple also separates them from the quiet change button
+   that appears once an answer is given. */
+.att-btn--answer {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-on-accent);
+  /* Short labels (Ja/Nej) still need a generous hit area */
+  min-width: 3.5em;
+  text-align: center;
+}
+
+.att-btn--answer:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: var(--color-on-accent);
+  text-decoration: none;
+}
+
+/* Change-of-mind link: small quiet button, no fill */
+.att-btn--change {
+  background: transparent;
+  border-color: var(--color-line);
+  color: var(--color-ink-secondary);
+}
+
+.att-btn--change:hover {
+  border-color: var(--color-ink-tertiary);
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+/* --- Body --- */
+.cal-acc__body {
+  padding: var(--space-6) var(--space-5) var(--space-6)
+           calc(20px + 104px + 2 * var(--space-4) + var(--space-5));
+  display: grid;
+  gap: var(--space-3);
+}
+
+.cal-acc__meta {
+  font-size: var(--text-sm);
+  color: var(--color-ink-secondary);
+}
+
+.cal-acc__meta p {
+  display: inline;
+  margin: 0;
+}
+
+/* Inline field labels (Fika, Noter och program) */
+.cal-acc__meta-label {
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
+}
+
+/* Bullet lists under a field label (fika crew, concert programme):
+   one entry per line, tight bullets */
+.cal-acc__list {
+  margin: var(--space-2) 0 0;
+  padding-left: 1.2em;
+  list-style: disc;
+}
+
+.cal-acc__list li + li {
+  margin-top: var(--space-1);
+}
+
+/* Node edit link for editors: tiny and out of the way */
+.cal-acc__edit a {
+  font-size: var(--text-xs);
+  color: var(--color-ink-tertiary);
+}
+
+.cal-acc__edit a:hover {
+  color: var(--color-accent-strong);
+}
+
+@media (max-width: 640px) {
+  /* Two columns: the event on the left, the answer buttons on the
+     right. Details and fika go below the event in the body. */
+  .cal-acc__summary {
+    grid-template-columns: 20px minmax(0, 1fr) auto;
+    row-gap: var(--space-2);
+  }
+
+  .cal-acc__summary::before {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .cal-acc__date {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .cal-acc__title {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .cal-acc__state {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    align-self: start;
+    /* Stack the answer buttons at equal width, easy to hit */
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2);
+  }
+
+  .cal-acc__state .att-btn {
+    display: block;
+    text-align: center;
+  }
+
+  .cal-acc__state .chip,
+  .cal-acc__state .cal-acc__ask {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .cal-acc__body {
+    padding-left: calc(20px + var(--space-4) + var(--space-5));
+  }
+}

@@ -1,0 +1,8 @@
+uuid: 9a41199f-14ab-4a5c-a216-ad408e87fb63
+langcode: sv
+status: true
+dependencies: {  }
+id: gob_weekday_date
+label: 'GoB veckodag och datum'
+locked: false
+pattern: 'D j M'
