@@ -1,7 +1,10 @@
 /* ==========================================================================
    Gott och Blandat — Conductor timeline (/historik)
    Vertical line, newest on top, a dot per conductor in the logotype's
-   colours, years in the margin, name + portrait + text in a card.
+   colours, years in the margin, name + initials monogram + text in a
+   card. No photos - most former conductors have none on file, so every
+   entry gets a monogram in its dot colour instead. Years the choir had
+   no conductor at all ("viloperiod") render as a thin, muted row.
    ========================================================================== */
 
 .view-id-historik .view-content {
@@ -43,13 +46,34 @@
   border: 3px solid var(--color-canvas);
 }
 
-.tl-item:nth-child(5n + 2) .tl-item__dot { background: var(--dot-red); }
-.tl-item:nth-child(5n + 3) .tl-item__dot { background: var(--dot-gold); }
-.tl-item:nth-child(5n + 4) .tl-item__dot { background: var(--dot-navy); }
-.tl-item:nth-child(5n + 5) .tl-item__dot { background: var(--dot-plum); }
+.tl-item:nth-child(5n + 2) .tl-item__dot,
+.tl-item:nth-child(5n + 2) .tl-item__monogram { background: var(--dot-red); }
+.tl-item:nth-child(5n + 3) .tl-item__dot,
+.tl-item:nth-child(5n + 3) .tl-item__monogram { background: var(--dot-gold); }
+.tl-item:nth-child(5n + 4) .tl-item__dot,
+.tl-item:nth-child(5n + 4) .tl-item__monogram { background: var(--dot-navy); }
+.tl-item:nth-child(5n + 5) .tl-item__dot,
+.tl-item:nth-child(5n + 5) .tl-item__monogram { background: var(--dot-plum); }
 
 .tl-item--current .tl-item__dot {
   box-shadow: 0 0 0 4px var(--color-accent-tint);
+}
+
+/* Viloperiod: no conductor that year. Thin, muted, no card. */
+.tl-item--hiatus {
+  padding-bottom: var(--space-5);
+}
+
+.tl-item--hiatus .tl-item__dot {
+  background: var(--color-ink-tertiary);
+  width: 10px;
+  height: 10px;
+  left: calc(-1 * var(--space-8) + 4px);
+  top: 6px;
+}
+
+.tl-item--hiatus .tl-item__years {
+  color: var(--color-ink-tertiary);
 }
 
 .tl-item__years {
@@ -75,12 +99,20 @@
   box-shadow: 0 12px 28px -18px rgba(34, 41, 59, 0.25);
 }
 
-.tl-item__photo {
-  width: 72px;
-  height: 90px;
-  object-fit: cover;
-  border-radius: var(--radius-md);
+.tl-item__monogram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
   flex-shrink: 0;
+  background: var(--dot-purple);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-lg);
+  letter-spacing: 0.02em;
 }
 
 .tl-item__name {
@@ -100,6 +132,17 @@
 
 .tl-item__text p {
   margin: 0;
+}
+
+.tl-item__hiatus-label {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink-tertiary);
+}
+
+.tl-item--hiatus .tl-item__text {
+  color: var(--color-ink-tertiary);
 }
 
 @media (max-width: 640px) {
