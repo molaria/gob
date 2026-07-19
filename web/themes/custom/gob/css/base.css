@@ -113,6 +113,11 @@ select {
   border: var(--border-strong);
   border-radius: var(--radius-md);
   padding: 0.5em 0.75em;
+  /* Text inputs otherwise size themselves off their HTML "size"
+     attribute (e.g. size="60"), which overflows any container
+     narrower than that - the auth cards being the clearest case. */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 input:focus-visible,

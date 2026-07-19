@@ -6,6 +6,28 @@
  */
 
 /**
+ * Implements hook_preprocess_html().
+ *
+ * Marks the login/register/password-reset pages so auth.css can give
+ * them the site's card treatment without touching every /user/* page
+ * (the profile edit form stays full width).
+ */
+function gob_preprocess_html(array &$variables): void {
+  $auth_routes = [
+    'user.login',
+    'user.register',
+    'user.pass',
+    'user.reset',
+    'user.reset.login',
+    'user.reset.form',
+  ];
+  if (in_array(\Drupal::routeMatch()->getRouteName(), $auth_routes, TRUE)) {
+    $variables['attributes']['class'][] = 'page-auth';
+    $variables['#attached']['library'][] = 'gob/auth';
+  }
+}
+
+/**
  * Implements hook_preprocess_page().
  */
 function gob_preprocess_page(array &$variables): void {

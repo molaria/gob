@@ -30,6 +30,13 @@ function gob_form_form_alter(array &$form, $form_state, $form_id) {
   if (in_array($form_id, ['node_kalendarium_form', 'node_kalendarium_edit_form'])) {
     $form['#attached']['library'][] = 'gob_form/kalendarium-form';
   }
+
+  // Filled purple submit button on the auth pages, matching the site's
+  // primary call-to-action style (see gob/auth, gob.theme).
+  $auth_forms = ['user_login_form', 'user_pass', 'user_register_form', 'user_pass_reset'];
+  if (in_array($form_id, $auth_forms, TRUE) && isset($form['actions']['submit'])) {
+    $form['actions']['submit']['#attributes']['class'][] = 'button--primary';
+  }
 }
 
 /**

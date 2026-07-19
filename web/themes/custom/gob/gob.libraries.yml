@@ -161,6 +161,12 @@ kalendarium:
     - core/drupal
     - core/once
 
+auth:
+  version: VERSION
+  css:
+    component:
+      css/components/auth.css: {}
+
 info:
   version: VERSION
   css:

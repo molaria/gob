@@ -1,0 +1,76 @@
+/**
+ * @file
+ * Card treatment for the login / register / password-reset pages.
+ * Scoped to body.page-auth so it never touches other /user/* pages
+ * (the profile edit form stays full width).
+ */
+
+.page-auth .layout-content {
+  max-width: 26rem;
+  margin: var(--space-8) auto;
+}
+
+.page-auth h1 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.page-auth form {
+  background: var(--color-surface);
+  border: var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-7);
+}
+
+/* Local tasks (Logga in / Skapa nytt konto / Återställ ditt lösenord)
+   as a quiet segmented control instead of underlined browser tabs. */
+.page-auth .tabs {
+  display: flex;
+  gap: var(--space-1);
+  margin: 0 0 var(--space-6);
+  padding: var(--space-1);
+  background: var(--color-canvas);
+  border-radius: var(--radius-md);
+}
+
+.page-auth .tabs > li {
+  flex: 1;
+  margin: 0;
+  list-style: none;
+}
+
+.page-auth .tabs a {
+  display: block;
+  text-align: center;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink-secondary);
+  padding: var(--space-2) var(--space-2);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+
+.page-auth .tabs a:hover {
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.page-auth .tabs a.is-active {
+  background: var(--color-surface-raised);
+  color: var(--color-accent-strong);
+  border: var(--border-hairline);
+}
+
+.page-auth .form-actions {
+  margin-top: var(--space-6);
+}
+
+.page-auth .form-actions input[type="submit"] {
+  width: 100%;
+  font-size: var(--text-base);
+  padding: 0.65em 1.1em;
+}
+
+.page-auth .description {
+  color: var(--color-ink-secondary);
+}
