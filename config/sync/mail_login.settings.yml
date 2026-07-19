@@ -7,10 +7,10 @@ mail_login_email_only: 0
 mail_login_override_login_labels: 1
 mail_login_username_title: 'Logga in med användarnamn eller e-post'
 mail_login_username_description: 'Du kan logga in med ditt användarnamn eller din e-post'
-mail_login_email_only_title: 'Login by email address'
-mail_login_email_only_description: 'You can use your email address only to login.'
+mail_login_email_only_title: 'Logga in med e-postadress'
+mail_login_email_only_description: 'Du kan logga in med enbart din e-postadress.'
 mail_login_password_only_description: 'Ange lösenordet som medföljer din e-postadress.'
 mail_login_password_reset_username_title: 'Användarnamn eller e-post'
-mail_login_password_reset_username_description: 'Password reset instructions will be sent to your registered email address.'
-mail_login_password_reset_email_only_title: 'Email address'
-mail_login_password_reset_email_only_description: 'Password reset instructions will be sent to your registered email address.'
+mail_login_password_reset_username_description: 'Instruktioner för att återställa lösenordet skickas till din registrerade e-postadress.'
+mail_login_password_reset_email_only_title: E-postadress
+mail_login_password_reset_email_only_description: 'Instruktioner för att återställa lösenordet skickas till din registrerade e-postadress.'
