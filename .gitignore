@@ -19,6 +19,10 @@
 # Raw export from production (db dump, original config, file listing)
 /_import/
 
+# Working files for the printed member manual (screenshots, generator
+# scripts, built PDF) - not part of the site, regenerated on demand
+/manual/
+
 # Database dumps
 *.sql
 *.sql.gz
