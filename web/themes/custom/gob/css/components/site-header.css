@@ -295,6 +295,12 @@ header[role="banner"] {
     padding: var(--space-3) 0;
   }
 
+  /* Same access-filtered-away exception as desktop (see above) - must
+     out-specificity the trigger styling right above. */
+  html.nav-open .menu--main ul.menu > li > span:only-child {
+    display: none;
+  }
+
   /* Submenus inline as quiet groups under their parent */
   html.nav-open .menu--main li ul.menu {
     visibility: visible;
