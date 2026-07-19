@@ -71,9 +71,9 @@ header[role="banner"] {
   border-radius: 50%;
 }
 
-/* --- Main menu: quiet, evenly spaced, centered in the bar --- */
+/* --- Main menu: quiet, evenly spaced, starts right after the wordmark --- */
 .menu--main {
-  margin: 0 auto;
+  margin: 0;
 }
 
 .menu--main ul.menu {
