@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Injects fika sign-up state and URLs into the kalendarium rows.
+ */
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ *
+ * The kalendarium view has render caching disabled, so per-user values
+ * are safe to inject here (same pattern as gob_attendance).
+ */
+function gob_fika_preprocess_views_view_fields(array &$variables): void {
+  if ($variables['view']->id() !== 'kalendarium') {
+    return;
+  }
+
+  $node = $variables['row']->_entity;
+  $uid = (int) \Drupal::currentUser()->id();
+
+  $fixer_uids = array_map(
+    static fn (array $item): int => (int) $item['target_id'],
+    $node->get('field_fikafixare')->getValue(),
+  );
+  $variables['fika_is_signed_up'] = in_array($uid, $fixer_uids, TRUE);
+
+  $destination = \Drupal::destination()->getAsArray();
+  foreach (['ja' => 'fika_signup_url', 'nej' => 'fika_withdraw_url'] as $answer => $key) {
+    $variables[$key] = Url::fromRoute('gob_fika.set', [
+      'node' => $node->id(),
+      'answer' => $answer,
+    ], ['query' => $destination])->toString();
+  }
+}

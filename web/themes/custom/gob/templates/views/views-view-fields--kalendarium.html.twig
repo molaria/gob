@@ -10,6 +10,7 @@
  * the page and leave a confirmation message.
  */
 #}
+{{ attach_library('gob/kalendarium') }}
 {% set node = row._entity %}
 {% set signup = node.field_anmalan_mojlig.value == '1' %}
 {% set is_first = fields.counter.content|render|striptags|trim == '1' %}
@@ -23,7 +24,7 @@
 {% endfor %}
 {% set konserter = konserter|sort((a, b) => a.label > b.label ? 1 : -1) %}
 
-<details class="cal-acc" {% if is_first %}open{% endif %}>
+<details class="cal-acc" data-nid="{{ node.id }}" {% if is_first %}open{% endif %}>
   <summary class="cal-acc__summary">
     {# Times as plain text: the field wrappers otherwise leak uneven
        whitespace around the dash. The end time is stored by time_field
@@ -79,12 +80,18 @@
                   <a href="mailto:{{ fixer.mail.value }}">{{ fixer.label }}</a>
                   {#- tel: link lets the phone offer both call and SMS -#}
                   {% if fixer.field_telefonnummer.value %} (<a href="tel:{{ fixer.field_telefonnummer.value|replace({' ': '', '-': ''}) }}">{{ fixer.field_telefonnummer.value }}</a>){% endif %}
+                  {% if fika_is_signed_up and fixer.id == user.id %}
+                    <a class="att-btn att-btn--change" href="{{ fika_withdraw_url }}">Ta bort mig</a>
+                  {% endif %}
                 </li>
               {% endif %}
             {% endfor %}
           </ul>
         {% else %}
-          ingen anmäld än - <a href="mailto:ingierdhallinger@gmail.com?subject=Fikalistan">kontakta Ingierd</a> (<a href="tel:0736502574">0736502574</a>) om du kan ta fikat
+          ingen anmäld än
+        {% endif %}
+        {% if not fika_is_signed_up %}
+          <a class="att-btn att-btn--answer" href="{{ fika_signup_url }}">Jag tar fikat</a>
         {% endif %}
       </div>
     {% endif %}

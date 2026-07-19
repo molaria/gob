@@ -147,8 +147,17 @@
   border-radius: var(--radius-pill);
 }
 
-/* Answer links dressed as buttons */
-.cal-acc__state .att-btn {
+/* While an in-place update is in flight (attendance-ajax.js), quiet
+   the buttons so double-clicks do nothing. */
+.cal-acc[aria-busy="true"] .att-btn {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Answer links dressed as buttons. Also used by the fika sign-up
+   buttons inside the expanded body. */
+.cal-acc__state .att-btn,
+.cal-acc__body .att-btn {
   display: inline-block;
   font-size: var(--text-xs);
   font-weight: var(--weight-semibold);

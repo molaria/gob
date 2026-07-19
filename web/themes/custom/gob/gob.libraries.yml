@@ -153,6 +153,14 @@ user:
       css/components/user.css:
         weight: -10
 
+kalendarium:
+  version: VERSION
+  js:
+    js/attendance-ajax.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
 info:
   version: VERSION
   css:

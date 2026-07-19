@@ -29,6 +29,7 @@ module:
   flag: 0
   gob_attendance: 0
   gob_attending: 0
+  gob_fika: 0
   gob_form: 0
   gob_infokort: 0
   gob_vapn_default: 0

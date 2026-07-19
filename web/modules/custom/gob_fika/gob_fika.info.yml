@@ -1,0 +1,8 @@
+name: 'GoB Fika'
+type: module
+description: 'Self-service fika sign-up on kalendarium events: members add or remove only themselves in field_fikafixare.'
+core_version_requirement: ^11
+package: GoB
+dependencies:
+  - drupal:node
+  - drupal:user

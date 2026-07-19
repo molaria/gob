@@ -1,0 +1,12 @@
+gob_fika.set:
+  path: '/fika/{node}/{answer}'
+  defaults:
+    _controller: '\Drupal\gob_fika\Controller\FikaController::set'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+    _csrf_token: 'TRUE'
+    answer: 'ja|nej'
+  options:
+    parameters:
+      node:
+        type: entity:node
