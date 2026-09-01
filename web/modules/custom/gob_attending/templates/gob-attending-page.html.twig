@@ -12,6 +12,14 @@
   'inget_besked': 'Saknar besked',
 } %}
 
+<p class="cal-nav">
+  {% if past %}
+    <a href="/gob/narvaro">← Kommande händelser</a>
+  {% else %}
+    <a href="/gob/narvaro/tidigare">Tidigare händelser →</a>
+  {% endif %}
+</p>
+
 {% if data is empty %}
   <p>{{ past ? 'Inga tidigare händelser ännu.' : 'Inga kommande händelser.' }}</p>
 {% endif %}
@@ -33,29 +41,29 @@
       {% for section, rows in event.rows %}
         {% if rows %}
           <div class="cal-acc__meta">
-            <b class="cal-acc__meta-label">{{ section_labels[section] }}:</b>
-            {% set current_stamma = '' %}
-            {% for row in rows %}
-              {% if row.stamma != current_stamma %}
-                {% if current_stamma != '' %}</ul>{% endif %}
-                <div class="cal-acc__meta-label">{{ row.stamma }}</div>
-                <ul class="cal-acc__list">
-                {% set current_stamma = row.stamma %}
-              {% endif %}
-              <li>{{ row.nr }}. {{ row.given }} {{ row.family }} ({{ row.nr_local }})</li>
-            {% endfor %}
-            {% if current_stamma != '' %}</ul>{% endif %}
+            <b class="cal-acc__meta-label">{{ section_labels[section] }}</b>
+            <table>
+              <tbody>
+                {% set current_stamma = '' %}
+                {% for row in rows %}
+                  {% if row.stamma != current_stamma %}
+                    <tr>
+                      <th colspan="4">{{ row.stamma }}</th>
+                    </tr>
+                    {% set current_stamma = row.stamma %}
+                  {% endif %}
+                  <tr>
+                    <td>{{ row.nr }}</td>
+                    <td>{{ row.nr_local }}</td>
+                    <td>{{ row.given }}</td>
+                    <td>{{ row.family }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
         {% endif %}
       {% endfor %}
     </div>
   </details>
 {% endfor %}
-
-<p class="cal-nav">
-  {% if past %}
-    <a href="/gob/narvaro">← Kommande händelser</a>
-  {% else %}
-    <a href="/gob/narvaro/tidigare">Tidigare händelser →</a>
-  {% endif %}
-</p>

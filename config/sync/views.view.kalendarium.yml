@@ -379,8 +379,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      header: {  }
-      footer:
+      header:
         area_text_custom:
           id: area_text_custom
           table: views
@@ -392,6 +391,7 @@ display:
           empty: false
           content: '<p class="cal-nav"><a href="/kalendarium/tidigare">Tidigare händelser →</a></p>'
           tokenize: false
+      footer: {  }
       display_extenders:
         matomo:
           enabled: false
@@ -815,11 +815,11 @@ display:
         title: false
         sorts: false
         filters: false
+        header: false
         footer: false
         path: false
       relationships: {  }
-      header: {  }
-      footer:
+      header:
         area_text_custom:
           id: area_text_custom
           table: views
@@ -831,6 +831,7 @@ display:
           empty: false
           content: '<p class="cal-nav"><a href="/kalendarium">← Kommande händelser</a></p>'
           tokenize: false
+      footer: {  }
       display_extenders:
         matomo:
           enabled: false
