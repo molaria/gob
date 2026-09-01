@@ -5,3 +5,4 @@ services:
       - '@entity_type.manager'
       - '@database'
       - '@gob_attendance.manager'
+      - '@date.formatter'

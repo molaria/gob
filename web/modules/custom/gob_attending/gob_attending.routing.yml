@@ -7,3 +7,13 @@ gob_attending.page:
     _permission: 'access gob attending'
   options:
     _admin_route: FALSE
+
+gob_attending.past_page:
+  path: '/gob/narvaro/tidigare'
+  defaults:
+    _controller: '\Drupal\gob_attending\Controller\AttendingController::pastPage'
+    _title: 'Närvaro – Tidigare händelser'
+  requirements:
+    _permission: 'access gob attending'
+  options:
+    _admin_route: FALSE

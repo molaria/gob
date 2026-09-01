@@ -21,9 +21,21 @@ class AttendingController extends ControllerBase {
   }
 
   public function page(): array {
+    return $this->buildPage(FALSE);
+  }
+
+  public function pastPage(): array {
+    return $this->buildPage(TRUE);
+  }
+
+  protected function buildPage(bool $past): array {
     return [
       '#theme' => 'gob_attending_page',
-      '#data' => $this->service->buildData(),
+      '#data' => $this->service->buildData($past),
+      '#past' => $past,
+      '#attached' => [
+        'library' => ['gob/kalendarium'],
+      ],
       '#cache' => [
         'contexts' => ['user.roles'],
         'max-age' => 0,

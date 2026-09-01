@@ -3,6 +3,7 @@
 namespace Drupal\gob_attending\Service;
 
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\gob_attendance\AttendanceManager;
@@ -17,15 +18,20 @@ class AttendingService {
     protected EntityTypeManagerInterface $entityTypeManager,
     protected Connection $database,
     protected AttendanceManager $attendance,
+    protected DateFormatterInterface $dateFormatter,
   ) {}
 
   /**
    * Bygger ALL data som Twig behöver.
+   *
+   * @param bool $past
+   *   FALSE för kommande händelser (idag och framåt, samma gräns som
+   *   /kalendarium), TRUE för tidigare händelser (strikt före idag).
    */
-  public function buildData(): array {
+  public function buildData(bool $past = FALSE): array {
     $data = [];
 
-    $nodes = $this->loadKalendariumNodes();
+    $nodes = $past ? $this->loadPastKalendariumNodes() : $this->loadKalendariumNodes();
     $users = $this->loadActiveChoirMembers();
 
     $statusMap = $this->attendance->getStatusMap(array_keys($users), array_keys($nodes));
@@ -50,10 +56,19 @@ class AttendingService {
       foreach ($rows as $key => &$group) {
         $group = $this->sortAndNumber($group);
       }
+      unset($group);
+
+      $timestamp = $node->get('field_datum')->date?->getTimestamp() ?? time();
 
       $data[] = [
         'title' => $node->label(),
-        'date' => $node->get('field_datum')->value,
+        'date' => $this->dateFormatter->format($timestamp, 'gob_weekday_date'),
+        'time' => $this->dateFormatter->format($timestamp, 'gob_time'),
+        'counts' => [
+          'kommer' => count($rows['kommer']),
+          'kommer_ej' => count($rows['kommer_ej']),
+          'inget_besked' => count($rows['inget_besked']),
+        ],
         'rows' => $rows,
       ];
     }
@@ -62,18 +77,34 @@ class AttendingService {
   }
 
   /**
-   * Laddar kalendarium-noder (>= -3 dagar), korrekt indexerade på nid.
+   * Laddar kommande kalendarium-noder (idag och framåt), indexerade på nid.
+   *
+   * Samma gräns som /kalendarium ("Today" - midnatt idag).
    */
   protected function loadKalendariumNodes(): array {
+    return $this->queryKalendariumNodes('>=', 'ASC');
+  }
+
+  /**
+   * Laddar tidigare kalendarium-noder (strikt före idag), fallande.
+   */
+  protected function loadPastKalendariumNodes(): array {
+    return $this->queryKalendariumNodes('<', 'DESC');
+  }
+
+  /**
+   * Gemensam fråga för kommande/tidigare-listorna.
+   */
+  protected function queryKalendariumNodes(string $operator, string $sortDirection): array {
     $storage = $this->entityTypeManager->getStorage('node');
 
-    $date = new DrupalDateTime('-3 days');
+    $date = new DrupalDateTime('today');
 
     $ids = $storage->getQuery()
       ->condition('type', 'kalendarium')
-      ->condition('field_datum', $date->format('Y-m-d\TH:i:s'), '>=')
+      ->condition('field_datum', $date->format('Y-m-d\TH:i:s'), $operator)
       ->condition('field_anmalan_mojlig', 1) // ✅ Endast noder med "Ja" (true)
-      ->sort('field_datum', 'ASC')
+      ->sort('field_datum', $sortDirection)
       ->accessCheck(FALSE)
       ->execute();
 

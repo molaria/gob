@@ -1,40 +1,61 @@
+{#
+/**
+ * @file
+ * Närvaroöversikt: samma hopfällbara kortstil som kalendariet, men läsläge
+ * för adminvyn - en sammanfattningsrad istället för svarsknappar, och tre
+ * grupperade listor (Kommer / Kommer inte / Saknar besked) per stämma.
+ */
+#}
+{% set section_labels = {
+  'kommer': 'Kommer',
+  'kommer_ej': 'Kommer inte',
+  'inget_besked': 'Saknar besked',
+} %}
+
+{% if data is empty %}
+  <p>{{ past ? 'Inga tidigare händelser ännu.' : 'Inga kommande händelser.' }}</p>
+{% endif %}
+
 {% for event in data %}
-  <h2>{{ event.title }} – {{ event.date|date('Y-m-d H:i') }}</h2>
+  <details class="cal-acc">
+    <summary class="cal-acc__summary">
+      <span class="cal-acc__date">
+        <b>{{ event.date }}</b>
+        <span class="cal-acc__time">{{ event.time }}</span>
+      </span>
+      <span class="cal-acc__title">
+        <span class="cal-acc__title-name">{{ event.title }}</span>
+        <span class="cal-acc__counts">Kommer: {{ event.counts.kommer }}, Kommer inte: {{ event.counts.kommer_ej }}, Saknar besked: {{ event.counts.inget_besked }}</span>
+      </span>
+    </summary>
 
-  {% for section, rows in event.rows %}
-    {% if rows %}
-      <h3>
-        {{ section == 'kommer' ? 'Kommer' :
-           section == 'kommer_ej' ? 'Kommer ej' : 'Saknar besked' }}
-      </h3>
-
-      <table class="table table-sm">
-        <tbody>
-
-          {# Håller koll på när stämman ändras #}
-          {% set current_stamma = '' %}
-
-          {% for row in rows %}
-            {% if row.stamma != current_stamma %}
-              <tr class="table-secondary">
-                <th colspan="4">
-                  {{ row.stamma }}
-                </th>
-              </tr>
-              {% set current_stamma = row.stamma %}
-            {% endif %}
-
-            <tr>
-              <td>{{ row.nr }}</td>
-              <td>{{ row.nr_local }}</td>
-              <td>{{ row.given }}</td>
-              <td>{{ row.family }}</td>
-            </tr>
-          {% endfor %}
-
-        </tbody>
-      </table>
-    {% endif %}
-  {% endfor %}
+    <div class="cal-acc__body">
+      {% for section, rows in event.rows %}
+        {% if rows %}
+          <div class="cal-acc__meta">
+            <b class="cal-acc__meta-label">{{ section_labels[section] }}:</b>
+            {% set current_stamma = '' %}
+            {% for row in rows %}
+              {% if row.stamma != current_stamma %}
+                {% if current_stamma != '' %}</ul>{% endif %}
+                <div class="cal-acc__meta-label">{{ row.stamma }}</div>
+                <ul class="cal-acc__list">
+                {% set current_stamma = row.stamma %}
+              {% endif %}
+              <li>{{ row.nr }}. {{ row.given }} {{ row.family }} ({{ row.nr_local }})</li>
+            {% endfor %}
+            {% if current_stamma != '' %}</ul>{% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </details>
 {% endfor %}
 
+<p class="cal-nav">
+  {% if past %}
+    <a href="/gob/narvaro">← Kommande händelser</a>
+  {% else %}
+    <a href="/gob/narvaro/tidigare">Tidigare händelser →</a>
+  {% endif %}
+</p>
