@@ -9,6 +9,17 @@
   padding: var(--space-3) var(--space-6);
 }
 
+/* Link between the live calendar and the read-only history page */
+.cal-nav {
+  margin: var(--space-5) 0 0;
+  text-align: center;
+}
+
+.cal-nav a {
+  font-weight: var(--weight-semibold);
+  color: var(--color-accent-strong);
+}
+
 /* Each event is a soft-cornered card with a tinted header band */
 .cal-acc {
   background: var(--color-surface-raised);

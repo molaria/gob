@@ -1,0 +1,91 @@
+{#
+/**
+ * @file
+ * Tidigare händelser - samma information som huvudkalendariet, men utan
+ * några handlingsknappar. Att svara "Kommer du?" eller anmäla fika på
+ * en händelse som redan varit ger ingen mening - bara ett historiskt
+ * facit över vad som stod där och vad slutresultatet blev.
+ *
+ * attendance_status och attendance_counts kommer från samma
+ * gob_attendance_preprocess_views_view_fields() som huvudsidan
+ * använder - den matchar på hela vyn kalendarium, oavsett display.
+ */
+#}
+{{ attach_library('gob/kalendarium') }}
+{% set node = row._entity %}
+{% set signup = node.field_anmalan_mojlig.value == '1' %}
+{% set konserter = [] %}
+{% for item in node.field_konsert %}
+  {% if item.entity %}
+    {% set konserter = konserter|merge([item.entity]) %}
+  {% endif %}
+{% endfor %}
+{% set konserter = konserter|sort((a, b) => a.label > b.label ? 1 : -1) %}
+
+<details class="cal-acc" data-nid="{{ node.id }}">
+  <summary class="cal-acc__summary">
+    {% set start_time = fields.field_datum_1.content|render|striptags|trim %}
+    {% set end_seconds = node.field_sluttid.0.value %}
+    {% set end_time = end_seconds is not null
+      ? '%d.%02d'|format(end_seconds // 3600, (end_seconds % 3600) // 60)
+      : '' %}
+    <span class="cal-acc__date">
+      <b>{{ fields.field_datum.content }}</b>
+      <span class="cal-acc__time">{{ start_time }}{% if end_time %}&ndash;{{ end_time }}{% endif %}</span>
+    </span>
+    <span class="cal-acc__title">
+      <span class="cal-acc__title-name">{{ node.label }}</span>
+      {% if signup %}
+        <span class="cal-acc__counts">Anmälda: {{ attendance_counts.attending }}, Avanmälda: {{ attendance_counts.declined }}, Ej svarat: {{ attendance_counts.no_response }}</span>
+      {% endif %}
+    </span>
+    {# Historik, inget att göra - bara läget som det blev. #}
+    <span class="cal-acc__state">
+      {% if signup %}
+        {% if attendance_status == 'attending' %}
+          <span class="chip chip--attending">Du var anmäld</span>
+        {% elseif attendance_status == 'declined' %}
+          <span class="chip chip--declined">Du var avanmäld</span>
+        {% else %}
+          <span class="cal-acc__ask">Du svarade inte</span>
+        {% endif %}
+      {% endif %}
+    </span>
+  </summary>
+
+  <div class="cal-acc__body">
+    {% if node.field_information.value %}
+      <div class="cal-acc__meta">{{ node.field_information.processed }}</div>
+    {% endif %}
+
+    {% if signup %}
+      <div class="cal-acc__meta"><b class="cal-acc__meta-label">Fika:</b>
+        {% if node.field_fikafixare|length > 0 %}
+          <ul class="cal-acc__list">
+            {% for item in node.field_fikafixare %}
+              {% set fixer = item.entity %}
+              {% if fixer %}
+                <li>{{ fixer.label }}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% else %}
+          ingen anmäld
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if konserter|length %}
+      <div class="cal-acc__meta">
+        <b class="cal-acc__meta-label">Noter och program:</b>
+        <ul class="cal-acc__list">
+          {% for term in konserter %}
+            <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id}) }}">{{ term.label }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <span class="cal-acc__edit">{{ fields.edit_node.content }}</span>
+  </div>
+</details>
