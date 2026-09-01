@@ -389,7 +389,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: false
-          content: '<p class="cal-nav"><a href="/kalendarium/tidigare">Tidigare händelser →</a></p>'
+          content: '<p class="cal-nav"><a href="/kalendarium/tidigare">← Tidigare händelser</a></p>'
           tokenize: false
       footer: {  }
       display_extenders:
@@ -829,7 +829,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: false
-          content: '<p class="cal-nav"><a href="/kalendarium">← Kommande händelser</a></p>'
+          content: '<p class="cal-nav"><a href="/kalendarium">Kommande händelser →</a></p>'
           tokenize: false
       footer: {  }
       display_extenders:
