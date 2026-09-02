@@ -44,21 +44,31 @@
             <b class="cal-acc__meta-label">{{ section_labels[section] }}</b>
             <table>
               <tbody>
-                {% set current_stamma = '' %}
-                {% for row in rows %}
-                  {% if row.stamma != current_stamma %}
+                {% if section == 'kommer_ej' %}
+                  {% for row in rows %}
                     <tr>
-                      <th colspan="4">{{ row.stamma }}</th>
+                      <td>{{ row.nr }}</td>
+                      <td>{{ row.given }}</td>
+                      <td>{{ row.family }}</td>
                     </tr>
-                    {% set current_stamma = row.stamma %}
-                  {% endif %}
-                  <tr>
-                    <td>{{ row.nr }}</td>
-                    <td>{{ row.nr_local }}</td>
-                    <td>{{ row.given }}</td>
-                    <td>{{ row.family }}</td>
-                  </tr>
-                {% endfor %}
+                  {% endfor %}
+                {% else %}
+                  {% set current_stamma = '' %}
+                  {% for row in rows %}
+                    {% if row.stamma != current_stamma %}
+                      <tr>
+                        <th colspan="4">{{ row.stamma }}</th>
+                      </tr>
+                      {% set current_stamma = row.stamma %}
+                    {% endif %}
+                    <tr>
+                      <td>{{ row.nr }}</td>
+                      <td>{{ row.nr_local }}</td>
+                      <td>{{ row.given }}</td>
+                      <td>{{ row.family }}</td>
+                    </tr>
+                  {% endfor %}
+                {% endif %}
               </tbody>
             </table>
           </div>

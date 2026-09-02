@@ -68,7 +68,7 @@ class AttendingService {
       }
 
       foreach ($rows as $key => &$group) {
-        $group = $this->sortAndNumber($group);
+        $group = $key === 'kommer_ej' ? $this->sortAndNumberByName($group) : $this->sortAndNumber($group);
       }
       unset($group);
 
@@ -202,6 +202,25 @@ class AttendingService {
 
       $row['nr'] = $global++;
       $row['nr_local'] = $local[$key];
+      $out[] = $row;
+    }
+
+    return $out;
+  }
+
+  /**
+   * Sorterar "Kommer inte" på förnamn + efternamn, stigande, utan
+   * stämmoindelning - bara ett löpnummer.
+   */
+  protected function sortAndNumberByName(array $rows): array {
+    usort($rows, function ($a, $b) {
+      return [$a['given'], $a['family']] <=> [$b['given'], $b['family']];
+    });
+
+    $out = [];
+    $nr = 1;
+    foreach ($rows as $row) {
+      $row['nr'] = $nr++;
       $out[] = $row;
     }
 
