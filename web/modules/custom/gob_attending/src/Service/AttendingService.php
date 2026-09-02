@@ -75,6 +75,7 @@ class AttendingService {
       $timestamp = $node->get('field_datum')->date?->getTimestamp() ?? time();
 
       $data[] = [
+        'nid' => $nid,
         'title' => $node->label(),
         'date' => $this->dateFormatter->format($timestamp, 'gob_weekday_date'),
         'time' => $this->dateFormatter->format($timestamp, 'gob_time'),

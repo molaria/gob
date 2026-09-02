@@ -1,0 +1,7 @@
+narvaro-jump:
+  version: VERSION
+  js:
+    js/narvaro-jump.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

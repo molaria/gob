@@ -34,6 +34,13 @@ function gob_attendance_preprocess_views_view_fields(array &$variables): void {
   }
 
   $variables['attendance_counts'] = $manager->getCounts((int) $node->id(), _gob_attendance_member_uids());
+
+  // "Anmälda" länkar till samma post på närvarosidan, men bara för den
+  // som faktiskt får se den sidan (behörigheten "access gob attending").
+  if ($account->hasPermission('access gob attending')) {
+    $narvaroPath = $variables['view']->current_display === 'page_2' ? '/gob/narvaro/tidigare' : '/gob/narvaro';
+    $variables['narvaro_url'] = $narvaroPath . '#nid-' . $node->id();
+  }
 }
 
 /**

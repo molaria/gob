@@ -34,7 +34,7 @@ class AttendingController extends ControllerBase {
       '#data' => $this->service->buildData($past),
       '#past' => $past,
       '#attached' => [
-        'library' => ['gob/kalendarium'],
+        'library' => ['gob/kalendarium', 'gob_attending/narvaro-jump'],
       ],
       '#cache' => [
         'contexts' => ['user.roles'],

@@ -25,7 +25,7 @@
 {% endif %}
 
 {% for event in data %}
-  <details class="cal-acc">
+  <details class="cal-acc" id="nid-{{ event.nid }}">
     <summary class="cal-acc__summary">
       <span class="cal-acc__date">
         <b>{{ event.date }}</b>

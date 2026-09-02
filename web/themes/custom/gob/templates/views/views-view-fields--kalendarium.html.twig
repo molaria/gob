@@ -41,7 +41,7 @@
     <span class="cal-acc__title">
       <span class="cal-acc__title-name">{{ node.label }}</span>
       {% if signup %}
-        <span class="cal-acc__counts">Anmälda: {{ attendance_counts.attending }}, Avanmälda: {{ attendance_counts.declined }}, Ej svarat: {{ attendance_counts.no_response }}</span>
+        <span class="cal-acc__counts">{% if narvaro_url %}<a href="{{ narvaro_url }}">Anmälda</a>{% else %}Anmälda{% endif %}: {{ attendance_counts.attending }}, Avanmälda: {{ attendance_counts.declined }}, Ej svarat: {{ attendance_counts.no_response }}</span>
       {% endif %}
     </span>
     {# Answering must never require expanding the row: state and buttons
