@@ -64,6 +64,21 @@
           </div>
         {% endif %}
       {% endfor %}
+
+      {% if event.missing_phones %}
+        <div class="cal-acc__meta">
+          <b class="cal-acc__meta-label">Telefonnummer, saknar besked (för SMS-påminnelse)</b>
+          <table>
+            <tbody>
+              {% for phone in event.missing_phones %}
+                <tr>
+                  <td>{{ phone }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
     </div>
   </details>
 {% endfor %}

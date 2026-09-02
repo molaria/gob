@@ -14,6 +14,13 @@ use Drupal\user\Entity\User;
  */
 class AttendingService {
 
+  /**
+   * Uid:n som aldrig ska synas i SMS-telefonlistan (kopieringsvänlig lista
+   * längst ner under "Saknar besked"), även om de saknar besked
+   * (Bror Engstrom, Mats-Olof Liljegren, Stefan Berglund).
+   */
+  protected const EXCLUDED_FROM_PHONE_LIST = [17, 19, 82];
+
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
     protected Connection $database,
@@ -53,6 +60,13 @@ class AttendingService {
         $rows[$status][] = $this->buildUserRow($user);
       }
 
+      $missingPhones = [];
+      foreach ($rows['inget_besked'] as $row) {
+        if (!in_array((int) $row['uid'], self::EXCLUDED_FROM_PHONE_LIST, TRUE) && $row['phone'] !== '') {
+          $missingPhones[] = $row['phone'];
+        }
+      }
+
       foreach ($rows as $key => &$group) {
         $group = $this->sortAndNumber($group);
       }
@@ -70,6 +84,9 @@ class AttendingService {
           'inget_besked' => count($rows['inget_besked']),
         ],
         'rows' => $rows,
+        // Ett nummer per rad i en egen kolumn - enkelt att markera och
+        // kopiera för att klistra in i t.ex. Meddelanden.
+        'missing_phones' => $missingPhones,
       ];
     }
 
@@ -147,6 +164,7 @@ class AttendingService {
       'stamma_weight' => $this->stammaWeight($user),
       'family' => $address?->family_name ?? '',
       'given' => $address?->given_name ?? '',
+      'phone' => $user->get('field_telefonnummer')->value ?? '',
     ];
   }
 
