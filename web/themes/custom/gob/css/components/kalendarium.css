@@ -235,6 +235,21 @@
   color: var(--color-ink);
 }
 
+/* Attendance name tables (gob_attending): shrink-wrap to content instead
+   of the base table's full-width stretch, so columns sit one space
+   apart and the whole list reads left-aligned rather than spread out. */
+.cal-acc__meta table {
+  width: auto;
+  font-size: inherit;
+}
+
+.cal-acc__meta td,
+.cal-acc__meta th {
+  padding: 1px 1ch 1px 0;
+  border-bottom: none;
+  text-align: left;
+}
+
 /* Bullet lists under a field label (fika crew, concert programme):
    one entry per line, tight bullets */
 .cal-acc__list {
