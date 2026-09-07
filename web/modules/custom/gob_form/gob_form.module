@@ -54,10 +54,26 @@ function gob_form_taxonomy_term_update(EntityInterface $term) {
 }
 
 /**
+ * Implements hook_ENTITY_TYPE_insert() for node.
+ */
+function gob_form_node_insert(EntityInterface $node) {
+  _gob_form_sync_program($node);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update() for node.
+ */
+function gob_form_node_update(EntityInterface $node) {
+  _gob_form_sync_program($node);
+}
+
+/**
  * Keeps the songs' field_hepp (the "Framförd" list) in step with the
- * concert term's field_program. The term is the place you manage the
- * programme; the reverse reference on each song is maintained here so
- * the note register keeps showing where a song was performed.
+ * concert term's field_program. Either side can be edited; whichever
+ * one was just saved is treated as the source of truth for that save.
+ * Newly added songs are appended last in field_program, since a song
+ * picked from its own edit form carries no position - the manually
+ * dragged order of the other songs is left untouched.
  */
 function _gob_form_sync_hepp(EntityInterface $term): void {
   if ($term->bundle() !== 'datum_framforande' || !$term->hasField('field_program')) {
@@ -98,5 +114,54 @@ function _gob_form_sync_hepp(EntityInterface $term): void {
     }
     $node->set('field_hepp', array_values(array_unique($values)));
     $node->save();
+  }
+}
+
+/**
+ * Reverse direction of _gob_form_sync_hepp(): keeps the concert terms'
+ * field_program in step with a song's field_hepp when the song itself
+ * is edited. Terminates without looping, because by the time a term
+ * save re-triggers _gob_form_sync_hepp(), field_hepp already matches
+ * what was just saved here, so that pass finds nothing left to change.
+ */
+function _gob_form_sync_program(EntityInterface $node): void {
+  if ($node->bundle() !== 'musik' || !$node->hasField('field_hepp')) {
+    return;
+  }
+  $nid = (int) $node->id();
+
+  // Concert terms the song now points to.
+  $wanted = [];
+  foreach ($node->get('field_hepp') as $item) {
+    if ($item->target_id) {
+      $wanted[(int) $item->target_id] = TRUE;
+    }
+  }
+
+  // Concert terms that currently list this song in field_program.
+  $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $has_now = $term_storage->getQuery()
+    ->condition('vid', 'datum_framforande')
+    ->condition('field_program', $nid)
+    ->accessCheck(FALSE)
+    ->execute();
+  $has_now = array_map('intval', $has_now);
+
+  // Add the song to concerts newly listed in field_hepp.
+  $to_add = array_diff(array_keys($wanted), $has_now);
+  // Remove the song from concerts dropped from field_hepp.
+  $to_remove = array_diff($has_now, array_keys($wanted));
+
+  foreach ($term_storage->loadMultiple(array_merge($to_add, $to_remove)) as $term) {
+    $tid = (int) $term->id();
+    $values = array_filter(
+      array_map(fn($i) => (int) $i['target_id'], $term->get('field_program')->getValue()),
+      fn($v) => $v !== $nid
+    );
+    if (isset($wanted[$tid])) {
+      $values[] = $nid;
+    }
+    $term->set('field_program', array_values(array_unique($values)));
+    $term->save();
   }
 }
