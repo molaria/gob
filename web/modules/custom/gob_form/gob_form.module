@@ -165,3 +165,93 @@ function _gob_form_sync_program(EntityInterface $node): void {
     $term->save();
   }
 }
+
+/**
+ * Implements hook_deploy_NAME().
+ *
+ * One-off: creates or corrects the five datum_framforande terms for the
+ * autumn 2026 concerts/rehearsals, then sets field_konsert on every
+ * fall kalendarium event to the subset of those terms whose concert
+ * date has not yet passed relative to that event's own date - a
+ * concert's own event day still links to itself, but drops off every
+ * later event once it has been performed.
+ *
+ * Matches terms by label/date, never by id: the taxonomy term ids
+ * created here will not match the ones used while building this on
+ * dev, since each environment has its own database.
+ */
+function gob_form_deploy_fall_2026_concert_program(): string {
+  $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+
+  $wanted_terms = [
+    '2026-10-24' => [
+      'search' => 'Körfest',
+      'label' => '2026-10-24 Körfest - Körsång 150 år i Equmeniakyrkan Betel',
+    ],
+    '2026-11-15' => ['search' => NULL, 'label' => '2026-11-15 Gudstjänst'],
+    '2026-11-29' => ['search' => NULL, 'label' => '2026-11-29 Adventskör'],
+    '2026-12-16' => ['search' => NULL, 'label' => '2026-12-16 Julkonsert'],
+    '2027-04-10' => ['search' => NULL, 'label' => '2027-04-10 Musikalkonsert'],
+  ];
+
+  $term_ids = [];
+  foreach ($wanted_terms as $date => $spec) {
+    $tid = NULL;
+
+    $exact = $term_storage->getQuery()
+      ->condition('vid', 'datum_framforande')
+      ->condition('name', $spec['label'])
+      ->accessCheck(FALSE)
+      ->execute();
+    if ($exact) {
+      $tid = (int) reset($exact);
+    }
+    elseif ($spec['search']) {
+      // Catches a term already present but saved with the wrong date,
+      // e.g. "2026-10-23 Körfest ..." instead of the correct 24th.
+      $fuzzy = $term_storage->getQuery()
+        ->condition('vid', 'datum_framforande')
+        ->condition('name', $spec['search'], 'CONTAINS')
+        ->accessCheck(FALSE)
+        ->execute();
+      if ($fuzzy) {
+        $tid = (int) reset($fuzzy);
+        $term_storage->load($tid)->setName($spec['label'])->save();
+      }
+    }
+
+    if (!$tid) {
+      $term = \Drupal\taxonomy\Entity\Term::create([
+        'vid' => 'datum_framforande',
+        'name' => $spec['label'],
+      ]);
+      $term->save();
+      $tid = (int) $term->id();
+    }
+    $term_ids[$date] = $tid;
+  }
+
+  $nids = $node_storage->getQuery()
+    ->condition('type', 'kalendarium')
+    ->condition('field_datum', '2026-09-01T00:00:00', '>=')
+    ->condition('field_datum', '2027-01-01T00:00:00', '<')
+    ->accessCheck(FALSE)
+    ->execute();
+
+  $updated = 0;
+  foreach ($node_storage->loadMultiple($nids) as $node) {
+    $event_date = substr($node->get('field_datum')->value, 0, 10);
+    $wanted = [];
+    foreach ($term_ids as $date => $tid) {
+      if ($date >= $event_date) {
+        $wanted[] = $tid;
+      }
+    }
+    $node->set('field_konsert', $wanted);
+    $node->save();
+    $updated++;
+  }
+
+  return count($term_ids) . ' konserttermer säkrade, ' . $updated . ' kalenderhändelser fick field_konsert satt.';
+}
