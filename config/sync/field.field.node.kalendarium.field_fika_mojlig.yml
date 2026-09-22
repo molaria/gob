@@ -1,0 +1,23 @@
+uuid: c40ac31e-9475-472d-8590-9e110dda1bbe
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fika_mojlig
+    - node.type.kalendarium
+id: node.kalendarium.field_fika_mojlig
+field_name: field_fika_mojlig
+entity_type: node
+bundle: kalendarium
+label: 'Fika möjlig'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Ja
+  off_label: Nej
+field_type: boolean

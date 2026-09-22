@@ -32,7 +32,9 @@ class FikaController extends ControllerBase {
    */
   public function set(NodeInterface $node, string $answer): RedirectResponse {
     // Same gate as the fika section in the row template.
-    if ($node->bundle() !== 'kalendarium' || $node->get('field_anmalan_mojlig')->value != 1) {
+    if ($node->bundle() !== 'kalendarium'
+      || $node->get('field_anmalan_mojlig')->value != 1
+      || $node->get('field_fika_mojlig')->value != 1) {
       throw new AccessDeniedHttpException();
     }
 

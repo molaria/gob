@@ -13,6 +13,7 @@
 {{ attach_library('gob/kalendarium') }}
 {% set node = row._entity %}
 {% set signup = node.field_anmalan_mojlig.value == '1' %}
+{% set fika = node.field_fika_mojlig.value == '1' %}
 {% set is_first = fields.counter.content|render|striptags|trim == '1' %}
 {# Concert terms are named with an ISO date prefix (2026-10-24 ...),
    so sorting on the label gives chronological order, soonest first #}
@@ -69,7 +70,7 @@
       <div class="cal-acc__meta">{{ node.field_information.processed }}</div>
     {% endif %}
 
-    {% if signup %}
+    {% if signup and fika %}
       <div class="cal-acc__meta"><b class="cal-acc__meta-label">Fika:</b>
         {% if node.field_fikafixare|length > 0 %}
           <ul class="cal-acc__list">
