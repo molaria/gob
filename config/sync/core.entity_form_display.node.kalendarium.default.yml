@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.kalendarium.field_konsert
     - field.field.node.kalendarium.field_publik
     - field.field.node.kalendarium.field_publik_bild
+    - field.field.node.kalendarium.field_publik_text
     - field.field.node.kalendarium.field_sluttid
     - image.style.thumbnail
     - node.type.kalendarium
@@ -87,6 +88,14 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_publik_text:
+    type: text_textarea
+    weight: 9
+    region: content
+    settings:
+      rows: 4
+      placeholder: ''
     third_party_settings: {  }
   field_sluttid:
     type: time_widget

@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.kalendarium.field_konsert
     - field.field.node.kalendarium.field_publik
     - field.field.node.kalendarium.field_publik_bild
+    - field.field.node.kalendarium.field_publik_text
     - field.field.node.kalendarium.field_sluttid
     - node.type.kalendarium
   module:
@@ -77,6 +78,7 @@ hidden:
   field_konsert: true
   field_publik: true
   field_publik_bild: true
+  field_publik_text: true
   field_sluttid: true
   langcode: true
   vapn: true

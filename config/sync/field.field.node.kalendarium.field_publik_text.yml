@@ -1,0 +1,22 @@
+uuid: 47aac74f-907d-4d3a-b94c-44913633b7c7
+langcode: sv
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_publik_text
+    - node.type.kalendarium
+  module:
+    - text
+id: node.kalendarium.field_publik_text
+field_name: field_publik_text
+entity_type: node
+bundle: kalendarium
+label: 'Text på startsidan'
+description: 'Visas på konsertkortet på publika startsidan. Skriv bara det som alla besökare får se. Fältet Information visas aldrig där.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long
