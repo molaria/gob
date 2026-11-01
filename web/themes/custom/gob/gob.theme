@@ -107,6 +107,13 @@ function gob_preprocess_views_view_fields(array &$variables): void {
 function gob_preprocess_taxonomy_term(array &$variables): void {
   if ($variables['term']->bundle() === 'datum_framforande') {
     $variables['#attached']['library'][] = 'gob/program';
+
+    // The template reads the songs (and their files) straight from the
+    // field, which does not bubble the songs' cache tags. Without them the
+    // page stays stale when a note is uploaded or a song is edited.
+    foreach ($variables['term']->get('field_program')->referencedEntities() as $song) {
+      $variables['#cache']['tags'] = array_merge($variables['#cache']['tags'] ?? [], $song->getCacheTags());
+    }
   }
 }
 
