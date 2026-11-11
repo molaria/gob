@@ -9,12 +9,21 @@
  *
  * Web Audio is started from the play click, which satisfies the
  * autoplay policies on iOS and Android.
+ *
+ * The mixed output is routed into a hidden <audio> element (through a
+ * MediaStreamAudioDestinationNode) so mobile browsers treat playback as
+ * real media: audible with the iPhone silent switch on, kept alive when
+ * the screen locks, and shown on the lock screen via Media Session.
+ * Without MediaStream support the output goes straight to the speakers.
  */
 (function (Drupal, once) {
   'use strict';
 
   let ctx = null;
   let dialog = null;
+  let streamDest = null; // MediaStreamAudioDestinationNode, or null
+  let audioEl = null; // hidden <audio> playing streamDest's stream
+  let directOutput = false; // true when the stream route failed or is unavailable
   let current = null; // { tracks, buffers, gains, sources, startedAt, offset, playing, raf, duration, solo }
 
   function formatTime(seconds) {
@@ -65,6 +74,9 @@
   function stopSources() {
     if (current && current.sources) {
       current.sources.forEach((s) => {
+        // Detach first: stop() fires "ended" too, and only a natural
+        // end of the song may be treated as one.
+        s.onended = null;
         try { s.stop(); } catch (e) { /* already stopped */ }
       });
       current.sources = null;
@@ -78,9 +90,141 @@
       current.playing = false;
       current = null;
     }
+    if (audioEl) {
+      audioEl.pause();
+    }
+    clearMediaSession();
     if (ctx && ctx.state === 'running') {
       ctx.suspend();
     }
+  }
+
+  // Where the gain nodes send their sound.
+  function outputNode() {
+    return streamDest && !directOutput ? streamDest : ctx.destination;
+  }
+
+  // Safety net: if the <audio> element refuses to play, the stream route
+  // would be silent, so send the sound straight to the speakers instead.
+  function fallBackToDirectOutput() {
+    directOutput = true;
+    if (current && current.gains) {
+      current.gains.forEach((g) => {
+        g.disconnect();
+        g.connect(ctx.destination);
+      });
+    }
+  }
+
+  function startAudioElement() {
+    if (!audioEl) {
+      return;
+    }
+    const result = audioEl.play();
+    if (result && result.catch) {
+      result.catch(fallBackToDirectOutput);
+    }
+  }
+
+  // One-time setup of the audio context and the media route.
+  function ensureContext() {
+    if (ctx) {
+      return;
+    }
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Make iOS treat the page as media playback, not ambient sound.
+    if (navigator.audioSession) {
+      try { navigator.audioSession.type = 'playback'; } catch (e) { /* unsupported value */ }
+    }
+
+    if (ctx.createMediaStreamDestination) {
+      streamDest = ctx.createMediaStreamDestination();
+      audioEl = document.createElement('audio');
+      audioEl.hidden = true;
+      audioEl.playsInline = true;
+      audioEl.srcObject = streamDest.stream;
+      document.body.appendChild(audioEl);
+      // The system (lock screen, headset button) can pause the element.
+      audioEl.addEventListener('pause', () => {
+        if (current && current.playing) {
+          pausePlayback();
+        }
+      });
+    }
+    else {
+      directOutput = true;
+    }
+
+    ctx.addEventListener('statechange', checkRunning);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && current && current.duration) {
+        updateProgress(position());
+        checkRunning();
+      }
+    });
+
+    if ('mediaSession' in navigator) {
+      const session = navigator.mediaSession;
+      const handlers = {
+        play: play,
+        pause: pausePlayback,
+        seekto: (d) => { if (current && current.duration && d.seekTime != null) { seek(d.seekTime); } },
+        seekbackward: (d) => { if (current && current.duration) { seek(Math.max(0, position() - (d.seekOffset || 10))); } },
+        seekforward: (d) => { if (current && current.duration) { seek(Math.min(current.duration, position() + (d.seekOffset || 10))); } },
+      };
+      Object.keys(handlers).forEach((action) => {
+        try { session.setActionHandler(action, handlers[action]); } catch (e) { /* action unsupported */ }
+      });
+    }
+  }
+
+  function clearMediaSession() {
+    if (!('mediaSession' in navigator)) {
+      return;
+    }
+    try {
+      navigator.mediaSession.playbackState = 'none';
+      navigator.mediaSession.metadata = null;
+    } catch (e) { /* ignore */ }
+  }
+
+  function updateMediaSession() {
+    if (!('mediaSession' in navigator) || !current || !current.duration) {
+      return;
+    }
+    const session = navigator.mediaSession;
+    try {
+      session.playbackState = current.playing ? 'playing' : 'paused';
+      session.setPositionState({
+        duration: current.duration,
+        playbackRate: 1,
+        position: Math.min(Math.max(position(), 0), current.duration),
+      });
+    } catch (e) { /* position state unsupported */ }
+  }
+
+  // The system pauses the context during calls, Siri and screen lock.
+  // If playback should be running but is not, try to resume, and if that
+  // fails show the paused state so the UI never claims it is playing.
+  function checkRunning() {
+    if (!current || !current.playing) {
+      return;
+    }
+    if (ctx.state === 'running') {
+      if (audioEl && audioEl.paused) {
+        startAudioElement();
+      }
+      return;
+    }
+    const giveUp = () => {
+      if (current && current.playing && ctx.state !== 'running') {
+        pausePlayback();
+      }
+    };
+    // resume() may stay pending during an interruption, so do not wait for it.
+    ctx.resume().then(() => { if (ctx.state !== 'running') { giveUp(); } }, giveUp);
+    setTimeout(giveUp, 1500);
   }
 
   function effectiveGain(i) {
@@ -113,6 +257,34 @@
     const when = ctx.currentTime + 0.05;
     current.sources.forEach((s) => s.start(when, offset));
     current.startedAt = when - offset;
+
+    // Song end is detected from the longest source, not from the
+    // animation loop, which does not run while the screen is off.
+    const sources = current.sources;
+    let longest = 0;
+    current.buffers.forEach((b, i) => {
+      if (b.duration > current.buffers[longest].duration) {
+        longest = i;
+      }
+    });
+    sources[longest].onended = () => {
+      if (current && current.sources === sources && current.playing) {
+        songEnded();
+      }
+    };
+  }
+
+  function songEnded() {
+    cancelAnimationFrame(current.raf);
+    current.playing = false;
+    current.offset = 0;
+    stopSources();
+    if (audioEl) {
+      audioEl.pause();
+    }
+    updateProgress(0);
+    setPlayIcon(false);
+    updateMediaSession();
   }
 
   function position() {
@@ -126,16 +298,8 @@
     if (!current || !current.playing) {
       return;
     }
-    const pos = position();
-    updateProgress(pos);
-    if (pos >= current.duration) {
-      current.playing = false;
-      current.offset = 0;
-      stopSources();
-      updateProgress(0);
-      setPlayIcon(false);
-      return;
-    }
+    // Drawing only; the end of the song is handled by onended.
+    updateProgress(position());
     current.raf = requestAnimationFrame(tick);
   }
 
@@ -150,28 +314,52 @@
     dialog.querySelector('.gob-player__play').setAttribute('aria-label', playing ? 'Pausa' : 'Spela');
   }
 
+  function play() {
+    if (!current || !current.buffers || current.playing) {
+      return;
+    }
+    if (ctx.state !== 'running') {
+      ctx.resume();
+    }
+    // Must run inside the user gesture (button or media key).
+    startAudioElement();
+    if (current.offset >= current.duration) {
+      current.offset = 0;
+    }
+    startSources(current.offset);
+    current.playing = true;
+    tick();
+    setPlayIcon(true);
+    updateMediaSession();
+  }
+
+  function pausePlayback() {
+    if (!current || !current.playing) {
+      return;
+    }
+    // ctx.currentTime stands still while the system has paused the
+    // context, so this is also the right position after an interruption.
+    current.offset = position();
+    current.playing = false;
+    stopSources();
+    cancelAnimationFrame(current.raf);
+    if (audioEl) {
+      audioEl.pause();
+    }
+    setPlayIcon(false);
+    updateMediaSession();
+  }
+
   function togglePlay() {
     if (!current || !current.buffers) {
       return;
     }
-    if (ctx.state === 'suspended') {
-      ctx.resume();
-    }
     if (current.playing) {
-      current.offset = position();
-      stopSources();
-      current.playing = false;
-      cancelAnimationFrame(current.raf);
+      pausePlayback();
     }
     else {
-      if (current.offset >= current.duration) {
-        current.offset = 0;
-      }
-      startSources(current.offset);
-      current.playing = true;
-      tick();
+      play();
     }
-    setPlayIcon(current.playing);
   }
 
   function seek(pos) {
@@ -182,6 +370,7 @@
       current.offset = pos;
     }
     updateProgress(pos);
+    updateMediaSession();
   }
 
   function buildTrackRows(tracks) {
@@ -220,9 +409,7 @@
     if (!dialog) {
       buildDialog();
     }
-    if (!ctx) {
-      ctx = new (window.AudioContext || window.webkitAudioContext)();
-    }
+    ensureContext();
 
     stopAll();
     dialog.querySelector('.gob-player__title').textContent = title;
@@ -269,11 +456,15 @@
       state.duration = Math.max(...buffers.map((b) => b.duration));
       state.gains = buffers.map(() => {
         const gain = ctx.createGain();
-        gain.connect(ctx.destination);
+        gain.connect(outputNode());
         return gain;
       });
       state.rows = buildTrackRows(state.tracks);
       applyGains();
+
+      if ('mediaSession' in navigator && window.MediaMetadata) {
+        navigator.mediaSession.metadata = new MediaMetadata({ title: title, artist: 'Gott och Blandat' });
+      }
 
       status.hidden = true;
       master.hidden = false;
