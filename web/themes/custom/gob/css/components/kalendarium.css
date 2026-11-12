@@ -234,11 +234,25 @@
   margin-bottom: 0;
 }
 
+/* Clear size steps below the 13px body text: 20 / 17 / 15 / 13 bold. */
 .cal-acc__meta h2,
-.cal-acc__meta h3 {
-  font-size: var(--text-base);
+.cal-acc__meta h3,
+.cal-acc__meta h4,
+.cal-acc__meta h5,
+.cal-acc__meta h6 {
   color: var(--color-ink);
-  margin: var(--space-3) 0 var(--space-2);
+  line-height: var(--leading-tight);
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.cal-acc__meta h2 { font-size: var(--text-xl); }
+.cal-acc__meta h3 { font-size: var(--text-lg); }
+.cal-acc__meta h4 { font-size: var(--text-md); }
+.cal-acc__meta h5,
+.cal-acc__meta h6 { font-size: var(--text-sm); font-weight: var(--weight-semibold); }
+
+.cal-acc__meta > :first-child {
+  margin-top: 0;
 }
 
 .cal-acc__meta ul,
