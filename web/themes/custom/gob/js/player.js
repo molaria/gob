@@ -23,6 +23,8 @@
   let dialog = null;
   let streamDest = null; // MediaStreamAudioDestinationNode, or null
   let audioEl = null; // hidden <audio> playing streamDest's stream
+  let masterGain = null; // headroom stage shared by all parts
+  let limiter = null; // DynamicsCompressorNode acting as peak limiter
   let directOutput = false; // true when the stream route failed or is unavailable
   let current = null; // { tracks, buffers, gains, sources, startedAt, offset, playing, raf, duration, solo }
 
@@ -108,11 +110,9 @@
   // would be silent, so send the sound straight to the speakers instead.
   function fallBackToDirectOutput() {
     directOutput = true;
-    if (current && current.gains) {
-      current.gains.forEach((g) => {
-        g.disconnect();
-        g.connect(ctx.destination);
-      });
+    if (limiter) {
+      limiter.disconnect();
+      limiter.connect(ctx.destination);
     }
   }
 
@@ -155,6 +155,20 @@
     else {
       directOutput = true;
     }
+
+    // Shared output bus: parts -> master (headroom) -> limiter -> output.
+    // Summing many full-level parts exceeds 0 dBFS and clips hard, which
+    // is heard as distortion. The master gain leaves headroom and the
+    // compressor, set up as a fast limiter, catches any peaks that remain.
+    masterGain = ctx.createGain();
+    limiter = ctx.createDynamicsCompressor();
+    limiter.threshold.value = -3;
+    limiter.knee.value = 0;
+    limiter.ratio.value = 20;
+    limiter.attack.value = 0.003;
+    limiter.release.value = 0.25;
+    masterGain.connect(limiter);
+    limiter.connect(outputNode());
 
     ctx.addEventListener('statechange', checkRunning);
     document.addEventListener('visibilitychange', () => {
@@ -454,9 +468,11 @@
 
       state.buffers = buffers;
       state.duration = Math.max(...buffers.map((b) => b.duration));
+      // Uncorrelated parts add roughly by power, so scale by 1/sqrt(n).
+      masterGain.gain.value = Math.min(1, 1 / Math.sqrt(buffers.length));
       state.gains = buffers.map(() => {
         const gain = ctx.createGain();
-        gain.connect(outputNode());
+        gain.connect(masterGain);
         return gain;
       });
       state.rows = buildTrackRows(state.tracks);
