@@ -2,3 +2,9 @@ services:
   gob_attendance.manager:
     class: Drupal\gob_attendance\AttendanceManager
     arguments: ['@database', '@datetime.time']
+
+  gob_attendance.answer_access_denied_subscriber:
+    class: Drupal\gob_attendance\EventSubscriber\AnswerAccessDeniedSubscriber
+    arguments: ['@current_user', '@messenger']
+    tags:
+      - { name: event_subscriber }
