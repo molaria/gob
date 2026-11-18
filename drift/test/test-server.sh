@@ -308,6 +308,26 @@ check "exit 0" test "$rc" -eq 0
 check "servern står kvar på den nyare" test "$(server_head)" = "$new"
 cleanup_fixture
 
+scenario "D17 Isär-fallet löst enligt DEPLOY.md: servercommit via gren, Macen slår ihop, deploy grön"
+make_fixture
+# The server committed an update but its push was refused, because the Mac
+# pushed meanwhile.
+(cd "$T/server" && write_lock "11.4.13" && cp composer.lock "$STUB_STATE/vendor.lock" && git commit -qam "Serveruppdatering [skip ci]")
+mac_commit="$(dev_commit "mac work" change_custom)"
+run_deploy "$mac_commit"
+check "deployen av Macens commit stoppas först" test "$rc" -eq 1
+# 1. Server: push its commit to a side branch (changes nothing on the server).
+git -C "$T/server" push -q origin HEAD:refs/heads/serveruppdatering
+# 2. Mac: merge that branch and push main.
+git -C "$T/dev" pull -q --no-rebase --no-edit origin serveruppdatering
+git -C "$T/dev" push -q origin main
+merged="$(git -C "$T/dev" rev-parse HEAD)"
+run_deploy "$merged"
+check "deployen av sammanslagningen går igenom" test "$rc" -eq 0
+check "servern står på sammanslagningen" test "$(server_head)" = "$merged"
+check "trädet rent" test -z "$(git -C "$T/server" status --porcelain --untracked-files=no)"
+cleanup_fixture
+
 # ------------------------------------------------- fore-/efter-uppdatering.sh
 
 scenario "F1 I fas med GitHub: uppdateringen får köras"
