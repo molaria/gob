@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#
+# post-merge - git hook (active via core.hooksPath=drift/hooks).
+# Runs after git pull / git merge and brings the local environment in step
+# with the code that just arrived. See drift/lokal-synk.sh.
+
+exec drift/lokal-synk.sh --efter-pull

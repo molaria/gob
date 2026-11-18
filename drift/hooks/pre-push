@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+#
+# pre-push - git hook (active via core.hooksPath=drift/hooks).
+#
+# A push to main is a deploy. This stops it unless the local environment is
+# demonstrably in step with git, so config exported from an outdated local
+# database can never undo an update on production.
+#
+# Pushes to other branches are not checked. In a real emergency the check
+# can be skipped with `git push --no-verify`.
+#
+# Written for the bash 3.2 that ships with macOS.
+
+set -o pipefail
+
+DDEV="${DDEV:-ddev}"
+zero="0000000000000000000000000000000000000000"
+
+pushed_sha=""
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [ "$remote_ref" = "refs/heads/main" ] && [ "$local_sha" != "$zero" ]; then
+    pushed_sha="$local_sha"
+  fi
+done
+[ -n "$pushed_sha" ] || exit 0
+
+stop() {
+  echo
+  echo "PUSHEN STOPPADES: $*"
+  echo "Inget har skickats till GitHub."
+  exit 1
+}
+
+has_content() {
+  grep -q '[^[:space:]]' <<< "$1"
+}
+
+echo "Kontroll före push till main ..."
+
+if [ "$pushed_sha" != "$(git rev-parse HEAD)" ]; then
+  stop "Du pushar main utan att ha main utcheckad. Byt till main (git switch main) och pusha därifrån."
+fi
+
+git fetch --quiet origin || stop "Kunde inte nå GitHub (git fetch)."
+if ! git merge-base --is-ancestor origin/main "$pushed_sha"; then
+  stop "GitHub har nyare commits (troligen en serveruppdatering). Kör: git pull --rebase
+Din lokala miljö uppdateras då automatiskt. Pusha sedan igen."
+fi
+
+uncommitted="$(git status --porcelain --untracked-files=all -- composer.json composer.lock config/sync)"
+if has_content "$uncommitted"; then
+  echo "$uncommitted" | sed 's/^/    /'
+  stop "Det finns ändringar i composer-filerna eller config/sync som inte är committade, så de skulle inte följa med."
+fi
+
+if [ "$("$DDEV" describe -j 2> /dev/null | jq -r '.raw.status' 2> /dev/null)" != "running" ]; then
+  stop "DDEV körs inte, så den lokala miljön kan inte kontrolleras. Starta den med: ddev start
+Pusha sedan igen."
+fi
+
+install_check="$("$DDEV" composer install --dry-run --no-interaction 2>&1)" \
+  || stop "ddev composer install --dry-run misslyckades."
+if ! grep -q "Nothing to install, update or remove" <<< "$install_check"; then
+  stop "Paketen i vendor matchar inte composer.lock. Kör: ddev composer install"
+fi
+
+updb="$("$DDEV" drush updatedb:status --format=json 2> /dev/null)" \
+  || stop "ddev drush updatedb:status misslyckades."
+if has_content "$updb"; then
+  stop "Din lokala databas har uppdateringar som inte körts. Kör: ddev drush deploy -y"
+fi
+
+cfg="$("$DDEV" drush config:status --format=list 2> /dev/null)" \
+  || stop "ddev drush config:status misslyckades."
+if has_content "$cfg"; then
+  echo "Config i din lokala databas som skiljer sig från config/sync:"
+  sed '/^[[:space:]]*$/d; s/^/    /' <<< "$cfg"
+  stop "Är det ditt arbete: ddev drush config:export -y och committa. Annars: ddev drush deploy -y"
+fi
+
+echo "Kontrollen är grön: den lokala miljön är i fas med git."
+exit 0

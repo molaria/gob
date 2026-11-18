@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+#
+# Test stand-in for drush. The "database" is a directory of YAML files
+# ($STUB_STATE/db), so config:status/export/import behave like the real
+# thing against config/sync in the current directory. Every call is logged.
+# Portable to bash 3.2.
+
+state="${STUB_STATE:?STUB_STATE not set}"
+db="$state/db"
+sync="config/sync"
+mkdir -p "$db"
+echo "drush $*" >> "$state/calls.log"
+shopt -s nullglob
+
+case "${1:-}" in
+  config:status)
+    [ -f "$state/drush_fail" ] && { echo "drush failed" >&2; exit 1; }
+    names=""
+    for f in "$sync"/*.yml "$db"/*.yml; do
+      names="$names$(basename "$f" .yml)"$'\n'
+    done
+    found=0
+    while IFS= read -r name; do
+      [ -z "$name" ] && continue
+      if ! cmp -s "$sync/$name.yml" "$db/$name.yml"; then
+        echo "$name"
+        found=1
+      fi
+    done <<< "$(printf '%s' "$names" | sort -u)"
+    # Like real drush: a single empty line when there are no differences.
+    [ "$found" = 0 ] && echo ""
+    ;;
+  config:export)
+    rm -f "$sync"/*.yml
+    for f in "$db"/*.yml; do cp "$f" "$sync/"; done
+    ;;
+  config:import)
+    rm -f "$db"/*.yml
+    for f in "$sync"/*.yml; do cp "$f" "$db/"; done
+    ;;
+  deploy)
+    rm -f "$state/updb_pending"
+    rm -f "$db"/*.yml
+    for f in "$sync"/*.yml; do cp "$f" "$db/"; done
+    ;;
+  updatedb:status)
+    [ -f "$state/updb_pending" ] && echo '[{"module":"stub","update_id":"1"}]'
+    ;;
+  updb | updatedb)
+    rm -f "$state/updb_pending"
+    ;;
+  sql:dump)
+    for arg in "$@"; do
+      case "$arg" in
+        --result-file=*) touch "${arg#--result-file=}.gz" ;;
+      esac
+    done
+    ;;
+  cache:rebuild | cr) ;;
+  *) echo "drush stub: unknown command $1" >&2; exit 1 ;;
+esac
+exit 0

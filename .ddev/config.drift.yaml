@@ -1,0 +1,6 @@
+# Keeps the local environment in step with git every time DDEV starts:
+# fetches updates committed by the production server, then runs
+# composer install and, when needed, drush deploy. See drift/lokal-synk.sh.
+hooks:
+  post-start:
+    - exec-host: "drift/lokal-synk.sh --efter-start"

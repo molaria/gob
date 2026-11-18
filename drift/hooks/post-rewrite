@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# post-rewrite - git hook (active via core.hooksPath=drift/hooks).
+# After git pull --rebase (or git rebase), brings the local environment in
+# step with the code. Amended commits need nothing. See drift/lokal-synk.sh.
+
+if [ "${1:-}" = "rebase" ]; then
+  exec drift/lokal-synk.sh --efter-pull
+fi
+exit 0

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# Test stand-in for ddev on the Mac: forwards composer/drush to the other
+# stubs and fakes describe/snapshot. Portable to bash 3.2.
+
+state="${STUB_STATE:?STUB_STATE not set}"
+stubs="$(cd "$(dirname "$0")" && pwd)"
+echo "ddev $*" >> "$state/calls.log"
+
+case "${1:-}" in
+  describe)
+    if [ -f "$state/ddev_stopped" ]; then
+      echo '{"raw":{"status":"stopped"}}'
+    else
+      echo '{"raw":{"status":"running"}}'
+    fi
+    ;;
+  composer) shift; exec "$stubs/composer" "$@" ;;
+  drush) shift; exec "$stubs/drush" "$@" ;;
+  snapshot) ;;
+  *) echo "ddev stub: unknown command $1" >&2; exit 1 ;;
+esac

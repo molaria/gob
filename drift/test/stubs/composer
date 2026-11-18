@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+#
+# Test stand-in for composer. "vendor" is represented by a copy of the lock
+# file that was last installed ($STUB_STATE/vendor.lock). Every call is
+# logged. Portable to bash 3.2.
+
+state="${STUB_STATE:?STUB_STATE not set}"
+echo "composer $*" >> "$state/calls.log"
+dry_run=0
+case " $* " in *" --dry-run "*) dry_run=1 ;; esac
+
+case "${1:-}" in
+  validate)
+    exit "$(cat "$state/validate_rc" 2> /dev/null || echo 0)"
+    ;;
+  check-platform-reqs)
+    exit "$(cat "$state/platform_rc" 2> /dev/null || echo 0)"
+    ;;
+  install)
+    if [ "$dry_run" = 1 ]; then
+      if cmp -s composer.lock "$state/vendor.lock"; then
+        echo "Nothing to install, update or remove"
+      else
+        echo "  - Upgrading stub/package (1.0 => 1.1)"
+      fi
+    else
+      [ -f "$state/install_fail" ] && exit 1
+      cp composer.lock "$state/vendor.lock"
+    fi
+    ;;
+  update)
+    if [ "$dry_run" = 1 ]; then
+      cat "$state/update_dry" 2> /dev/null
+    else
+      # The test supplies what the update changes as a script.
+      [ -f "$state/update_apply" ] && bash "$state/update_apply"
+      cp composer.lock "$state/vendor.lock"
+    fi
+    ;;
+  *) echo "composer stub: unknown command $1" >&2; exit 1 ;;
+esac
+exit 0

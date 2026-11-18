@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#
+# Test stand-in for curl as used by post-deploy.sh: prints only an HTTP
+# status code for the URL (the last argument). Codes can be overridden per
+# path in $STUB_STATE/http<path with / replaced by _>, for example
+# http_ for / and http_kalendarium for /kalendarium.
+
+state="${STUB_STATE:?STUB_STATE not set}"
+url="${*: -1}"
+path="/${url#*://*/}"
+[ "$path" = "/$url" ] && path="/"
+key="$(echo "$path" | tr '/' '_')"
+if [ -f "$state/http$key" ]; then
+  cat "$state/http$key"
+elif [ "$path" = "/kalendarium" ]; then
+  echo -n 403
+else
+  echo -n 200
+fi
