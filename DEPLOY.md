@@ -83,7 +83,9 @@ Skriptet gäller alla Drupal-sajter i `/var/www`. För sajter som har en `drift/
   Svarar du nej hoppas sajten över och inget ändras.
 - **Efter lyckad `composer update` + `drush updb` + `drush cr`** körs `drift/efter-uppdatering.sh`. Den kontrollerar att allt är installerat, exporterar config som uppdateringen ändrat, släpper bara igenom `composer.json`, `composer.lock`, `config/sync/` och Drupals scaffold-filer, och committar och pushar med `[skip ci]` (ingen deploy behövs, servern kör redan koden). Commit-meddelandet listar paketändringarna, till exempel *"Serveruppdatering: 11.4.12 -> 11.4.13 (drupal/core) + 3 paket [skip ci]"*.
 
-Uppdateringsskriptet ligger utanför git. Versionen före drift-stödet är sparad som `~/bin/drupal-uppdatera.sh.bak-20261118`.
+Om composer inte kan kontrollera en sajt (nätfel, låsproblem, fel PHP-version) visas den som *"✗ ... composer kunde inte kontrollera uppdateringar"* med composers felmeddelande, aldrig som uppdaterad, och skriptet avslutas med felkod.
+
+Uppdateringsskriptet ligger utanför git. Versionen före drift-stödet är sparad som `~/bin/drupal-uppdatera.sh.bak-20261118`, versionen före rättelsen av torrkörningen som `~/bin/drupal-uppdatera.sh.bak-20261118b`.
 
 **Behörigheter på servern:** förrådet pushar med deploy-nyckeln `~/.ssh/id_gob_betelkyrkan` ("Server gob" i GitHub, skrivrätt), vald via `core.sshCommand` i förrådets `.git/config`. Commits görs som *Servern (gob)*.
 

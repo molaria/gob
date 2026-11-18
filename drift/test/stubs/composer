@@ -30,6 +30,11 @@ case "${1:-}" in
     ;;
   update)
     if [ "$dry_run" = 1 ]; then
+      if [ -f "$state/update_dry_fail" ]; then
+        echo "  Problem 1" >&2
+        echo "    - Root composer.json requires php ^9.0 but your php version does not satisfy that requirement." >&2
+        exit 2
+      fi
       cat "$state/update_dry" 2> /dev/null
     else
       # The test supplies what the update changes as a script.

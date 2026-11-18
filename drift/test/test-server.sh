@@ -564,6 +564,17 @@ EOF
   check "inget uppdaterat" sh -c "! grep -q '^composer update --with-all-dependencies --no-interaction$' '$STUB_STATE/calls.log'"
   wait "$holder"
   cleanup_fixture
+
+  scenario "U4 composer kan inte kontrollera uppdateringar: fel, inte \"uppdaterad\""
+  make_fixture
+  touch "$STUB_STATE/update_dry_fail"
+  run_update_script "j"$'\n'
+  check "skriptet rapporterar fel" test "$rc" -ne 0
+  check "sajten markeras som fel" output_has "composer kunde inte kontrollera uppdateringar"
+  check "composers felmeddelande visas" output_has "requires php ^9.0"
+  check "säger inte uppdaterad" sh -c "! grep -qE 'är uppdaterad|Alla sajter är uppdaterade' '$T/out'"
+  check "inget uppdaterat" sh -c "! grep -q '^composer update --with-all-dependencies --no-interaction$' '$STUB_STATE/calls.log'"
+  cleanup_fixture
 else
   echo
   echo "(U-scenarierna hoppades över: sätt UPDATE_SCRIPT till det patchade drupal-uppdatera.sh)"
