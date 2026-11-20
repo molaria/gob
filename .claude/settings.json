@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && PATH=\"/opt/homebrew/bin:/usr/local/bin:$PATH\" drift/lokal-synk.sh --efter-start",
+            "timeout": 600
+          }
+        ]
+      }
+    ]
+  }
+}

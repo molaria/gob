@@ -93,6 +93,7 @@ Uppdateringsskriptet ligger utanför git. Versionen före drift-stödet är spar
 
 | När | Vad som händer | Var |
 |---|---|---|
+| Ny Claude Code-session i projektet | Samma som vid `ddev start` nedan. Fångar serveruppdateringar som kommit medan DDEV redan kört i flera dagar | `.claude/settings.json` (SessionStart-krok) → `drift/lokal-synk.sh` |
 | `ddev start` | Hämtar nya commits från GitHub (om du står på `main` utan osparade ändringar), kör `composer install` och vid behov `ddev snapshot` + `drush deploy` | `.ddev/config.drift.yaml` → `drift/lokal-synk.sh` |
 | `git pull` / `git pull --rebase` | Samma synk av den lokala miljön | `drift/hooks/post-merge`, `post-rewrite` |
 | `git push` till `main` | Stoppas om GitHub har nyare commits, om composer-filer eller config/sync har ocommittade ändringar, om DDEV inte körs, om `vendor` inte matchar låset, om databasuppdateringar inte körts eller om databasens config skiljer sig från `config/sync` | `drift/hooks/pre-push` |
