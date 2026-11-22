@@ -34,7 +34,6 @@ module:
   gob_infokort: 0
   gob_vapn_default: 0
   help: 0
-  history: 0
   honeypot: 0
   image: 0
   imce: 0

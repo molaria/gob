@@ -850,7 +850,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: standard
-          label: Objektstyp
+          label: Entitetstyp
           exclude: false
           alter:
             alter_text: false

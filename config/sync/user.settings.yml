@@ -1,7 +1,7 @@
 _core:
   default_config_hash: '-htDFWUv1S4OlJMzta2nhFl4QbhJvu0D9xsJ-clxo-M'
 langcode: sv
-anonymous: Gäst
+anonymous: Anonym
 verify_mail: true
 notify:
   cancel_confirm: true
